@@ -28,6 +28,14 @@ def cartesian_1 (o)
 	ret
 end
 
+def cartesian_0
+	collect {|it| [it]}
+end
+
+def self.cartesian (*list)
+	return list.first.cartesian(*list.tail)
+end
+
 def cartesian (*list)
 	if self.length == 0 then
 		raise "cartesian called on empty list - must have contents"
@@ -37,10 +45,14 @@ def cartesian (*list)
 	#~ if list.nil? || list.length == 0 then
 		#~ self
 	#~ els
+
+#	puts list.inspect
 	if list.empty? then
-		raise "cartesian passed empty list"
+		return cartesian_0
+	elsif list.first.nil? then
+		return cartesian_0
 	elsif list.length == 1 then
-#		puts list.inspect
+##		puts list.inspect
 		return cartesian_1(list.first)
 	else
 		ret = []

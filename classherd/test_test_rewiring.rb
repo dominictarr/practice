@@ -30,26 +30,31 @@ end
 def test_with_all_primes
 	rewire = TestRewire2.new([TestPrimes],[Primes,SmartPrimes,TooCleverPrimes,BrokePrimes])
 	rewire.run_tests
-	
-	data = rewire.test_data.shift
+
+	assert_equal 4, rewire.test_data.length
+	puts "TESTDATA ALL:#{rewire.test_data.inspect}" 
+
+	td = rewire.test_data.dup
+	data = td[0]
 	
 	assert TestPrimes, data.test
 	assert [Primes,Primes], data.replacement
 	assert data.result.passed?
 
-	data = rewire.test_data.shift
+	data = td[1]
+	puts "TESTDATA 1:#{data.inspect}" 
 	
 	assert TestPrimes, data.test
 	assert [Primes,SmartPrimes], data.replacement
 	assert data.result.passed?
 
-	data = rewire.test_data.shift
+	data = td[2]
 	
 	assert TestPrimes, data.test
 	assert [Primes,TooCleverPrimes], data.replacement
 	assert data.result.passed?
 
-	data = rewire.test_data.shift
+	data = td[3]
 	
 	assert TestPrimes, data.test
 	assert [Primes,BrokePrimes], data.replacement
@@ -59,14 +64,17 @@ end
 def test_factors
 	rewire = TestRewire2.new([TestFactors],[Factors,FastFactors])
 	rewire.run_tests
-	
-	data = rewire.test_data.shift
-	
+
+	assert_equal 2, rewire.test_data.length
+
+	td = rewire.test_data.dup
+	data = td.shift
+
 	assert TestFactors, data.test
 	assert [Factors,Factors], data.replacement
 	assert data.result.passed?
 
-	data = rewire.test_data.shift
+	data = td.shift
 	
 	assert TestFactors, data.test
 	assert [Factors,FastFactors], data.replacement
@@ -132,11 +140,11 @@ end
 				rep.include?([:Bonjour1, AnyGreeting2]))
 	t = (t1 and t2)
 	r = data.result.passed?
-	#~ if (t != r) then
-		#~ puts data.replacement.inspect
-		#~ puts "PASSED?==#{r}, should be == #{t.inspect} was #{t1} & #{t2}" 
-		#~ puts data.result
-	#~ end
+##	if (t != r) then
+	##	puts data.replacement.inspect
+		##puts "PASSED?==#{r}, should be == #{t.inspect} was #{t1} & #{t2}" 
+		##puts data.result
+	##end
 	assert_equal t,r
 	}
 end

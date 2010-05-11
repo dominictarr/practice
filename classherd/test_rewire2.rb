@@ -90,9 +90,12 @@ class TestRewire2
 	puts sm.values.inspect
 
 	subs = sm.values
-	if subs.length > 1 then
-		subs = subs.first.cartesian(*subs.tail)
-	end
+#	if subs.length > 1 then
+#		subs = subs.first.cartesian(*subs.tail)
+		subs  = Array.cartesian(*subs)
+#	else
+#		subs = subs.first
+#	end
 	puts subs.inspect
 
 	puts "run all tests..."
@@ -101,7 +104,7 @@ class TestRewire2
 	syms = sm.keys
 	#~ if syms.length > 0 then
 		subs.each{|sub|
-		#~ puts "map for. #{sub} puts #{syms.length}"
+		puts "map for. #{sub} puts #{syms.length}"
 			i = 0
 			this_test = _on(test_klass)
 			while(i < syms.length) do 
@@ -121,10 +124,13 @@ class TestRewire2
 		#~ tests << _on(test_klass)._replace(symb,sub)
 	#~ }
 	
+	puts "TESTS for #{test_klass}: #{tests.inspect}"
+	
 	tests.each {|sub| 
-		#~ puts "TESTING: " + sub.to_s
+		puts "TESTING: " + sub.to_s
 		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
-	}
+		}
+		puts "TESTDATA: " + @test_data.inspect
 	#end
 	end
 	

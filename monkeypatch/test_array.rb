@@ -16,8 +16,7 @@ end
 def test_tail
 	assert_equal [:b, :c,:d],  [:a,:b,:c,:d].tail 
 	assert_equal [[:d]], [[:b, :c],[:d]].tail 
-	assert_equal nil,  [[:a,:b,:c,:d].tail 
-	
+	assert_equal nil,  [[:a,:b,:c,:d]].tail 
 end
 
 def test_cartesian
@@ -28,10 +27,15 @@ def test_cartesian
 	assert_equal [[:a,:x],[:a,:y],[:b,:x],[:b,:y]], a.cartesian(x)
 	assert_equal [[:a,:m],[:b,:m]], a.cartesian(m)
 	assert_equal [[:a,:x,:m],[:a,:y,:m],[:b,:x,:m],[:b,:y,:m]], a.cartesian(x,m)
-	assert_equal [:a,:b], a.cartesian(nil)
+	assert_equal [[:a],[:b]], a.cartesian(nil)
 	assert_equal [[:a,:m,:x],[:a,:m,:y],[:b,:m,:x],[:b,:m,:y]], a.cartesian(m,x)
 	assert_equal [[:x,:m,:x],[:x,:m,:y],[:y,:m,:x],[:y,:m,:y]], x.cartesian(m,x)
 	assert_equal [[nil,:m]],[nil].cartesian(m)
+	assert_equal [[:m]],m.cartesian(m.tail)
+	
+	assert_equal [[:a,:x,:m],[:a,:y,:m],[:b,:x,:m],[:b,:y,:m]], Array.cartesian(a,x,m)
+
+	
 end
 
 #~ require 'classherd/test_class_sub'
