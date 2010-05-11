@@ -34,8 +34,6 @@ def test_cartesian
 	assert_equal [[:m]],m.cartesian(m.tail)
 	
 	assert_equal [[:a,:x,:m],[:a,:y,:m],[:b,:x,:m],[:b,:y,:m]], Array.cartesian(a,x,m)
-
-	
 end
 
 #~ require 'classherd/test_class_sub'

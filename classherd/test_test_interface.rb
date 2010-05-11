@@ -22,7 +22,7 @@ class TestTestInterface < Test::Unit::TestCase
 		assert_equal  ClassRule, int.default_class[:ClassRule]
 		assert ["test", "test?", "wrap", "dowrap", "replace", "replace?"].same_set? int.methods[:ClassRule] 
 		assert int.has_interface?(:ClassRule,ClassRule)
-		assert int.wrappable?
+		assert int.wrappable? #this is failing until the Interface Discovery Wrapper is improved.
 	end
 
 end;end

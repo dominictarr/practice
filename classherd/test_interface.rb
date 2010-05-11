@@ -3,6 +3,7 @@ require 'test/unit/testresult'
 require 'classherd/class_references4'
 require 'classherd/class_conductor3'
 require 'classherd/v_c_r2'
+require 'classherd/test_data'
 
 module ClassHerd
 class TestInterface
@@ -14,20 +15,6 @@ class TestInterface
 	def initialize (test)
 		@test = test
 		lazy
-	end
-
-	def run_unit_tests(test_klass)
-		tests = test_klass.public_instance_methods.find_all{|it| it.to_s =~ /test_.*/}
-		@result =  tr = TestResult.new();
-		tests.each {|method|
-
-			tr.add_listener(TestResult::FAULT) {|value| puts "HEARD:" + value.to_s}
-			test_klass.new(method).run(tr) {|status, name| 
-			if (status == TestCase::FINISHED)
-				#~ puts "\t" + name + ":" + tr.to_s
-			end}
-		}
-		tr
 	end
 	
 #this works because klass = on(class)
@@ -65,7 +52,8 @@ class TestInterface
 			}
 		#argh, now how do i get at the VCR2?
 		interface = []
-		@result = run_unit_tests(to_run)
+		data = TestData.new(to_run)
+		@result = data.result
 		
 		@symbols.each {|sym|
 				methods[sym] = []

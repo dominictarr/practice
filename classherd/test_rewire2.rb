@@ -16,6 +16,7 @@ module ClassHerd
 class TestRewire2
 	
 	attr_accessor :test_data, :subjects
+
 	def with_interface (test,symbol,classes)
 		#return array of classes which have interface
 		classes.select {|klass| test.has_interface?(symbol,klass)}
@@ -53,34 +54,34 @@ class TestRewire2
 	#remember to call cartesian with * otherwise it will mean
 	#something wuite different.
 
-	puts "all interfaces:"
-	puts interface.methods.inspect
-	puts "all subs:"
-	puts sm.inspect
-	puts "all tests:"
-	puts sm.keys.inspect
-	puts sm.values.inspect
+	#~ puts "all interfaces:"
+	#~ puts interface.methods.inspect
+	#~ puts "all subs:"
+	#~ puts sm.inspect
+	#~ puts "all tests:"
+	#~ puts sm.keys.inspect
+	#~ puts sm.values.inspect
 
 	subs = sm.values
-#	if subs.length > 1 then
-#		subs = subs.first.cartesian(*subs.tail)
+##	if subs.length > 1 then
+##		subs = subs.first.cartesian(*subs.tail)
 		subs  = Array.cartesian(*subs)
-#	else
-#		subs = subs.first
-#	end
-	puts subs.inspect
+##	else
+##		subs = subs.first
+##	end
+#	puts subs.inspect
 
-	puts "run all tests..."
+#	puts "run all tests..."
 
 	tests = []
 	syms = sm.keys
 	#~ if syms.length > 0 then
 		subs.each{|sub|
-		puts "map for. #{sub} puts #{syms.length}"
+	#	puts "map for. #{sub} puts #{syms.length}"
 			i = 0
 			this_test = _on(test_klass)
 			while(i < syms.length) do 
-				puts "SUB: #{syms[i]}=>#{sub[i]}"
+	#			puts "SUB: #{syms[i]}=>#{sub[i]}"
 				#substitute into a test.
 				if sub[i] then
 					this_test._replace(syms[i],sub[i])
@@ -88,7 +89,7 @@ class TestRewire2
 				i = i + 1
 			end
 			tests << this_test
-			puts this_test.inspect
+	#		puts this_test.inspect
 		}
 	#~ else
 		#~ symb = syms.first
@@ -96,26 +97,13 @@ class TestRewire2
 		#~ tests << _on(test_klass)._replace(symb,sub)
 	#~ }
 	
-	puts "TESTS for #{test_klass}: #{tests.inspect}"
+	#puts "TESTS for #{test_klass}: #{tests.inspect}"
 	
 	tests.each {|sub| 
-<<<<<<< HEAD:classherd/test_rewire2.rb
-<<<<<<< HEAD:classherd/test_rewire2.rb
-		#~ puts "TESTING: " + sub.to_s
-#		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
-		@test_data << TestData.new(sub)
-	}
-=======
-=======
->>>>>>> test_data2:classherd/test_rewire2.rb
 		puts "TESTING: " + sub.to_s
-		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
+		@test_data << TestData.new(sub)
 		}
 		puts "TESTDATA: " + @test_data.inspect
-<<<<<<< HEAD:classherd/test_rewire2.rb
->>>>>>> test_data2:classherd/test_rewire2.rb
-=======
->>>>>>> test_data2:classherd/test_rewire2.rb
 	#end
 	end
 	
