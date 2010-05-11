@@ -38,14 +38,11 @@ def test_with_all_primes
 	td = rewire.test_data.dup
 	data = td[0]
 	
-	assert data
 	assert TestPrimes, data.test
 	assert [Primes,Primes], data.replacement
 	assert data.result.passed?
 
-
 	data = td[1]
-	assert data
 	puts "TESTDATA 1:#{data.inspect}" 
 	
 	assert TestPrimes, data.test
@@ -81,7 +78,10 @@ def test_factors
 	assert data.result.passed?
 
 	data = td.shift
+<<<<<<< HEAD:classherd/test_test_rewiring.rb
 	assert data
+=======
+>>>>>>> test_data2:classherd/test_test_rewiring.rb
 	
 	assert TestFactors, data.test
 	assert [Factors,FastFactors], data.replacement

@@ -100,15 +100,21 @@ class TestRewire2
 	
 	tests.each {|sub| 
 <<<<<<< HEAD:classherd/test_rewire2.rb
+<<<<<<< HEAD:classherd/test_rewire2.rb
 		#~ puts "TESTING: " + sub.to_s
 #		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
 		@test_data << TestData.new(sub)
 	}
 =======
+=======
+>>>>>>> test_data2:classherd/test_rewire2.rb
 		puts "TESTING: " + sub.to_s
 		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
 		}
 		puts "TESTDATA: " + @test_data.inspect
+<<<<<<< HEAD:classherd/test_rewire2.rb
+>>>>>>> test_data2:classherd/test_rewire2.rb
+=======
 >>>>>>> test_data2:classherd/test_rewire2.rb
 	#end
 	end
