@@ -1,6 +1,6 @@
-require 'x_parse'
-require 'y_parse'
-require 'z_parse'
+require 'class_herd/x_parse'
+require 'class_herd/y_parse'
+require 'class_herd/z_parse'
 require 'test/unit'
 
 module ClassHerd

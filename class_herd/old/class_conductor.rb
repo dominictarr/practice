@@ -1,5 +1,5 @@
-require "class"
-require "class_rule"
+require "monkeypatch/class"
+require "class_herd/class_rule"
 
 module ClassHerd
 

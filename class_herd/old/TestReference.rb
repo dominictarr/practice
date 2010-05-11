@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'reference'
+require 'class_herd/reference'
 
 module ClassHerd
 class TestReference < Test::Unit::TestCase 

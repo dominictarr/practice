@@ -3,7 +3,7 @@ require 'ruby_parser'
 require 'parse_tree'
 require 'unified_ruby'
 require 'symbol_parser'
-require 'parser'
+require 'class_herd/parser'
 module ClassHerd
 
 class ClassHerd::TestSymbolParser < Test::Unit::TestCase #parses symbols structure from a .rb file.

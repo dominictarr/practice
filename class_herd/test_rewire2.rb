@@ -1,12 +1,12 @@
 #~ module ClassHerd
 #~ class TestRewire
-	
-require 'classherd/class_conductor3'
-require 'classherd/class_references4'
+
+require 'class_herd/class_conductor3'
+require 'class_herd/class_references4'
 require 'test/unit'
 require 'test/unit/testresult'
 
-require 'classherd/test_interface'
+require 'class_herd/test_interface'
 require 'monkeypatch/array'
 
 include Test::Unit
@@ -100,10 +100,10 @@ class TestRewire2
 	#puts "TESTS for #{test_klass}: #{tests.inspect}"
 	
 	tests.each {|sub| 
-		puts "TESTING: " + sub.to_s
+#		puts "TESTING: " + sub.to_s
 		@test_data << TestData.new(sub)
 		}
-		puts "TESTDATA: " + @test_data.inspect
+#		puts "TESTDATA: " + @test_data.inspect
 	#end
 	end
 	

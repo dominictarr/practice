@@ -59,7 +59,3 @@ end
 end
 end
 
-#require 'classherd/parser'
-#puts ClassHerd::Parser.parse_class(TestPrimes).inspect
-
-#puts  TestPrimes.new("test_fail",Primes)

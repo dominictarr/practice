@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'classherd/class_sub'
+require 'class_herd/class_sub'
 
 module ClassHerd
 #~ lets try for a class substitutor

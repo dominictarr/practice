@@ -1,5 +1,5 @@
 
-require 'class_conductor3'
+require 'class_herd/class_conductor3'
 require 'test/unit'
 
 

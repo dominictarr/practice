@@ -1,8 +1,8 @@
 require 'test/unit'
 require 'class_references4'
 require 'primes/TestPrimes'
-require 'classherd/test_class_sub'
-require 'classherd/examples/outer_class'
+require 'class_herd/test_class_sub'
+require 'class_herd/examples/outer_class'
 
 module ClassHerd
 class TestClassReferences < Test::Unit::TestCase

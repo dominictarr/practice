@@ -1,9 +1,9 @@
 require 'test/unit'
-require 'classherd/test_rewire2'
+require 'class_herd/test_rewire2'
 
-require 'classherd/test_class_rule'
-require 'classherd/test_class_sub'
-require 'classherd/test_data'
+require 'class_herd/test_class_rule'
+require 'class_herd/test_class_sub'
+require 'class_herd/test_data'
 
 require 'primes/TestPrimes'
 require 'primes/Primes'
@@ -43,7 +43,7 @@ def test_with_all_primes
 	assert data.result.passed?
 
 	data = td[1]
-	puts "TESTDATA 1:#{data.inspect}" 
+#	puts "TESTDATA 1:#{data.inspect}" 
 	
 	assert TestPrimes, data.test
 	assert [Primes,SmartPrimes], data.replacement
@@ -133,7 +133,7 @@ end
 	data = rewire.test_data.shift
 	assert data
 	assert TestClassSub, data.test
-	puts "test_with_class_sub_many.replacements:\n" + data.replacement.inspect
+	#~ puts "test_with_class_sub_many.replacements:\n" + data.replacement.inspect
 #	assert [ClassSub,ClassSub], data.replacement
 	assert !(data.result.passed?)
 	

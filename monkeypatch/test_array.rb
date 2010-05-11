@@ -36,19 +36,6 @@ def test_cartesian
 	assert_equal [[:a,:x,:m],[:a,:y,:m],[:b,:x,:m],[:b,:y,:m]], Array.cartesian(a,x,m)
 end
 
-#~ require 'classherd/test_class_sub'
-#~ require 'classherd/test_test_rewiring'
-#~ def test_cartesian2 
-	#~ c = [[ClassHerd::Hello1, ClassHerd::Bonjour1, 
-		#~ ClassHerd::TestTestRewiring::AnyGreeting, 
-		#~ ClassHerd::TestTestRewiring::AnyGreeting2], 
-		#~ [ClassHerd::ClassSub], 
-		#~ [ClassHerd::Hello1, ClassHerd::Bonjour1, 
-		#~ ClassHerd::TestTestRewiring::AnyGreeting, 
-		#~ ClassHerd::TestTestRewiring::AnyGreeting2]]
-	#~ r = c.first.cartesian(*c.tail)
-	#~ puts r.inspect
-#~ end
 def test_from_map_header_style
 	#converts a map to an array two arrays, one with headers, on with values.
 	map = Hash.new

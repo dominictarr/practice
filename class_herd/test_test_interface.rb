@@ -1,13 +1,12 @@
 
 require 'test/unit'
 require 'primes/TestPrimes'
-require 'test_interface'
+require 'class_herd/test_interface'
 require 'monkeypatch/array'
-require 'test_class_rule'
+require 'class_herd/test_class_rule'
 
 module ClassHerd
 class TestTestInterface < Test::Unit::TestCase 
-	
 	def test_primes
 		int = TestInterface.new(TestPrimes)
 		assert_equal [:Primes] , int.symbols
@@ -24,5 +23,4 @@ class TestTestInterface < Test::Unit::TestCase
 		assert int.has_interface?(:ClassRule,ClassRule)
 		assert int.wrappable? #this is failing until the Interface Discovery Wrapper is improved.
 	end
-
 end;end

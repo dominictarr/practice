@@ -1,11 +1,11 @@
 #~ module ClassHerd
 #~ class TestRewire
 	
-require 'class_conductor3'
-require 'class_references4'
+require 'class_herd/class_conductor3'
+require 'class_herd/class_references4'
 require 'test/unit'
 require 'test/unit/testresult'
-require 'v_c_r2'
+require 'class_herd/v_c_r2'
 
 include Test::Unit
 

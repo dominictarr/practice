@@ -3,7 +3,7 @@
 #require 'test_class_rule'
 #require 'test_class_sub'
 require 'sexp_processor'
-require 'classherd/parser'
+require 'class_herd/parser'
 
 module ClassHerd
 class ClassReferences4 < SexpProcessor

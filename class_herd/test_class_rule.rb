@@ -1,5 +1,5 @@
 require "test/unit"
-require "classherd/class_rule"
+require "class_herd/class_rule"
 
 module ClassHerd
 

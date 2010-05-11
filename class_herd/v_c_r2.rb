@@ -1,4 +1,4 @@
-require 'classherd/v_c_r'
+require 'class_herd/v_c_r'
 
 module ClassHerd
 class VCR2 < VCR

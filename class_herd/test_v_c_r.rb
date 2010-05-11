@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'v_c_r.rb'
+require 'class_herd/v_c_r'
 
 module ClassHerd 
 # class to infer the interface a test tests.

@@ -1,9 +1,9 @@
 require 'test/unit'
 require 'test/unit/testresult'
-require 'classherd/class_references4'
-require 'classherd/class_conductor3'
-require 'classherd/v_c_r2'
-require 'classherd/test_data'
+require 'class_herd/class_references4'
+require 'class_herd/class_conductor3'
+require 'class_herd/v_c_r2'
+require 'class_herd/test_data'
 
 module ClassHerd
 class TestInterface
