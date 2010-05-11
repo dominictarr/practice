@@ -16,34 +16,6 @@ module ClassHerd
 class TestRewire2
 	
 	attr_accessor :test_data, :subjects
-	class TestData
-		attr_accessor :test,:replacement,:result
-		def initialize (test,rep,resu)
-			@test = test
-			@replacement = rep
-			@result = resu			
-		end
-	end
-
-	def run_unit_tests(test_klass)
-		tests = test_klass.public_instance_methods.find_all{|it| it.to_s =~ /test_.*/}
-		tr = TestResult.new();
-		tests.each {|method|
-
-			tr.add_listener(TestResult::FAULT) {|value| puts value.to_s}
-			test_klass.new(method).run(tr) {|status, name| 
-			#~ if (status == TestCase::FINISHED)
-				#~ puts "\t" + name + ":" + tr.to_s
-			#~ end
-			}
-		}
-		if tr.passed? then result = "Passed!"
-			elsif tr.error_count > 0 then result = "ERROR!"
-			else result = "FAILOUR." end
-		puts "(#{test_klass})\n\t=>#{result}"
-		tr
-	end
-
 	def with_interface (test,symbol,classes)
 		#return array of classes which have interface
 		classes.select {|klass| test.has_interface?(symbol,klass)}
@@ -123,7 +95,8 @@ class TestRewire2
 	
 	tests.each {|sub| 
 		#~ puts "TESTING: " + sub.to_s
-		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
+#		@test_data << TestData.new(test_klass, sub.replacements, run_unit_tests(sub))
+		@test_data << TestData.new(sub)
 	}
 	#end
 	end

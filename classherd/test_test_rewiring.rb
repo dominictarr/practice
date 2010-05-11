@@ -3,6 +3,7 @@ require 'classherd/test_rewire2'
 
 require 'classherd/test_class_rule'
 require 'classherd/test_class_sub'
+require 'classherd/test_data'
 
 require 'primes/TestPrimes'
 require 'primes/Primes'
@@ -33,24 +34,28 @@ def test_with_all_primes
 	
 	data = rewire.test_data.shift
 	
+	assert data
 	assert TestPrimes, data.test
 	assert [Primes,Primes], data.replacement
 	assert data.result.passed?
 
 	data = rewire.test_data.shift
-	
+
+	assert data
 	assert TestPrimes, data.test
 	assert [Primes,SmartPrimes], data.replacement
 	assert data.result.passed?
 
 	data = rewire.test_data.shift
 	
+	assert data
 	assert TestPrimes, data.test
 	assert [Primes,TooCleverPrimes], data.replacement
 	assert data.result.passed?
 
 	data = rewire.test_data.shift
 	
+	assert data
 	assert TestPrimes, data.test
 	assert [Primes,BrokePrimes], data.replacement
 	assert !(data.result.passed?)
@@ -67,7 +72,8 @@ def test_factors
 	assert data.result.passed?
 
 	data = rewire.test_data.shift
-	
+
+	assert data
 	assert TestFactors, data.test
 	assert [Factors,FastFactors], data.replacement
 	assert data.result.passed?
