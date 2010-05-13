@@ -17,7 +17,10 @@ require 'factors/fast_factors'
 
 module ClassHerd
 class TestTestRewiring < Test::Unit::TestCase 
+
 include Test::Unit
+
+
 def test_with_primes1
 	rewire = TestRewire2.new([TestPrimes],[Primes])
 	rewire.run_tests

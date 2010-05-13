@@ -1,13 +1,17 @@
 class Class
 #if someone else has hooked and given it the same alias a bad thing will happen.
+
+#aha, since this a subclass of module module doesn't have these functions.
+
+
 	attr_accessor :duped, :replacements
 	@duped = nil
 
 	alias_method :was_equal?, :equal?
 	def equal? obj
-		obj1 = obj.duped || obj
-		obj2 = duped || self
-			
+		if !(obj.is_a? Class) then return false; end
+			obj2 = obj.duped || obj 
+			obj1 = duped || self 
 		return obj1.was_equal? obj2
 	end
 	
