@@ -1,0 +1,227 @@
+start
+fri May  6 07:49:46 UTC 2010
+
+oops. i forgot to install ruby. messed about a little trying to copy it from other partition... but also very tired. try taking a nap frist.
+
+writing business play might be more effective than coding today (am on train, unconnected from web)
+stop
+8:32
+
+satuarday 17:02 pm
+
+working on test_test_rewire 
+known problem with vcr.==... investigating similar problems.
+trying wrapping on other tests.
+test_class_sub failed
+	problem is: test sub has other classes defined in the same file (which confuses it) 
+	class parser doesn't take modules yet. it will need to.
+	probably the parser returning module::class would give it a better interface anyway.
+
+i need a diagram of the classes here.
+
+~~~~
+idea, consistant interface for dealing with tabs in different tab based applications...
+same shortcut keys
+
+or popup window to cycle through like alt-tab, but in 2 dimensions... 
+up and down between programms left and right between tabs.
+
+what about set up shortcut keys to be:
+[WIN+ up/down] change between programmes.
+[win + left/right] change between tabs.
+
+would be cool to have a screen which poped up to show where your going 
+but this is good for now.
+
+behaviour of ubuntu isn't ideal for this... will have to set shortcuts in each program. 
+don't know how to do that in scite or chrome
+~~~~
+
+
+idea for new parsing system.
+
+DSL which uses, a schema and flattens the data structure to match.
+
+a schema has a tree structure itself:
+[:class :lit [:call {call_block}]]
+this means: for class, collect all :lit groups, and all :call groups. and process all call blocks with call_block
+the processor will look into all groups, and if it encounters a group with a block exec the block, passing it the group.
+
+it will flatten the tree  and just retain the groups named at that level.
+if there is a sub group, it will process groups under that with the rule defined in that group.
+
+the nestedness of the groups defines how much structure you want to retain.
+
+[:class :lit :str] -> retrive a list of all literals and strings under class.
+[:module [:class :lit :str] -> classes listesd under modules
+[:module :def :const [:class :def]] -> get def's and const's, :class's under module, and :def's under class
+
+definitions can be recursive:
+c = [:class :def]
+x = [:module :def 
+c << c
+x << c << x
+[:module :def [:class :def [...]] [...]]
+
+this is really tricky because sometimes the tree structure is partially flattened.
+... hmm, the structure of the output matches the structure of the schema.
+
+what about the structure of the process?...
+	...when the output is flat...the process should be flat?
+	what does code which parses a nested structure into a flat one look like?
+
+write 
+code to make a nested structure falt
+and then seperate
+code to copy a nested structure.
+
+eventually got this working, and then realized that it didn't actaully have useful features.
+
+monday 12:51 am. 
+
+[made notes on docs.google.com]
+plan for next step:
+I need most to parse classes.
+decide what format is best for test_rewire
+rewrite parsing code to use ParseTree & classes.
+
+monday 22:52
+rewritten the class parsing class. 
+I was very quick this time!
+written test_rewire2 
+given a test and classes, dynamicially tries whatever combinations of
+classes it thinks it can plug in.
+
+TODO: 
+further testing of test_rewire. 
+	another simple class.
+	a test which uses two classes.
+write something to test all the classes in the project.
+rewrite interface discovery wrapper (VCR) IDW?
+test whether shadowing also works for builtins i.e. Array.
+make web end for test results.
+~~~~
+2nd level tests: substitute X into Y.x, and then test Y with the tests Y passes with defaults.
+if X doesn't break Y's tests then great!
+start by substituting things which pass the tests of Y.x, and have the interfaces.
+~~~~
+
+have written Factors (which uses Primes) and caluclates the factors of any number.
+it makes another simple class for test_rewire.
+the test could inject Primes also.
+
+tuesday 0:34 am 11/5
+
+
+started about 7ish?
+
+today got test_rewire2 working with multiple substitutions.
+1.need to tidy up the test running code. it's been duplicated. 
+2.need a tight little class with good printing methods
+	from full debug information to just a note to silent.
+3. silence automatic running from test/unit.
+4. write better Interface Discovery Wrapper
+
+wednesday 1:38
+
+wednesday 11:47 just a bit of quick coding to make test running class
+
+started copying and pasting test runing code into new class, and discovered that 
+I had a fail in TestTestRewiring.test_factors and TestTestRewiring.test_primes...
+I used git to step back and found I had already had the error.
+
+will work on car, and fix this later.
+
+~~~~~~~~~~~~~~~~
+idea: simple IDE in browser which completely handles versioning and libraries.
+make it easy for teenagers to produce code.
+aim is to move empasis to intelligence rather than knowledge.
+so that they are not held back by setting up libraries etc.
+~~~~~~~~~~~~~~~~
+
+
+stop about 12:45
+start again 13:25
+~~~~~~~~~~
+idea:
+TestData should capture all output when it runs a test. 
+as this could be useful for debuging
+probably use a logging package.
+~~~~~~~~~~
+there is a problem with test... fixed
+
+TODO: code to check the structure of an array tree
+
+wednesday 3:52
+monkey patched test/unit/autorunner so that it doesn't run all the test classes I create.
+now I need a command to run a test though. or maybe a way to sign a test that it is not 
+to be automaticially ran? while i'm still developing i'll want to use normal tests.
+
+wednesday 22:55 
+tests sorted out.
+if I want to run just one test use command rtest - it suppresses AutoRunner
+otherwise just ruby the test and it will autorunner.
+
+~~~~~~~~~~~~~~~~~~~
+set_trace_func ~ tells you so much that happens in the tests. it's going to be very useful.
+maybe for interface discovery.
+definately for code metrics.
+maybe for evaluating contribution proportion.
+
+wow, you can get the binding and the object_id
+I wonder if that is enough data to reproduce an error?
+maybe if you have a debug mode which hooks
+bindings and objects at the start of a call...
+
+is this stuff threadsafe? I don't see any mention of 
+threads. hopefully this stuff still works, but only for 
+the current thread.
+~~~~~~~~~~~~~~~~~~~
+what next?
+code to run all tests on all classes in a project?
+start looking into how I might run a class manager server? 
+	- no can wait until configuration is happening.
+parse configuration from every file in a project and graph how they fit together?
+	- how to display configuration?
+	- i'd need an example program to reconfigure.
+	- just something structure which showed the layers of dependencies and
+		what could be pluged in there?
+		
+i found how to load the contents of a directory:
+Dir.new(path).entries
+also, saw something interesting in test/unit
+seting the types of arguments with the syntax:
+file =::File
+could this be developed further to specify essential tests?
+
+thursday 14:16
+write code to run all tests in a directory.
+spedify a directory,
+require each .rb file 
+find all the tests and classes in specific modules.
+(m = Module.const_get(:Test)).constants.select{|it| m.const_get(it.to_sym).is_a? Module}
+run tests on them.
+report on interfaces, and successful substitutions
+
+maybe now is time to start thinking about how composition will work.
+or write a few utils for the above idea?
+ah, for this problem, i'm at the prodding it with a stick stage.
+~~~~~~~~~~~~~~
+we're going to want some nice visualization stuff
+that will mean some facinating graph problems - and 
+graph display problems too.
+~~~~~~~~~~~~~~
+PROBLEM: i've monkey patched class to add methods of checking equality ignoring whether it's a duplication
+... but i've realized that Module doesn't inherit from Class (otherway around) 
+so i've added a check in Class.equals? to return false if other isn't a Class
+
+...I will probably want to change this when I code rewiring for Modules.
+can print all modules with
+experiments/print_module.rb [Module]
+provide base module name as argument.
+i've added require's for some of my stuff.
+
+whats next?
+hmm...
+
+do the same thing with class references?
