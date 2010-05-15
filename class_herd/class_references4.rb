@@ -4,17 +4,22 @@
 #require 'test_class_sub'
 require 'sexp_processor'
 require 'class_herd/parser'
+require 'class_herd/class_finder'
 
 module ClassHerd
 class ClassReferences4 < SexpProcessor
 	attr_accessor :name, :super_class, :reffs, :sexp
-
+	
+	def default_class(symb)
+		@finder.from_symbol(@target,symb)
+	end	
 	def initialize ()
 		@reffs = []
-		@innerclasses = []
+		@finder = ClassFinder.new
 		super
 	end
 	def parse(klass)
+		@target = klass
 		@sexp = Parser.parse_class(klass)
 		sexp = Parser.parse_class(klass)
 		#sexp.dup#only duplicates the first layer.

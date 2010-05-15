@@ -17,7 +17,7 @@ def print_mod(mod, indent, ancestors)
 	c.each{|it|
 #		puts it
 		i = mod.const_get(it.to_sym)
-		if i.is_a? Module  and !(ancestors.include? i) then
+		if i.is_a? Module  and !(@done[i]) then
 			print_mod(i,indent + ".",ancestors)
 	#	else
 		#	puts "//" + it

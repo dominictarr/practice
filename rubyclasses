@@ -1,0 +1,168 @@
+cant load /var/lib/gems/1.8/gems/sexp_processor-3.0.4/lib/composite_sexp_processor.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76f1988>
+cant load /var/lib/gems/1.8/gems/sexp_processor-3.0.4/lib/sexp.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76e483c>
+cant load /var/lib/gems/1.8/gems/sexp_processor-3.0.4/lib/sexp_processor.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77bb328>
+cant load /var/lib/gems/1.8/gems/sexp_processor-3.0.4/lib/unique.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76add78>
+cant load /var/lib/gems/1.8/gems/ruby_parser-2.0.4/lib/gauntlet_rubyparser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76a806c>
+cant load /var/lib/gems/1.8/gems/ruby_parser-2.0.4/lib/ruby_lexer.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb789666c>
+cant load /var/lib/gems/1.8/gems/ruby_parser-2.0.4/lib/ruby_parser_extras.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb776b030>
+cant load /var/lib/gems/1.8/gems/ruby_parser-2.0.4/lib/ruby_parser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77073b4>
+cant load /var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/autotest.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d051c>
+cant load /var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/focus.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa48fd3c>
+/var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/functional_test_matrix.rb->FunctionalTestMatrix
+/var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/multiruby.rb->Multiruby
+cant load /var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/unit_diff.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3756e0>
+cant load /var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/zentest.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa503dcc>
+/var/lib/gems/1.8/gems/ZenTest-4.3.1/lib/zentest_mapping.rb->ZenTestMapping
+cant load /var/lib/gems/1.8/gems/RubyInline-3.8.4/lib/inline.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3be908>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/lib/gauntlet_parsetree.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa5255a8>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/lib/parse_tree.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4e5854>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/lib/parse_tree_extensions.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa457144>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/lib/unified_ruby.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4365d4>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/test/pt_testcase.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa364980>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/test/something.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa44ac28>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/test/test_parse_tree.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa43a3c8>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/test/test_parse_tree_extensions.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3ab380>
+cant load /var/lib/gems/1.8/gems/ParseTree-3.0.5/test/test_unified_ruby.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa370078>
+cant load /usr/lib/ruby/1.8/benchmark.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa34bda4>
+/usr/lib/ruby/1.8/English.rb->
+/usr/lib/ruby/1.8/Env.rb->
+cant load /usr/lib/ruby/1.8/abbrev.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77f5190>
+/usr/lib/ruby/1.8/base64.rb->Base64,Base64::Deprecated
+cant load /usr/lib/ruby/1.8/fileutils.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa52ceac>
+cant load /usr/lib/ruby/1.8/cgi-lib.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4859e0>
+cant load /usr/lib/ruby/1.8/cgi.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa411c20>
+cant load /usr/lib/ruby/1.8/complex.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa5098f8>
+cant load /usr/lib/ruby/1.8/csv.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3f23ac>
+cant load /usr/lib/ruby/1.8/date.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa519064>
+/usr/lib/ruby/1.8/date2.rb->
+cant load /usr/lib/ruby/1.8/debug.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4f66e0>
+cant load /usr/lib/ruby/1.8/delegate.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa49d66c>
+/usr/lib/ruby/1.8/drb.rb->
+/usr/lib/ruby/1.8/e2mmap.rb->Exception2MessageMapper
+cant load /usr/lib/ruby/1.8/erb.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa40c644>
+cant load /usr/lib/ruby/1.8/eregex.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa47ad24>
+cant load /usr/lib/ruby/1.8/expect.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa46ba90>
+/usr/lib/ruby/1.8/forwardable.rb->Forwardable,SingleForwardable
+/usr/lib/ruby/1.8/finalize.rb->Finalizer
+/usr/lib/ruby/1.8/find.rb->Find
+cant load /usr/lib/ruby/1.8/generator.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3c82f0>
+cant load /usr/lib/ruby/1.8/ftools.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa52e950>
+cant load /usr/lib/ruby/1.8/ipaddr.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d4cac>
+cant load /usr/lib/ruby/1.8/getoptlong.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3eff08>
+/usr/lib/ruby/1.8/getopts.rb->
+cant load /usr/lib/ruby/1.8/gserver.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d37f8>
+/usr/lib/ruby/1.8/importenv.rb->
+/usr/lib/ruby/1.8/parsedate.rb->ParseDate
+cant load /usr/lib/ruby/1.8/jcode.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa463f98>
+cant load /usr/lib/ruby/1.8/kconv.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3e7790>
+cant load /usr/lib/ruby/1.8/logger.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa39a044>
+cant load /usr/lib/ruby/1.8/mailread.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa5094ac>
+cant load /usr/lib/ruby/1.8/mathn.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4f4804>
+cant load /usr/lib/ruby/1.8/matrix.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4660a4>
+cant load /usr/lib/ruby/1.8/md5.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa5231f4>
+cant load /usr/lib/ruby/1.8/monitor.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa51b0a8>
+/usr/lib/ruby/1.8/mutex_m.rb->Mutex_m
+/usr/lib/ruby/1.8/observer.rb->Observable
+cant load /usr/lib/ruby/1.8/open-uri.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa48c844>
+/usr/lib/ruby/1.8/open3.rb->Open3
+cant load /usr/lib/ruby/1.8/optparse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4e91ac>
+cant load /usr/lib/ruby/1.8/ostruct.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa50ad20>
+/usr/lib/ruby/1.8/parsearg.rb->
+cant load /usr/lib/ruby/1.8/prettyprint.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa49f840>
+cant load /usr/lib/ruby/1.8/pathname.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4f6b54>
+/usr/lib/ruby/1.8/ping.rb->Ping
+cant load /usr/lib/ruby/1.8/pp.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4a306c>
+cant load /usr/lib/ruby/1.8/readbytes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa467850>
+/usr/lib/ruby/1.8/profile.rb->
+/usr/lib/ruby/1.8/profiler.rb->Profiler__
+cant load /usr/lib/ruby/1.8/pstore.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa422868>
+cant load /usr/lib/ruby/1.8/rational.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3c3fc0>
+/usr/lib/ruby/1.8/rubyunit.rb->
+cant load /usr/lib/ruby/1.8/resolv-replace.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4fd1d4>
+cant load /usr/lib/ruby/1.8/resolv.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4dc3d0>
+/usr/lib/ruby/1.8/rss.rb->
+cant load /usr/lib/ruby/1.8/scanf.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4feb88>
+cant load /usr/lib/ruby/1.8/shell.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa42a3d8>
+cant load /usr/lib/ruby/1.8/set.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3d5f2c>
+cant load /usr/lib/ruby/1.8/sha1.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa49fd7c>
+cant load /usr/lib/ruby/1.8/shellwords.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4983b0>
+cant load /usr/lib/ruby/1.8/weakref.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa46bcc0>
+cant load /usr/lib/ruby/1.8/singleton.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa445d40>
+cant load /usr/lib/ruby/1.8/sync.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3d4b18>
+cant load /usr/lib/ruby/1.8/tempfile.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa36cf7c>
+/usr/lib/ruby/1.8/thread.rb->
+cant load /usr/lib/ruby/1.8/thwait.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77a10f4>
+cant load /usr/lib/ruby/1.8/time.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa529b08>
+cant load /usr/lib/ruby/1.8/timeout.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d2790>
+cant load /usr/lib/ruby/1.8/tmpdir.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4a9fe8>
+cant load /usr/lib/ruby/1.8/tracer.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4766e8>
+cant load /usr/lib/ruby/1.8/tsort.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa438a50>
+/usr/lib/ruby/1.8/un.rb->FileUtils
+/usr/lib/ruby/1.8/uri.rb->URI
+/usr/lib/ruby/1.8/webrick.rb->
+/usr/lib/ruby/1.8/yaml.rb->YAML,Kernel
+/usr/lib/ruby/1.8/securerandom.rb->SecureRandom
+cant load /usr/lib/ruby/1.8/irb.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76d6fc0>
+cant load /usr/lib/ruby/1.8/mkmf.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4a93f4>
+cant load /usr/lib/ruby/1.8/gauntlet_rubygems.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4fd224>
+cant load /usr/lib/ruby/1.8/rubygems.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4e56ec>
+/usr/lib/ruby/1.8/ubygems.rb->
+cant load /usr/lib/ruby/1.8/digest.rb -> Expected :colon2 or :const but found colon3
+/usr/lib/ruby/1.8/i486-linux/rbconfig.rb->Config
+cant load ./monkeypatch/test_array.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa421aa8>
+cant load ./monkeypatch/array.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3ef418>
+cant load ./monkeypatch/class2.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa538798>
+cant load ./monkeypatch/autorunner.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa524644>
+cant load ./monkeypatch/class.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa51ee38>
+cant load ./experiments/trace_func.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa518650>
+./experiments/print_modules.rb->
+./experiments/print_classes.rb->
+cant load ./factors/factors.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4ddf3c>
+cant load ./factors/test_factors.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d2010>
+cant load ./factors/fast_factors.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4a9cc8>
+cant load ./primes/broke_primes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa49f5ac>
+cant load ./primes/primes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa498784>
+cant load ./primes/TestPrimes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa48b200>
+cant load ./primes/TooCleverPrimes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4791f4>
+cant load ./primes/TestSmartPrimes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa46eb50>
+cant load ./primes/SmartPrimes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa46a3ac>
+cant load ./primes/TestTooCleverPrimes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa45c9c8>
+./primes/TestTest.rb->
+cant load ./primes/Primes.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa441f10>
+cant load ./class_herd/class_finder.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa433bf4>
+cant load ./class_herd/rb_parser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa421b70>
+cant load ./class_herd/v_c_r2.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa404318>
+cant load ./class_herd/test_data.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3febe8>
+cant load ./class_herd/class_sub_block.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3e5af8>
+cant load ./class_herd/test_test_interface.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3da770>
+cant load ./class_herd/test_class_sub_block.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3c7b0c>
+cant load ./class_herd/test_rewire2.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3bb62c>
+cant load ./class_herd/test_test_rewiring.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa398708>
+cant load ./class_herd/test_interface.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa34f6ac>
+cant load ./class_herd/test_class_conductor3.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77a8214>
+./class_herd/class_conductor3.rb->ClassHerd,ClassHerd::ClassConductor3
+cant load ./class_herd/class_rule.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76e6560>
+cant load ./class_herd/test_v_c_r.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76cd68c>
+./class_herd/symparse.rb->
+cant load ./class_herd/v_c_r.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb76addc8>
+cant load ./class_herd/test_class_finder.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb7834368>
+cant load ./class_herd/file_explorer.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xb77ee098>
+cant load ./class_herd/test_auto_wrapper.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa53e24c>
+cant load ./class_herd/auto_wrapper.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa50b090>
+cant load ./class_herd/test_class_references.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4f9250>
+./class_herd/classparse.rb->
+cant load ./class_herd/test_file_explorer.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4d2560>
+cant load ./class_herd/test_class_sub.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4c3434>
+cant load ./class_herd/class_sub.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4af164>
+cant load ./class_herd/test_rb_4_class_parser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa4a504c>
+cant load ./class_herd/test_rb_parser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa49cb90>
+cant load ./class_herd/test_class_rule.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa475bf8>
+cant load ./class_herd/symbol_parser.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa45b1a4>
+cant load ./class_herd/test_x_parse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa437e84>
+cant load ./class_herd/x_parse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3eb9d0>
+cant load ./class_herd/y_parse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3ce9fc>
+cant load ./class_herd/Z_parse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa3b2ba8>
+cant load ./class_herd/z_parse.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa396db8>
+./class_herd/parser.rb->ClassHerd,ClassHerd::Parser
+cant load ./class_herd/class_references4.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa36b6b8>
+cant load ./class_herd/message.rb -> undefined local variable or method `superclass' for #<ClassHerd::RbParser:0xa34fd8c>

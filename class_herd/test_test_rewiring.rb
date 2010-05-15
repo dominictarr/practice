@@ -24,9 +24,9 @@ include Test::Unit
 def test_with_primes1
 	rewire = TestRewire2.new([TestPrimes],[Primes])
 	rewire.run_tests
-	
+
 	data = rewire.test_data.first
-	
+
 	assert TestPrimes, data.test
 	assert [Primes,Primes], data.replacement
 	assert data.result.passed?

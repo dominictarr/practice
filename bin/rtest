@@ -1,0 +1,23 @@
+#!/usr/bin/ruby -rubygems
+
+require 'test/unit'
+require 'class_herd/test_data'
+require 'monkeypatch/autorunner'#stop tests from running automaticially
+
+test_file = ARGV[0]
+if ARGV.length > 1 then
+	test_klass = ARGV[1]
+else
+	test_file = test_file.sub(".rb","")
+	arg = test_file.split("/").collect { |it|
+		it.split("_").collect{|t| t.capitalize}.join
+	}.join("::")
+	test_klass = arg
+end
+include ClassHerd
+#::TestData
+
+require test_file
+td = TestData.new(eval(test_klass))
+puts td.message
+#puts TestData.new(eval(test_klass)).passed?

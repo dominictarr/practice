@@ -1,0 +1,11 @@
+#!/usr/bin/ruby -I/home/ububtu/code/practice/ -rubygems 
+
+require 'class_herd/file_explorer'
+
+if ARGV.empty? then
+	ClassHerd::FileExplorer.explore_path
+else
+	ARGV.each{|dir|
+	ClassHerd::FileExplorer.new('.')
+	}
+end

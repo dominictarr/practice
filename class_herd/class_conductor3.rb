@@ -6,7 +6,6 @@
 require 'monkeypatch/class2'
 
 module ClassHerd
-
 module ClassConductor3
 	def _on(x)
 		x2 = x.dup

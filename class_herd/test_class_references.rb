@@ -3,6 +3,7 @@ require 'class_references4'
 require 'primes/TestPrimes'
 require 'class_herd/test_class_sub'
 require 'class_herd/examples/outer_class'
+require 'monkeypatch/array'
 
 module ClassHerd
 class TestClassReferences < Test::Unit::TestCase
@@ -18,6 +19,7 @@ def test_simple
 	assert_equal :TestPrimes, ref.name
 	assert_equal :"Test::Unit::TestCase", ref.super_class
 	assert_equal [:Primes], ref.reffs
+	assert_equal Primes, ref.default_class(:Primes)
 end
 
 def test_refclasses
@@ -26,7 +28,10 @@ def test_refclasses
 
 	assert_equal :"ClassHerd::TestClassSub", ref.name
 	assert_equal :"Test::Unit::TestCase", ref.super_class
-	assert_equal [:ClassSub,:Hello1,:Bonjour1], ref.reffs	
+	assert [:ClassSub,:Hello1,:Bonjour1].same_set?(ref.reffs)
+	assert_equal ClassSub, ref.default_class(:ClassSub)
+	assert_equal Hello1, ref.default_class(:Hello1)
+	assert_equal Bonjour1, ref.default_class(:Bonjour1)
 end
 
 def test_innerclasses
@@ -35,7 +40,8 @@ def test_innerclasses
 
 	assert_equal :OuterClass, ref.name
 	assert_equal :Object, ref.super_class
-	assert_equal [:String], ref.reffs	
+	assert_equal [:String], ref.reffs
+	assert_equal String,ref.default_class(:String)
 
 	ref2 = ClassReferences2.new
 	ref2.parse(OuterClass::InnerClass)
@@ -44,6 +50,7 @@ def test_innerclasses
 	
 	assert_equal :"OuterClass::InnerClass", ref2.name
 	assert_equal :Object, ref2.super_class
-	assert_equal [:Integer], ref2.reffs	
+	assert_equal [:Integer], ref2.reffs
+	assert_equal Integer,ref.default_class(:Integer)
 end
 end;end

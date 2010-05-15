@@ -4,6 +4,7 @@ require 'class_herd/class_references4'
 require 'class_herd/class_conductor3'
 require 'class_herd/v_c_r2'
 require 'class_herd/test_data'
+require 'class_herd/class_finder'
 
 module ClassHerd
 class TestInterface
@@ -35,8 +36,9 @@ class TestInterface
 		@methods = Hash.new
 		to_run = _on(test) #rewired test class
 		wrappers = Hash.new
+		finder = ClassFinder.new
 		@symbols.each {|sym|
-			@default_class[sym] = test.class_eval(sym.to_s)
+			@default_class[sym] = finder.from_symbol(test,sym.to_s)
 		
 			#target_klass = @subjects.find {|sub| sub.name.to_sym == target_sym}
 	

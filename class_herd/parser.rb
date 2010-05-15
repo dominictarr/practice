@@ -5,6 +5,7 @@ require 'unified_ruby'
 module ClassHerd
 module Parser
 		def self.parse_file(filename)
+			#if(File.new(filename).exists
 			parse_code(File.open(filename).read)
 		end
 		def self.parse_file_pt(filename)
