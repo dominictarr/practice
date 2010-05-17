@@ -5,7 +5,7 @@ require 'class_herd/class_conductor3'
 require 'class_herd/v_c_r2'
 require 'class_herd/test_data'
 require 'class_herd/class_finder'
-
+require 'class_herd/interface'
 module ClassHerd
 class TestInterface
 	include ClassHerd::ClassConductor3
@@ -34,7 +34,7 @@ class TestInterface
 		@symbols = cr.reffs	
 		@default_class = Hash.new
 		@methods = Hash.new
-		to_run = _on(test) #rewired test class
+		to_run = _on(@test) #rewired test class
 		wrappers = Hash.new
 		finder = ClassFinder.new
 		@symbols.each {|sym|
@@ -60,8 +60,11 @@ class TestInterface
 		@symbols.each {|sym|
 				methods[sym] = []
 			ObjectSpace.each_object(wrappers[sym]){|it|
+				if it.interface then
 				methods[sym] = methods[sym] +  it.interface.collect{|it| 
-					it.to_s}}
+					it.to_s}
+				end
+				}
 				methods[sym].uniq!
 		#~ puts "INTERFACE: #{sym}=>#{methods[sym].inspect}"
 				}
@@ -72,5 +75,11 @@ class TestInterface
 	def wrappable? 
 		result.passed?
 	end
+	def interfaces
+		@symbols.collect{|s|
+			Interface.new(@test,s,@methods[s])
+		}
+	end
+
 end;end
 	

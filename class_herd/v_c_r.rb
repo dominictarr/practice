@@ -29,7 +29,9 @@ def method_missing(method, *args, &block)
   
   alias_method :vcr_dup,:dup
   def dup
-	  x = vcr_dup
+	
+	puts "VCR DUPLICATED"
+ 	x = vcr_dup
 	x.rewrap(@obj.dup)#might this act weird 
 	x
  end
@@ -38,6 +40,8 @@ def to_s
 	end
 
 def interface
+	if @messages.nil? then
+	raise '@messages is nil' end
 	@messages.collect {|it| it[0]}  
 	end
 def has_interface? (klass) 

@@ -1,5 +1,5 @@
 require 'test/unit'
-require 'class_references4'
+require 'class_herd/class_references4'
 require 'primes/TestPrimes'
 require 'class_herd/test_class_sub'
 require 'class_herd/examples/outer_class'

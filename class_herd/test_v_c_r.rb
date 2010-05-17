@@ -45,6 +45,15 @@ class TestVCR < Test::Unit::TestCase
 		assert_equal("hell",vcr[0..3])
 	end
 	
+	def test_empty
+
+	vcr = VCR.new("hello")
+
+	#do nothing.
+
+	assert_equal [],vcr.interface
+	end
+
 	def test_interface
 		vcr = VCR.new("hello")
 		vcr.length

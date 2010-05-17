@@ -5,6 +5,7 @@ module ClassHerd
 class TestRbParser < Test::Unit::TestCase
 	#this is an implementation test, 
 	#not an interface test.
+	EXAMPLE_PATH = "/home/ubuntu/code/practice/class_herd"
 	def test_handle_class_name
 		p = RbParser.new(nil)
 		assert_equal :Object, p.handle_class_name(nil)
@@ -47,14 +48,14 @@ class TestRbParser < Test::Unit::TestCase
 		assert_equal [:TestRbParser], p.classes
 	end
 	def test_examples
-		p = RbParser.new("./examples/empty_class.rb")
+		p = RbParser.new(EXAMPLE_PATH + "/examples/empty_class.rb")
 
 		p.parse
 		assert_equal [:EmptyClass], p.classes
-		p = RbParser.new("examples/outer_class.rb")
+		p = RbParser.new(EXAMPLE_PATH + "/examples/outer_class.rb")
 		p.parse
 		assert_equal [:OuterClass,:"OuterClass::InnerClass"], p.classes
-		p = RbParser.new("examples/example_modules.rb")
+		p = RbParser.new(EXAMPLE_PATH + "/examples/example_modules.rb")
 		p.parse
 		assert_equal [:Module1,
 			:"Module1::Class1",

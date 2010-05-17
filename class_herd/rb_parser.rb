@@ -49,7 +49,15 @@ class RbParser < SexpProcessor
 	def process_class (exp)
 		exp.shift
 		name = handle_class_name(exp.shift)
-		exp.shift#ignore superclass#	superclass = handle_class_name(exp.shift)
+		##exp.shift#ignore superclass#	
+		begin
+			superclass = handle_class_name(exp.shift)
+		rescue Exception => e
+			puts "weird superclass on #{name} -> #{e}"
+			superclass = nil
+		end 
+			
+
 		@namespace.push name
 		add_name
 		sexp = s(:class,name,superclass,	process(exp.shift))		 

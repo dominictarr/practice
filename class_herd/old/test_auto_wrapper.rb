@@ -1,7 +1,7 @@
 require 'test/unit'
-require 'v_c_r'
-require 'auto_wrapper'
-require 'class_creator_example'
+require 'class_herd/v_c_r'
+require 'class_herd/auto_wrapper'
+require 'class_herd/class_creator_example'
 
 #auto wrapper
 #~ when activated , wrap every object that is created with a given class

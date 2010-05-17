@@ -1230,4 +1230,63 @@ lower commands, but response is immediate, like a console.
 might be easy with a functional language.
 ~~~~~~~~
 
- 
+Sunday 16th, 18:03
+deciding what to do next. i feel that a demonstratable prototype will be ready in a week or two.
+it will have
+	* configuration/composition generation
+	* automatic interface testing
+	* be able to load a new application composition.
+but wont manage the path...
+
+next problems:
+	* composition datastructure.
+	* interface test runner.
+	* composition template builder
+	? interface test database?... just serialize the whole Hash map or whatever?
+
+~~~~~~~~~~~~~~~~~~~
+process find classes with interface fast with a method -> [Class] map.
+map of methods -> classes which support that method.
+classes which implement an interface are 
+union(*interface.each(|it| method_map(it)))
+union returns the longest list which is a union of all arg lists.
+~~~~~~~~~~~~~~~~~~~
+
+interface test runner:
+	1. find all tests.
+	2. run all tests to discover all interfaces.
+	3. check all classes and map interfaces to supporting classes
+	4. wire supporting classes into tests and map interfaces to passing classes.
+	?what about incompatibilities?
+	5. parse application, generate composition, with suggestions from tester.
+
+~-~-~-~-~-~-~
+better tester which is compatible with all test frameworks.
+...one not based on inheritence?
+~-~-~-~-~-~-~
+
+about half the tests fail when wrapped in the VCR. this is essential, so maybe now is the time to work on the Interface Discovery.
+
+have two ideas:
+	1. alias every method on a class with a reporting method.
+	2. use set_trace_func to watch calls without interferring.
+	3. parse the test and see what methods it calls.
+	
+this doesn't #have# to be prefect - this detects which classes might be good to test, 
+but it's okay if people claim thier class has an interface... and test that. 
+
+2. seems more powerful, but, now that i've just looked into it, 1. seems simpler to implement.
+3. would be simple, but wouldn't cover the cases where a class is passed somewhere else 
+	and initialized there.
+
+prodded 2. trace is massive, with many other calls you're not interested in. there are other similar problems which i have only just realized... what about the class calling itself?
+i'd encounter implementaion methods not related to the interface.
+
+maybe parsing is a good method? or parse the stacktrace, and see when the test object calls a 
+method on the test class. if we 'tag*' the class of the new instance we should know exactly 
+which object is the one we're after.
+* by duplicating or subclassing...
+argh. the trace function doesn't give you the method! how annoying is that? i'd have to parse it from the .rb file! (although, that is given).
+
+sounds like alot of work. -> alias every method.
+
