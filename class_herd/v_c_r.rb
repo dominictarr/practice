@@ -5,7 +5,7 @@ class VCR
   def class
 	@obj.class
   end
-  
+ 
   def is_a?(x)
 	  puts "IS_A?"
 	  return @obj.is_a?(x)

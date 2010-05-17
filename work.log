@@ -1290,3 +1290,86 @@ argh. the trace function doesn't give you the method! how annoying is that? i'd 
 
 sounds like alot of work. -> alias every method.
 
+
+	   @#@#@#@#@#@#@#@#@#@#@#@
+	   BIG IDEA: UNIVERSE GAME 
+
+	      ~/~ "WIZARDS" ~/~
+
+	   @#@#@#@#@#@#@#@#@#@#@#@
+
+a game where the game is programming the game from inside the game.
+
+the player is a magicial entity in the world made from
+Earth, Air, Fire, Water and Magic.
+
+everything in the game is made from these 5 elements. 
+the first 4 are already existing and cannot be destroyed.
+magic is created by wizards.
+
+the simplest game object is a rock.
+it's a lump with high earth, and low AFW.
+wizards can give magic to things which allow them to use fire to do things.
+
+fire is energy. if there is no energy, then no magic can happen.
+water contains fire. something having water means it can contain more water and not burn.
+water makes flexibility.
+air gives lightness. things with air are easier to move. and easier to absorb.
+earth is strength. it makes things hard and heavy.
+
+dirt is earth with air.
+add water and it becomes mud.
+add fire and it becomes clay.
+
+add the right magic and that clay comes to life.
+
+make a clay plant by adding magic to tell the plant to absorb elements from the soil, and grow new parts.
+
+the plant absorbs whats around it, and then grows seeds (tiny blobs of magic clay) and throws 
+them away, to grow into more trees.
+
+you could make animals, which move them selves, but need much more energy.
+they would have to absorb energy from a place where it is more concentrated... i.e. plants.
+or other animals.
+
+wizards get more magical power when as more of thier magic happens. 
+the speed they can rebuild magic and thier magical capacity is in proportion to how much
+life they have created.
+
+magic can affect magic, and copy itself. 
+wizards could make a magic spell which copied itself.
+life is a magic spell which controls material to gather enough energy to copy itself.
+
+have to run game in the cloud and make it crazy scalable like katamari.
+
+you could use magic to let your animals communicate. then you could build them into big 
+ant-like hives. going out and finding things to eat. pulling them back to the hive, 
+built out of big rocks pulled together...
+
+I'm imagening ascii based rendering... but it wouldn't need to be directly tied to the game 
+objects, it generate itself and you could zoom in and out... 
+it would just give you a hint of what is happening...
+
+to get things to be really cool, we need technology. for things to get way more efficant.
+
+hmm. there could still be magic technology. better AI so that creatures could behave much more 
+intelligently. or as a whole... that would all happen client side, anyway.
+
+$$$$$$$$$$$$$$$$
+or what about a pure software based game universe where the only limitation is memory and 
+processors...hmm, you'd still need some way for wizards to earn more computer power.
+
+and some challenge for them to accomplish...
+$$$$$$$$$$$$$$$$
+
+
+okay, i'm going to start work on the IDW.
+aliasing each method is working, but discovering quirks. some methods will be aliased. 
+some are inherited from superclass... 
+-> will need to be defined, and super() called... class methods called in the wrapping method need to be handled specially. actually, it doesn't need to handle Object or class methods, because those are are going to be there always anyway.
+
+it's looking pretty good with the little tests I have so far. ultimately, it should be able to wrap itself, and discover it's own interface!.
+
+# it might be good to extend the class rather than dup it. that way, is_a? etc might still work.
+
+
