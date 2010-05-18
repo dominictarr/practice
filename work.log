@@ -1265,6 +1265,9 @@ better tester which is compatible with all test frameworks.
 ...one not based on inheritence?
 ~-~-~-~-~-~-~
 
+>ruby -I`pwd` -rubygems class_herd/interface_tester.rb class_herd/*.rb
+
+
 about half the tests fail when wrapped in the VCR. this is essential, so maybe now is the time to work on the Interface Discovery.
 
 have two ideas:
@@ -1368,8 +1371,19 @@ aliasing each method is working, but discovering quirks. some methods will be al
 some are inherited from superclass... 
 -> will need to be defined, and super() called... class methods called in the wrapping method need to be handled specially. actually, it doesn't need to handle Object or class methods, because those are are going to be there always anyway.
 
-it's looking pretty good with the little tests I have so far. ultimately, it should be able to wrap itself, and discover it's own interface!.
+it's looking pretty good with the little tests I have so far. 
+ultimately, it should be able to wrap itself, and discover it's own interface!.
 
 # it might be good to extend the class rather than dup it. that way, is_a? etc might still work.
 
+~~~~
+running into problems from not having running all tests regularly.
+monkey_patch/autorunner is interferring with this.
+need a way to disable it, but reinable it too.
 
+currently it's just disabled so that tests run.
+TO RUN ALL TESTS
+~/code/practice>ruby test_all.rb
+~~~~
+
+now back to IDW problem.

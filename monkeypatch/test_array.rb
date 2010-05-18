@@ -1,4 +1,4 @@
-require 'array'
+require 'monkeypatch/array'
 require 'test/unit'
 
 

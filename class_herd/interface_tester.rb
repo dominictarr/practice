@@ -1,7 +1,9 @@
 require 'monkeypatch/autorunner'
 require 'class_herd/test_interface'
 module ClassHerd
-ARGV.each{ |it| require it}
+ARGV.each{ |it| 
+puts it
+require it}
 tests = []
 ObjectSpace.each_object(Class){ |it|
 	if Test::Unit::TestCase > it then

@@ -20,13 +20,16 @@ class FileExplorer
 	def explore_dir(dir)
 	#	puts ([@path] + ["x"]).join(@seperator)
 		dir.each{ |it|
+			#fn = filename(it)
+			#puts it + "=>#{File.directory?(fn)}"
 			if it.nil? then
 				raise "a file is nil!"
 			elsif it =~ /^\.\.?$/ then
 			#	puts it
-			elsif File.directory? it then
+			elsif File.directory? filename(it) then
+				#puts "DIRECTORY> #{it}"
 				@path.push it
-				explore_dir(Dir.new(it))
+				explore_dir(Dir.new(filename("")))
 				@path.pop
 			elsif it =~ /^.*\.rb$/ then
 				fn = filename(it)
