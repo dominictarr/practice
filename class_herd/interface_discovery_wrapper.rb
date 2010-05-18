@@ -1,3 +1,5 @@
+require 'monkeypatch/class2'
+
 
 module ClassHerd
 class InterfaceDiscoveryWrapper
@@ -31,10 +33,10 @@ class InterfaceDiscoveryWrapper
 	klass.send(:alias_method, :"idw_#{method}", method)
 	#m = klass.instance_method("idw_#{method}".to_sym)
 	#puts "#{klass}=>#{method}"
-	klass.send(:define_method, method){|*args|
+	klass.send(:define_method, method){|*args,&block|
                 	puts "METHOD=>#{method}"
                 	m = idw_method("idw_#{method}".to_sym)
-                     	r = m.call(*args)
+                     	r = m.call(*args,&block)
                 	#puts idw
 			idw.interface(klass) << method
                		r
@@ -42,7 +44,9 @@ class InterfaceDiscoveryWrapper
 	end
 
 	def wrap (klass)
-	k = klass.dup
+        k = Class.new(klass)
+ #	k = klass.dup
+        k.send(:instance_variable_set, :@duped,klass)
 	wrap_method(k,:method)
 	m = k.instance_methods - #+ k.private_methods - 
 		["idw_method","method"]

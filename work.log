@@ -1375,7 +1375,9 @@ it's looking pretty good with the little tests I have so far.
 ultimately, it should be able to wrap itself, and discover it's own interface!.
 
 # it might be good to extend the class rather than dup it. that way, is_a? etc might still work.
+#yup, that works for is_a?
 
+#another way might to hook .class so it returns the duped class.
 ~~~~
 running into problems from not having running all tests regularly.
 monkey_patch/autorunner is interferring with this.

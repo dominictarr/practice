@@ -6,12 +6,13 @@ require 'class_herd/v_c_r2'
 require 'class_herd/test_data'
 require 'class_herd/class_finder'
 require 'class_herd/interface'
+require 'class_herd/interface_discovery_wrapper'
 module ClassHerd
 class TestInterface
 	include ClassHerd::ClassConductor3
 	include Test::Unit
 	
-	attr_accessor :test, :symbols, :methods,:default_class, :result
+	attr_accessor :test, :symbols, :methods,:default_class, :result,:data
 
 	def initialize (test)
 		@test = test
@@ -37,15 +38,17 @@ class TestInterface
 		to_run = _on(@test) #rewired test class
 		wrappers = Hash.new
 		finder = ClassFinder.new
-		@symbols.each {|sym|
+		idw = InterfaceDiscoveryWrapper.new	
+	@symbols.each {|sym|
 			@default_class[sym] = finder.from_symbol(test,sym.to_s)
 		
 			#target_klass = @subjects.find {|sub| sub.name.to_sym == target_sym}
 	
-			#~ puts "targets <sym=#{sym.inspect},class=#{default_class[sym]}>"
+			 puts "targets <sym=#{sym.inspect},class=#{default_class[sym]}>"
 	
 			#wrap each reference which you have a copy of
-			wrappers[sym] = _on(VCR2)._replace(:Object, default_class[sym])
+			#wrappers[sym] = _on(VCR2)._replace(:Object, default_class[sym])
+			wrappers[sym] = idw.wrap(default_class[sym])
 			to_run._replace(sym, wrappers[sym])
 
 			if(default_class[sym].nil?) then
@@ -54,19 +57,20 @@ class TestInterface
 			}
 		#argh, now how do i get at the VCR2?
 		interface = []
-		data = TestData.new(to_run)
+		@data = TestData.new(to_run)
 		@result = data.result
 		
 		@symbols.each {|sym|
-				methods[sym] = []
-			ObjectSpace.each_object(wrappers[sym]){|it|
-				if it.interface then
-				methods[sym] = methods[sym] +  it.interface.collect{|it| 
+			puts "#{sym}=>#{idw.interface(sym)}, #{idw.interface(default_class[sym])}, #{idw.interface(wrappers[sym]).inspect}"
+			methods[sym] = []
+			#ObjectSpace.each_object(wrappers[sym])
+				if idw.interface(sym) then
+				methods[sym] = methods[sym] +  idw.interface(wrappers[sym]).collect{|it| 
 					it.to_s}
 				end
-				}
+				#}
 				methods[sym].uniq!
-		#~ puts "INTERFACE: #{sym}=>#{methods[sym].inspect}"
+		 puts "INTERFACE: #{sym}=>#{methods[sym].inspect}"
 				}
 			end
 	def has_interface? (sym, klass)

@@ -12,7 +12,7 @@ module ClassHerd
 			r.replace(Integer, String)
 			
 			assert_equal(String, r.replace?( Integer))
-			puts "REPLACE? >#{ r.replace?(String)}<"
+			#puts "REPLACE? >#{ r.replace?(String)}<"
 			assert_equal(nil, r.replace?(String))
 
 		end
@@ -22,7 +22,8 @@ module ClassHerd
 			r = ClassRule.new "test_wrap?"
 			r.wrap {|obj| obj.to_s}
 			
-		assert r.dowrap(10).is_a?(String)
+		puts "DOWRAP(10): #{r.dowrap(10).is_a?(String)}"
+		assert r.dowrap(10).is_a?(String), "#{r.dowrap(10)}.is_a?(#{String}), was a: #{r.dowrap(10).class}"
 		assert_equal "10", r.dowrap(10)
 		assert_not_equal "10", 10
 		
@@ -37,11 +38,7 @@ module ClassHerd
 			r.test {|t| t.is_a? String}#first arg will be a class
 			r2 = ClassRule.new "test_Array_with_size"
 			r2.test {|t,b| t == Array && b.is_a?(Numeric)}
-			
-
-
-
-assert r.test?("hello")
+			assert r.test?("hello")
 			assert r2.test?(Array, 10)			
 		end
 

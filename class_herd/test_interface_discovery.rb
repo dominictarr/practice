@@ -18,8 +18,7 @@ def test_simple
 	assert idw.instances(sklass).include?(s),
 		"InterfaceDiscoverWrapper#instances should return list of instances"
 
-	assert_equal [:initialize,:capitalize!], idw.interface(sklass)
- 
+	assert_equal [:initialize,:capitalize!], idw.interface(sklass) 
 end
 
 def test_more_methods
@@ -33,6 +32,49 @@ def test_more_methods
 	a.reverse
 	w.reverse
   	assert_equal a,w
+end
+
+class CodeBlockUser
+	def call_block (&block)
+		return block.call
+	end 
+
+	def save_block (&block)
+		@block = block
+	end
+	def call_saved_block (*args, &block)
+		@block.call(*args, &block)
+	end
+end
+
+def test_block_method 
+
+	idw = InterfaceDiscoveryWrapper.new
+	cbu_klass = idw.wrap(CodeBlockUser)#returns a class, which, 
+	cbu = cbu_klass.new
+	assert_equal "block!", CodeBlockUser.new.call_block {"block!"}, 
+		"pass a block block normally"
+	assert_equal "block!", cbu.call_block {"block!"}, 
+		"pass a block to a wrapped class"
+
+	cbu.save_block {|k,v| k*v}
+	assert_equal 36, cbu.call_saved_block(9,4)
+end
+
+def assert_is_a? (o,c)
+	assert o.is_a?(c), "expected #{o}.is_a?(#{c}). o.class=#{o.class}"
+end
+
+def test_is_a?
+        idw = InterfaceDiscoveryWrapper.new
+        cbu_klass = idw.wrap(CodeBlockUser)#returns a class, which, 
+        cbu = cbu_klass.new
+	assert_is_a? cbu,CodeBlockUser  
+	assert CodeBlockUser === cbu, "CodeBlockUser === #{cbu}"
+	assert_is_a? cbu,cbu_klass
+       assert cbu_klass === cbu, "#{cbu_klass} === #{cbu}"
+ 
+	assert_is_a? CodeBlockUser.new, cbu_klass 
 end
 
 end;end

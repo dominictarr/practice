@@ -18,22 +18,35 @@ class Class
 	def == obj
 		equal? obj
 		end
-		
-#	def === obj
-#		obj1 = obj.duped || obj
-#		obj2 = duped || self
-#			
-#		return obj1 === obj2
-#	end
+	alias_method :"tripple_equals",:"===" 	
+	def === obj
+		if(obj.class.duped && duped) then
+			tripple_equals(obj)
+		elsif(obj.class.duped && !(duped)) then
+			return obj.is_a? self
+                elsif(!(obj.class.duped) && duped) then
+                        return duped.tripple_equals(obj)
+		else
+			return tripple_equals(obj) 		
+		end
+		#obj1 = obj.class.duped || obj
+		#klass = duped || self
+		#puts "#{klass}===#{obj1}"	
+		#return klass.tripple_equals obj1
+	end
 		def nest_inspect (array,*joiner)
 		#	puts "nest_inspect: #{array.inspect} ... #{joiner.inspect} [#{joiner.first}]"
-			(array.collect {|it| 
+		if !(array.is_a? Array) then
+			return array.inspect
+		else
+			(array.collect {|it|
 				if it.is_a? Array then
 					nest_inspect(it, *joiner.dup.delete_at(1))
 				else
 					it
 				end
 				}).join(joiner.first)
+		end
 		end
 		alias_method :to_s_old, :to_s
 		def to_s
@@ -48,6 +61,6 @@ end
 	class Object 
 #		alias_method :was_a?, :is_a?
 		def is_a? klass
-			(self.class.duped || self.class) <= klass
+			(self.class.duped || self.class) <= (klass.duped || klass)
 		end
 	end
