@@ -2,17 +2,18 @@ require 'test/unit'
 require 'test/unit/testresult'
 require 'class_herd/class_references4'
 require 'class_herd/class_conductor3'
-require 'class_herd/v_c_r2'
+#require 'class_herd/v_c_r2'
 require 'class_herd/test_data'
 require 'class_herd/class_finder'
 require 'class_herd/interface'
 require 'class_herd/interface_discovery_wrapper'
+require 'monkeypatch/array'
 module ClassHerd
 class TestInterface
 	include ClassHerd::ClassConductor3
 	include Test::Unit
 	
-	attr_accessor :test, :symbols, :methods,:default_class, :result,:data
+	attr_accessor :test, :symbols, :int_methods,:default_class, :result,:data, :wrappers
 
 	def initialize (test)
 		@test = test
@@ -34,11 +35,11 @@ class TestInterface
 		cr.parse(@test)
 		@symbols = cr.reffs	
 		@default_class = Hash.new
-		@methods = Hash.new
+		@int_methods = Hash.new
 		to_run = _on(@test) #rewired test class
-		wrappers = Hash.new
+		@wrappers = Hash.new
 		finder = ClassFinder.new
-		idw = InterfaceDiscoveryWrapper.new	
+		@idw = InterfaceDiscoveryWrapper.new	
 	@symbols.each {|sym|
 			@default_class[sym] = finder.from_symbol(test,sym.to_s)
 		
@@ -48,7 +49,7 @@ class TestInterface
 	
 			#wrap each reference which you have a copy of
 			#wrappers[sym] = _on(VCR2)._replace(:Object, default_class[sym])
-			wrappers[sym] = idw.wrap(default_class[sym])
+			wrappers[sym] = @idw.wrap(default_class[sym])
 			to_run._replace(sym, wrappers[sym])
 
 			if(default_class[sym].nil?) then
@@ -61,27 +62,38 @@ class TestInterface
 		@result = data.result
 		
 		@symbols.each {|sym|
-			puts "#{sym}=>#{idw.interface(sym)}, #{idw.interface(default_class[sym])}, #{idw.interface(wrappers[sym]).inspect}"
-			methods[sym] = []
+			puts "#{sym}=>#{@idw.interface(sym)}, #{@idw.interface(default_class[sym])}, #{@idw.interface(wrappers[sym]).inspect}"
+			int_methods[sym] = []
 			#ObjectSpace.each_object(wrappers[sym])
-				if idw.interface(sym) then
-				methods[sym] = methods[sym] +  idw.interface(wrappers[sym]).collect{|it| 
+				if @idw.interface(sym) then
+				int_methods[sym] = int_methods[sym] +  @idw.interface(wrappers[sym]).collect{|it| 
 					it.to_s}
 				end
 				#}
-				methods[sym].uniq!
-		 puts "INTERFACE: #{sym}=>#{methods[sym].inspect}"
+				int_methods[sym].uniq!
+		 puts "INTERFACE: #{sym}=>#{int_methods[sym].inspect}"
 				}
 			end
+
 	def has_interface? (sym, klass)
-		 !(methods[sym].find {|f| !(klass.instance_methods.include? f)})
+		#puts "CLASS #{klass}.has_interface? #{sym}"
+		#puts "methods: #{@idw.interface(@wrappers[sym]).inspect}"
+		
+		unless @wrappers[sym] then
+			raise "TestInterface doesn't know #{sym}. can't say if #{klass} has it's interface"
+		end
+		@idw.is_compatible?(klass,@wrappers[sym])
+#		puts klass.methods.sub_set?(int_methods[sym])
+#		puts ">>MISSING METHODS>>#{(int_methods[sym] - klass.methods).inspect }"
+#		klass.methods.sub_set?(int_methods[sym])
+		#!(int_methods[sym].find {|f| !(klass.methods.include? f)})
 	end
 	def wrappable? 
 		result.passed?
 	end
 	def interfaces
 		@symbols.collect{|s|
-			Interface.new(@test,s,@methods[s])
+			Interface.new(@test,s,@int_methods[s])
 		}
 	end
 

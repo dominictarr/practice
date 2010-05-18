@@ -72,7 +72,11 @@ def test_factors
 	rewire.run_tests
 
 	assert_equal 2, rewire.test_data.length
-
+	#the problem here is, currently, Factors and FastFactors do not appear to have
+	#the same interface. this is because fastFactors is written much better.
+	#and does not call some of the internal methods which factors does. 
+	#InterfaceDiscoveryWrapper isn't aware of this yet... and thus TestRewire refuses
+	#to plug in FastFactors... so it runs only one test!
 	td = rewire.test_data.dup
 	data = td.shift
 
@@ -90,6 +94,14 @@ end
 
 #this is another test which could use multiple classes
 
+def test_with_interface
+	test_klass = TestClassSub
+	interface = TestInterface.new(test_klass)
+	rewire = TestRewire2.new([TestClassSub],[ClassSub])       
+
+	assert_equal [], rewire.with_interface(interface,:Bonjour1,[ClassSub])
+end
+
  def test_with_class_sub
 	rewire = TestRewire2.new([TestClassSub],[ClassSub])
 	rewire.run_tests
@@ -98,7 +110,7 @@ end
 	assert data
 	assert TestClassRule, data.test
 	assert [ClassSub,ClassSub], data.replacement
-	assert data.result.passed?
+	assert data.result.passed?, "expected data.result.passed? RESULT:/n#{data.message}"
 end
 class Bonjour
 	def greet

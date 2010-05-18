@@ -18,7 +18,7 @@ def test_simple
 	assert idw.instances(sklass).include?(s),
 		"InterfaceDiscoverWrapper#instances should return list of instances"
 
-	assert_equal [:initialize,:capitalize!], idw.interface(sklass) 
+	assert_equal [:capitalize!], idw.interface(sklass) 
 end
 
 def test_more_methods
@@ -47,8 +47,12 @@ class CodeBlockUser
 	end
 end
 
-def test_block_method 
+def assert_compatible? (idw,k1,k2,bool)
 
+assert (idw.is_compatible?(k1,k2) == bool), "expected #{k1} to #{bool ? '' : 'not'} be compatible with #{k2}"
+end
+
+def test_block_method
 	idw = InterfaceDiscoveryWrapper.new
 	cbu_klass = idw.wrap(CodeBlockUser)#returns a class, which, 
 	cbu = cbu_klass.new
@@ -57,7 +61,25 @@ def test_block_method
 	assert_equal "block!", cbu.call_block {"block!"}, 
 		"pass a block to a wrapped class"
 
-	cbu.save_block {|k,v| k*v}
+	assert cbu_klass.instance_methods.include?("call_block"),"expect CodeBlockUser to have method 'call_block'"
+
+	assert_compatible?(idw,cbu_klass,cbu_klass,true)
+ 	assert_compatible?(idw,CodeBlockUser,cbu_klass,true)
+        assert_compatible?(idw,String,cbu_klass,false)
+
+	begin
+        assert_compatible?(idw,CodeBlockUser,Integer,false)
+  	assert false,"expected is_compatible? to throw an exception if you ask about a klass it doesn't wrap."
+	rescue; end
+	begin
+      		assert_compatible?(idw,cbu_klass,CodeBlockUser,false)
+        	assert false,"expected is_compatible? to throw an exception if you ask about a klass it d
+oesn't wrap."
+        rescue; end
+  
+
+	#cbssert_compatible?(idw,CodeBlockUser,cbu_klass,true)
+        cbu.save_block {|k,v| k*v}
 	assert_equal 36, cbu.call_saved_block(9,4)
 end
 
@@ -72,7 +94,7 @@ def test_is_a?
 	assert_is_a? cbu,CodeBlockUser  
 	assert CodeBlockUser === cbu, "CodeBlockUser === #{cbu}"
 	assert_is_a? cbu,cbu_klass
-       assert cbu_klass === cbu, "#{cbu_klass} === #{cbu}"
+        assert cbu_klass === cbu, "#{cbu_klass} === #{cbu}"
  
 	assert_is_a? CodeBlockUser.new, cbu_klass 
 end

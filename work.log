@@ -1378,6 +1378,7 @@ ultimately, it should be able to wrap itself, and discover it's own interface!.
 #yup, that works for is_a?
 
 #another way might to hook .class so it returns the duped class.
+
 ~~~~
 running into problems from not having running all tests regularly.
 monkey_patch/autorunner is interferring with this.
@@ -1388,4 +1389,28 @@ TO RUN ALL TESTS
 ~/code/practice>ruby test_all.rb
 ~~~~
 
-now back to IDW problem.
+now back to IDW problem...
+the test_interface_discovery is now passing.
+but i've broken test_test_rewire. and test_test_interface has 2 fails.
+hopefully i'll just need to fix tti.
+
+ah, well I think the problem is the interface matching. 
+I had underestimated that problem. I need to take into account different types of methods,
+class methods, instance methods, private methods, methods which are only called internally.
+also, it would be better to handle lists of methods as strings, because that is what 
+Object.methods returns.
+
+%%%%%%%%%
+NAMING:
+it's a bad idea to name something which isn't a unit test test_something,
+and it's test test_test_something
+if it tests something, but in a different way to a unit test, call them
+something_tester, and test_something_tester...
+
+%%%%%%%%
+       #the problem here is, currently, Factors and FastFactors do not appear to have
+       #the same interface. this is because fastFactors is written much better.
+       #and does not call some of the internal methods which factors does. 
+       #InterfaceDiscoveryWrapper isn't aware of this yet... and thus TestRewire refuses
+       #to plug in FastFactors... so it runs only one test!
+
