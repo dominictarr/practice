@@ -8,8 +8,10 @@ class RbParser < SexpProcessor
 		@file = file
 		@classes = []
 		@namespace = []
+	
 		#File.open(file).read
 		super()
+	        unsupported= [] 
 	end
 	def parse
 		process(Parser.parse_file(@file))

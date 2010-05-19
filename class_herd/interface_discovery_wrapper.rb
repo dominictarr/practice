@@ -22,28 +22,77 @@ class InterfaceDiscoveryWrapper
 	@idw = self
 	end
 
-	def wrap_method (klass,method)
-	idw = self
-	klass.send(:alias_method, :"idw_#{method}", method)
-	klass.send(:define_method, method){|*args,&block|
+	def wrap_method (klass,meth)
+	#method_method = klass.instance_method(:idw_special_method)
+	#check if meth is a special method
+	if meth.to_s =~ /^idw_special_.*$/ then 
+	#	puts "DIDN'T WRAP SPECIAL"
+	return; 
+	#else	
+	#puts "wrapped :#{ meth}"
+	end
+	klass.send(:alias_method, :"idw_#{meth}", meth)
+	klass.send(:define_method, meth){|*args,&block|
 
-                	m = idw_method("idw_#{method}".to_sym)
-                     	r = m.call(*args,&block)
-			unless idw.interface(klass).include? method then
-				idw.interface(klass) << method
-			end
+			#puts "WANTS TO CALL METHOD:#{meth} #{args[0]},#{args[1]}"
+			#if(args[0] == "method") then
+         		#      puts "WANTS TO CALL METHOD ON METHOD"
+         		#end
+			#end
+			#puts "call idw_special_method(#{args[0]})"
+			
+			#r = idw_special_method(:"#{args[0]}")
+			#elsif (meth.to_s == 'idw_special_method')
+  			#puts "WANTS TO CALL METHOD:#{meth} #{args[0]},#{args[1]}"
+                      
+			#else
+	             #          m = idw_method("idw_#{meth}".to_sym)
+         			m = method("idw_#{meth}".to_sym)
+                     		r = m.call(*args,&block)
+			#end
+			idw_special_add_method(meth)
+		#	unless idw.interface(klass).include? meth then
+		#		idw.interface(klass) << meth
+		#	end
                		r
 		 }
 	end
 
 	def wrap (klass)
-      #  k = Class.new(klass)
-	k = klass.dup
+	if (klass.method_defined? :idw_special_wrappers) then
+		k = klass
+		k.send(:class_variable_get,:@@idw_wrappers) << self
+		   if !(k.send(:class_variable_get,:@@idw_wrappers).include? self) then
+                	raise "instance variable didwnt work"
+		puts k.send(:class_variable_get,:@@idw_wrappers).inspect
+	        end
+#raise "trying to double wrap #{klass}"
+		return k
+	end
 
+	k = klass.dup
+	idw = [self]
+	k.send(:class_variable_set,:@@idw_wrappers,[self])
+       	if([self] != k.send(:class_variable_get,:@@idw_wrappers)) then
+		raise "instance variable didwnt work"
+	end
+
+	k.send(:define_method, :idw_special_wrappers){idw}
+	k.send(:define_method, :idw_special_add_method){|meth|
+	#	puts "IDW_WRAPPERS: #{k.send(:class_variable_get, :@@idw_wrappers).length}"
+		k.send(:class_variable_get, :@@idw_wrappers).each{|idw|
+		
+		   unless idw.interface(k).include? meth then
+                          idw.interface(k) << meth
+                   end
+		}
+	}
+
+        k.send(:alias_method, :idw_special_method, :method)
         k.send(:instance_variable_set, :@duped,klass)
-	wrap_method(k,:method)
+	#wrap_method(k,:method)
 	m = k.instance_methods - #+ k.private_methods - 
-		["idw_method","method"]
+		["idw_method","method","class"]
 	#(k.instance_methods - ["idw_method","method"])
 	m.each{|method|
 		wrap_method(k,method.to_sym)
@@ -65,11 +114,11 @@ class InterfaceDiscoveryWrapper
 	puts "is_compatible?(#{k1},#{k2})" 	
 	i = interface(k2).collect {|m| m.to_s}
 	
-	puts "k2:" + i.inspect
-        puts "k1:" + (k1.instance_methods & i).inspect
-	puts "k1.instance_methods" + k1.instance_methods.inspect 
+	#puts "k2:" + i.inspect
+        #puts "k1:" + (k1.instance_methods & i).inspect
+	#puts "k1.instance_methods" + k1.instance_methods.inspect 
 	
-	puts k1.instance_methods.sub_set?(i)
+	#puts k1.instance_methods.sub_set?(i)
 		k1.instance_methods.sub_set?(i)
 	end
 end;end

@@ -17,6 +17,7 @@ class ClassReferences4 < SexpProcessor
 		@reffs = []
 		@finder = ClassFinder.new
 		super
+		unsupported=[]
 	end
 	def parse(klass)
 		@target = klass
@@ -40,6 +41,9 @@ class ClassReferences4 < SexpProcessor
 		return n
 	end
 	def process_class (exp)
+		#puts "UNSUPPORTED=#{unsupported.inspect}"
+	        #@unsupported =[]
+  	
 		class_sym = exp.shift
 		if class_sym != :class then
 			raise "ClassReferences4 expected :class but found #{class_sym}"

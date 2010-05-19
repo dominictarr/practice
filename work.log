@@ -1413,4 +1413,31 @@ something_tester, and test_something_tester...
        #and does not call some of the internal methods which factors does. 
        #InterfaceDiscoveryWrapper isn't aware of this yet... and thus TestRewire refuses
        #to plug in FastFactors... so it runs only one test!
+what is the next step?
+I need interface testing fully working, so that plug in tests can run.
+it seems interfaces is it.
+is there anything else I should consider for Interfaces?
 
+# what about wrapping something which is already wrapped?
+  i.e. when you run interface discovery, on the interface discovery test?
+# constants which arn't classes.
+# modules.
+# getting the interface functions, rather than the internal implementation functions.
+# check arity.
+# interface_testing depends on parsing. currently sexp_process fails if it sees a cfunc.
+	-which it encounters when testing test_test_interface.
+# test_v_c_r gives this: TypeError: wrong instance allocation
+    /home/ubuntu/code/practice/class_herd/test_v_c_r.rb:83:in `new'
+#still some lagging comparison problems. -- methods i don't usually use.
+	- try testing class_conductor.
+~~~~~ THATS ABOUT IT!
+
+okay... first, fix sexp_processor?
+ah, turns out Sexp_Processor has a setting. problem is in Unified ruby. tried setting setting. 
+whole can of worms. took out unified ruby. tests all pass the same.
+
+the cfunc problem in tti has turned into cannot find class 'AssertionFailedError'
+might be helpful if class finder told me. this cfunc problem goes all the way down...
+maybe better to ignore anything under cfunc?
+
+look into this tomorrow.

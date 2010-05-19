@@ -2,12 +2,12 @@ require 'test/unit'
 require 'test/unit/testresult'
 require 'class_herd/class_references4'
 require 'class_herd/class_conductor3'
-#require 'class_herd/v_c_r2'
 require 'class_herd/test_data'
 require 'class_herd/class_finder'
 require 'class_herd/interface'
 require 'class_herd/interface_discovery_wrapper'
 require 'monkeypatch/array'
+
 module ClassHerd
 class TestInterface
 	include ClassHerd::ClassConductor3
@@ -41,9 +41,18 @@ class TestInterface
 		finder = ClassFinder.new
 		@idw = InterfaceDiscoveryWrapper.new	
 	@symbols.each {|sym|
-			@default_class[sym] = finder.from_symbol(test,sym.to_s)
-		
-			#target_klass = @subjects.find {|sub| sub.name.to_sym == target_sym}
+		begin	
+		@default_class[sym] = finder.from_symbol(test,sym.to_s)
+		rescue
+		puts "#{ClassFinder} could not find class for '#{sym}'" 
+		puts "ignoring #{sym}"
+		@symbols.delete sym
+		puts "remaining: #{@symbols.inspect}"
+                
+		end
+	}	
+	@symbols.each {|sym|
+        		#target_klass = @subjects.find {|sub| sub.name.to_sym == target_sym}
 	
 			 puts "targets <sym=#{sym.inspect},class=#{default_class[sym]}>"
 	

@@ -99,4 +99,95 @@ def test_is_a?
 	assert_is_a? CodeBlockUser.new, cbu_klass 
 end
 
+def wrap_string(idw)
+        a_klass = idw.wrap(String)
+	a = a_klass.new("hello")
+	a.upcase!
+	assert_equal "HELLO",a
+	#puts a_klass
+	a_klass
+end
+ 
+def wrap_array(idw)
+        a_klass = idw.wrap(Array)
+        a = a_klass.new([:a,:b,:c,:d])
+        assert_equal [:a,:b,:c,:d],a
+        d = a.dup
+        a.delete :b 
+        a.delete :d
+        d.delete :a
+        d.delete :b
+        assert_equal [:a,:c],a
+        assert_equal [:c,:d],d
+        d = d.reverse
+	return a_klass
+end
+
+def assert_equal_idw(idw1,idw2,sym)
+	m = method(sym)
+	k1 = m.call(idw1)
+	k2 = m.call(idw2)
+	assert_equal idw1.interface(k1),idw2.interface(k2)
+end
+
+def test_self_reference
+      	boots = InterfaceDiscoveryWrapper.new
+	idw_klass = boots.wrap(InterfaceDiscoveryWrapper)
+	idw = idw_klass.new
+
+        assert_equal_idw(boots,idw,:wrap_string)
+	puts boots.interface(idw_klass)
+end
+
+def test_double_wrapping
+
+     	idw = InterfaceDiscoveryWrapper.new
+        idw2 = InterfaceDiscoveryWrapper.new
+ 	s_klass = idw.wrap(String)
+	ss_klass = idw2.wrap(s_klass)
+
+	ss = ss_klass.new("hello")
+	#puts ss_klass.instance_methods.inspect
+	ss.capitalize
+
+	assert_equal [:capitalize], idw.interface(s_klass)
+	assert_equal [:capitalize], idw2.interface(ss_klass)
+
+	#how, precisely should it behave in this situation?
+	#does it matter if idw2 knows about stuff which happens to an ss_klass?
+	#would need to implement stuff to handle the particular class instance which
+	#IDW is wrapping... maybe it would be simpler to map from the original class instance?
+
+end
+
+class Hello; end
+def test_double_alias
+h = Hello.new
+Hello.send(:define_method, :hi){"hello"}
+Hello.send(:alias_method, :hi_original, :hi)
+Hello.send(:alias_method, :hi_old, :hi)
+assert_equal "hello", h.hi
+assert_equal "hello", h.hi_old
+Hello.send(:define_method, :hi){"hello_there"}
+assert_equal "hello_there", h.hi
+assert_equal "hello", h.hi_old
+Hello.send(:alias_method, :hi_old2, :hi)
+Hello.send(:define_method, :hi){"good_day"}
+assert_equal "good_day", h.hi
+assert_equal "hello_there", h.hi_old2
+assert_equal "hello", h.hi_old
+assert_equal "hello", h.hi_original
+
+#that seems to work. what if you alias the method but dont define anything.
+end
+def test_double_alias2
+h = Hello.new
+Hello.send(:alias_method, :method_1, :method)
+Hello.send(:define_method, :method){"hello"}
+
+assert_equal "hello",h.method
+assert_equal "hello",h.method_1(:method).call
+
+end
+
 end;end
