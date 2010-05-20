@@ -31,12 +31,12 @@ def test_copy_simple
 	cr = ClassReferences4.new
         cr2 = ClassReferences4.new
 	c = cc.copy(klass)
-	real = cr.parse(c)
-	fake = cr2.parse(klass)
+	real = cr.parse(klass)
+	fake = cr2.parse(c)
 	assert_equal cr.reffs,cr2.reffs
 
-	puts "REAL: #{real}"
-	puts "FAKE: #{fake}"
+	#puts "REAL: #{real}"
+	#puts "FAKE: #{fake}"
 
 	cr.reffs.each{|sym|
 		assert_equal cr.default_class(sym),cr2.default_class(sym), "default classes should be the same, copied or not"
@@ -76,6 +76,32 @@ def test_copy_comparison
 	assert_copy_equal(Module,cc.copy(Module))
 end
 
+def multi_copy(klass, cc, n)
+	if (n > 0) then
+		return multi_copy(cc.copy(klass),cc,n - 1)
+	else
+		return klass
+	end
+end
+
+def test_multi_copy
+      	cc = ClassCopier.new
+	n = 2
+	s = multi_copy(String,cc,n)
+        assert_copy_equal(String,s)
+        assert_copy_equal("hello",s.new("hello"))
+
+	a = multi_copy(Array,cc,n)
+        assert_copy_equal(Array,a)
+        assert_copy_equal([:a,:b,:c],a.new([:a,:b,:c]))
+
+	c = multi_copy(Class,cc,n)
+        assert_copy_equal(Class,c)
+	
+	m = multi_copy(Module,cc,n)
+        assert_copy_equal(Module,m)
+end
+
 def assert_subclass(super_class,sub_class)
 
 	assert_comp(super_class,sub_class, :>,true,false)
@@ -93,7 +119,7 @@ def test_inheritence
 
 	assert_subclass(c1,c2a)
 	assert_subclass(c1,c2b)
-       assert_subclass(c1,c3)
+       	assert_subclass(c1,c3)
 	assert_subclass(c2b,c3)
 	#should i also add copied classes to ancestors? 
 end

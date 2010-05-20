@@ -1,5 +1,6 @@
 require 'monkeypatch/class2'
 require 'monkeypatch/array'
+require 'class_herd/class_copier'
 
 module ClassHerd
 class InterfaceDiscoveryWrapper
@@ -19,6 +20,7 @@ class InterfaceDiscoveryWrapper
 	def initialize
 	@interface = Hash.new
 	@instances = Hash.new
+	@copier = ClassCopier.new
 	@idw = self
 	end
 
@@ -70,7 +72,8 @@ class InterfaceDiscoveryWrapper
 		return k
 	end
 
-	k = klass.dup
+	#k = klass.dup
+	k = @copier.copy(klass)
 	idw = [self]
 	k.send(:class_variable_set,:@@idw_wrappers,[self])
        	if([self] != k.send(:class_variable_get,:@@idw_wrappers)) then
@@ -97,7 +100,6 @@ class InterfaceDiscoveryWrapper
 	m.each{|method|
 		wrap_method(k,method.to_sym)
 	}
-	#wrap_method(k,:initialize)
 	k
 	end
 

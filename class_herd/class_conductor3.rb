@@ -4,12 +4,14 @@
 #end
 
 require 'monkeypatch/class2'
+require 'class_herd/class_copier'
 
 module ClassHerd
 module ClassConductor3
 	def _on(x)
-		x2 = x.dup
-		x2.send(:instance_variable_set, :@duped,x)
+		x2 = ClassCopier.new.copy(x)
+		#x2 = x.dup
+		#x2.send(:instance_variable_set, :@duped,x)
 		x2.send(:instance_variable_set, :@replacements,[])
 		#x.send(:include,ClassHerd::ClassConductor3)
 		x2.send(:extend,ClassHerd::ClassConductor3)
@@ -23,10 +25,5 @@ module ClassConductor3
 		const_set(x, y)
 		self
 	end	
-	
-#	def create (*args,&block)
-#		new(*args,&block)
-#	end
-		
 end
 end

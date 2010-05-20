@@ -1599,4 +1599,24 @@ still fails for interface_tester. but thats probably because i_t doesn't use cla
 
 class_copier is probably going to be the first test which i will use for multiple classes.
 
+a real situation for rewiring, - not a toy example.
+
 everything for class copy should apply to interface wrapper also!
+
+~~~~~~~~~~~~~~~~~~~
+$ HANDLING SUPER CLASS METHODS AND VARIABLES
+
+how does access to settings defined in a super class work?
+~~~~~~~~~~~~~~~~~~~
+
+options on copier to say where to put the created classes, and to remove them when you've 
+finished with them. i.e. interface discovery wrappers don't need to still exist after the 
+test has finished. or maybe they could be kept somewhere sensible?
+
+REFACTOR ClassConductor and InterfaceDiscoveryWrapper
+
+class copy doesn't pass the interface test - problem caused by X not equal X'' 
+(X'' is X wrapped twice)
+
+hmm. more robust way to check for equality or classes?
+what about, if your coping a copied class, set @duped to original.@duped
