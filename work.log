@@ -1441,3 +1441,162 @@ might be helpful if class finder told me. this cfunc problem goes all the way do
 maybe better to ignore anything under cfunc?
 
 look into this tomorrow.
+
+$$$$
+made a test to see if IDW could wrap itself.
+it could. i was expecting it to fail. it looks like .methods does not return aliased methods.
+interface testing test_test_interface still fails in a infinite loop / stack overflow.
+	- maybe this is double wrapping. YUSS. error reproduced!
+	
+method is aliased, and then the alias is aliased.
+but if a old new method calls another aliased method, 
+the old new method now refurs to the new new method.
+
+what if I create a special alias for those methods, and then check that it's there and do not alias it.
+
+what if you alias x2, x
+redefine x',
+and then alias x3, x
+and redefine x''.
+what method does x2 call?
+x, or x''?
+it could still call x.
+
+hmm. I hook 'method' but when i call the hook it calls method, and if I redefine 'method' it calls the redefined method.
+
+added tests to check for double wrapping and self-reference to test_interface_discovery, 
+it's passing but that doesn't mean i can run interface_tester on it. 
+the error goes all the way down. 
+
+all the way down the infinite stack of giant turtles which hold up the flat earth.
+
+VERY interesting error for class references:
+
+t_innerclasses() [/home/ubuntu/code/practice/class_herd/test_class_references.rb:41]:
+<:OuterClass> expected but was
+<:"UnnamedClass_-610610048">.
+
+ClassReferences4 has parsed a class, and found a reference to something that has been duped...
+will class finder be able to find one of these?
+do i need to name them and put them somewhere?
+ClassReferences4 is a dependency for TestInterface. so this error will be causing problems there also.
+
+HOW TO MAKE A ANON CLASS INTO A REAL CLASS:
+assign it to a constant.
+
+class Mini; end
+Mini.name
+=> "Mini"
+m = Class.new(Mini)
+=> #<Class:0xb76f2bd0>
+m.name
+=> ""
+ Mini_1 = m
+=> Mini_1
+irb(main):072:0> m
+=> Mini_1
+irb(main):073:0> m.name
+
+I know this will be important. but I don't know what I will do with this information yet.
+	? Modify the class making code so that ClassFinder can find it?
+	then I could get test_class_finder flexible enough to pass wrapped?
+	
+	then TestTestInterface might work wrapped.
+
+	I only just learned you could do this and what to do with it.
+
+	my head is spinning.
+
+	prehaps the thing to do is testing class finder. I don't really know what
+	class finder needs to do yet. 
+	what about :
+		1.take any class.
+		2.modularise it=> find all references, rewire them.
+		3.reparse it, and remap everything again.
+		4.be able to do the above, but also do it for all sub-parts recursively.
+
+	I can stick the duplicated classes in a module. 
+	but I dont know how to decide where to put them yet.
+
+	hey! this is related to the problem of how to manage the source files on the server.
+
+	okay, make a ClassCopier which controls the duping of classes.
+	then add it into IDW, and ClassConductor3.
+	hmm. have	
+
+~~~~~~~~~~~~~~~~~~~~~
+NEW CONCEPT NAMED: "Flexible Ontology" 
+
+contrast to "Rigid Ontology"
+............
+a rigid ontology is defined according to a hierachical structure.
+i.e. a duck is a aquatic bird with a round bill
+
+(animal (bird (freshwater (rounded bill))))
+
+vs.
+
+if it walks like a duck (waddles)
+and
+if it talks like a duck (quaks)
+
+it = a duck.
+
+i.e. in a flexible ontology, classification of objects is 
+according to wether they pass tests.
+
+another example:
+what is a public utility?
+if X is NOT a public utility then the phrase
+"millions of children in africa have no access to X" sounds like a joke.
+
+public utilities:
+running water
+health care
+schooling
+a library
+
+not public utilities:
+facebook
+youtube
+fake vomit
+cheap beer
+
+wikipedia?... that isn't clear really. 
+wikipedia isn't quite as reliable as a library yet.
+..............
+
+a difficult problem in the classification of objects is dealing with things
+like fictional characters.
+how much does santa clause weigh?
+acceptable answers: about 300 pounds. 0 (he does not exist)
+
+is a doll's house a building?
+or a model building?
+
+certain tests can be ignored in certain contexts.
+
+on a page of a children's book, a picture of an apple is 'an apple'
+if you are hungry, it is only 'a picture of an apple'
+............
+this feels simple enough to implement.
+
+build a robot you can read a children's story to...
+............
+ask it a question, like "how many people has arnold swartezenigger killed?", or "how old is bart simpson" and it can
+answer in a sensible way.
+
+might even be able to give it a sense of humour.
+~~~~~~~~~~~~~~~~~~~~~
+
+
+20th may, 3:27
+wrote class_copier
+test that copies and has the same behaviour, and that comparison functions behave properly
+test passes.
+
+still fails for interface_tester. but thats probably because i_t doesn't use class_copier.
+
+class_copier is probably going to be the first test which i will use for multiple classes.
+
+everything for class copy should apply to interface wrapper also!

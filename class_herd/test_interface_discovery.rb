@@ -138,8 +138,19 @@ def test_self_reference
         assert_equal_idw(boots,idw,:wrap_string)
 	puts boots.interface(idw_klass)
 end
+def test_self_reference_double
+        boots = InterfaceDiscoveryWrapper.new
+        idw_klass = boots.wrap(InterfaceDiscoveryWrapper)
+	idw2_klass = boots.wrap(idw_klass)
+        idw = idw2_klass.new
 
-def test_double_wrapping
+        assert_equal_idw(boots,idw,:wrap_string)
+        puts boots.interface(idw_klass)
+
+
+end
+
+def test_double_wrap
 
      	idw = InterfaceDiscoveryWrapper.new
         idw2 = InterfaceDiscoveryWrapper.new

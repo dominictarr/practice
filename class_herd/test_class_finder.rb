@@ -1,5 +1,3 @@
-
-
 require 'test/unit'
 require 'class_herd/class_finder'
 require 'class_herd/examples/outer_class'
@@ -38,4 +36,6 @@ def test_different_module
 	assert_find(self.class,Examples::OuterClass2::InnerClass2,
 			:"Examples::OuterClass2::InnerClass2")
 end
+
+
 end;end

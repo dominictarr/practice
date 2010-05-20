@@ -7,18 +7,49 @@ class Class
 	attr_accessor :duped, :replacements
 	@duped = nil
 
-	alias_method :was_equal?, :equal?
-	def equal? obj
-		if !(obj.is_a? Class) then return false; end
+	#alias_method :was_equal?, :equal?
+	def eql? obj
+	#	if !(obj.is_a? Class) then return false; end
 			obj2 = obj.duped || obj 
 			obj1 = duped || self 
-		return obj1.was_equal? obj2
+		return obj1.equal? obj2
 	end
 	
 	def == obj
-		equal? obj
+		eql? obj
+	end
+
+	alias_method :left_angle_bracket, :<
+	def < (obj)
+		if self == obj then return false; end
+		#puts "#{self} < #{obj}"
+
+		obj1 = duped ? duped : self
+	   	obj2 = obj.duped ? obj.duped : obj
+		if obj1.superclass.nil? then return false; end
+
+		if(obj1.superclass == obj2) then
+			return true
+		elsif obj2 == Object then
+			return false
+		else
+			return obj1.superclass < obj2
 		end
-	alias_method :"tripple_equals",:"===" 	
+	end
+
+	def > obj
+		obj < self
+	end
+
+	def <= (obj)
+		self < obj || eql?(obj)
+	end
+
+        def >= (obj)
+                obj <= self
+        end
+
+	alias_method :tripple_equals, :===	
 	def === obj
 		if(obj.class.duped && duped) then
 			tripple_equals(obj)
