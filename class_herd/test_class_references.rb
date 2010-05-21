@@ -8,6 +8,7 @@ require 'class_herd/class_conductor3'
 require 'class_herd/class_copier'
 
 require 'class_herd/examples/empty_class'
+require 'class_herd/examples/some_constants'
 
 require 'class_herd/class_finder'
 require 'class_herd/interface'
@@ -146,6 +147,12 @@ ref = ClassReferences4.new
 	puts "ClassREfernece4.ref_classes:" + ref.ref_classes.inspect
 end
 
+def test_non_class_const
+	#class references should only return classes.
+	assert_references(SomeConstants,Object,String)
+	
+end
+
 def assert_wrapped_references(straight, wrapped)
 ref1 = ClassReferences4.new
 ref2 = ClassReferences4.new
@@ -163,9 +170,9 @@ end
 include ClassHerd::ClassConductor3
 def test_self_reference_wrapped #why did I forget to test self reference for this long?
 
-	puts "-------------------"
-	puts "-TEST SELF REFERENCE - Wrapped"
-	puts "-------------------"
+	#~ puts "-------------------"
+	#~ puts "-TEST SELF REFERENCE - Wrapped"
+	#~ puts "-------------------"
 
 idw = InterfaceDiscoveryWrapper.new
 cc = ClassCopier.new
@@ -191,39 +198,7 @@ cr_k = idw.wrap(klass)
 assert_wrapped_references(klass,cr_k)
 }
 
-#~ ref2 = cr_k.new
-#~ ref3 = ClassReferences4.new
-
-	#~ ref1.parse(cr_k)
-	#~ ref2.parse(cr_k)
-	#~ ref3.parse(ClassReferences4)
-	
-	#~ assert_equal ns(cr_k), ref1.name
-	#~ assert_equal ns(cr_k), ref2.name
-	#~ assert_equal SexpProcessor, ref1.super_class
-	#~ assert_equal SexpProcessor, ref2.super_class
-
-	#~ assert_set_eql ref3.reffs,ref1.reffs
-	#~ assert_set_eql ref3.reffs,ref2.reffs
-
-#	puts "#{cr_k}.reffs:" + ref.reffs.inspect
-#	puts "#{cr_k}.ref_classes:" + ref.ref_classes.inspect
 end
-
-
-#def test_rewire
-#	puts "\n"
-#	puts "#############"
-#	puts "#test_rewire#"
-#	puts "#############"
-#	idw = InterfaceDiscoveryWrapper.new
-#	p = idw.wrap(Primes)
-#	tp = _on(TestPrimes)._replace(:Primes,p)
-#	assert_references(tp,Test::Unit::TestCase,p)
-#	cr = ClassReferences4.new
-#	cr.parse(tp)
-#	puts "#{cr.reffs.inspect}"
-#end
 
 end;end
 

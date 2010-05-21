@@ -1566,7 +1566,7 @@ wikipedia?... that isn't clear really.
 wikipedia isn't quite as reliable as a library yet.
 ..............
 
-a difficult problem in the classification of objects is dealing with things
+A difficult problem in the classification of objects is dealing with things
 like fictional characters.
 how much does santa clause weigh?
 acceptable answers: about 300 pounds. 0 (he does not exist)
@@ -1641,7 +1641,8 @@ soft-wiring it's working, but there is also the problem of class_references retu
 		the module if they dont need it.
 		2. when class_references is running in test_interface it returns different
 		references.
-
+		[3, i remember now that i've fixed it. class references returns all Constants 
+		even if they are not classes] 
 		1 = easy, 2 = hard.
 
 		2 also causes errors in test_file_explorer
@@ -1669,7 +1670,59 @@ ClassCopy works sweet.
 ClassConductor is not compatible with String.
 InterfaceDiscoveryWrapper adds elements even with EmptyClass.
 
-                        ##}Sneaky Idea{##
+                    ##}Sneaky Idea{##
 if a class is duped parse the original class (side step problem...)
+-----------------------------------------------------------------------
+where does this extra stuff come from? 
 
-where does this extra stuff come from?
+when you alias a method, it adds two copies of that 
+method into the class. then if you define a new method you have that as well! 
+that empty class becomes huge file because IDW hooks all of Object's methods. 
+no wonder it runs slowly.
+
+if the your wrapping a test: which happens when your testing a meta-tester. 
+then alias_method copies all the methods from TestCase... and pulls in thier references.
+
+also, for String ClassConductor3 failed because of added stuff...
+
+maybe there is quite alot of room for improvement here.
+
+maybe, redefine all the methods, and then only hook missing method?
+maybe don't wrap Object methods (every object will have them, 
+so it's not important to check if they are in the interface.)
+
+handle subclass methods differently,
+just defining a new method, and calling super.
+------------------------------------------------------------------------
+
+IMPLEMENTED SNEAKY SOLUTION.
+it works.
+fixed class reference returning non class references.
+
+ran interface_tester:
+
+1 fail 20 errors (out of 144 tests)
+
+the two biggest baddies:
+1.
+test_with_primes1(ClassHerd::TestTestRewiring):
+NameError: uncaught throw `invalid_test'
+
+(occurs in test_test_interface also)
+2.
+and stackover flow in test_interface_discovery
+
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:86:in `idw_special_add_method'
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:55:in `interface'
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:88:in `idw_special_add_method'
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:86:in `each'
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:86:in `idw_special_add_method'
+    /home/ubuntu/code/practice/class_herd/interface_discovery_wrapper.rb:55:in `wrap'
+    /home/ubuntu/code/practice/class_herd/test_interface_discovery.rb:10:in `test_simple'
+
+1. test_* methods now apparently have arity = 1. which makes them not tests. this must becaused by IDW. - made a test for this and reproduced this error.
+
+XXX
+having IDW map wrapped classes to interfaces is problematic for wrapping something twice...
+change it to map from original class.
+

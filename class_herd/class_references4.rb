@@ -19,7 +19,7 @@ class ClassReferences4 < SexpProcessor
 
 	def default_class(symb)
 		begin
-			@finder.from_symbol(@target,symb)
+			c = @finder.from_symbol(@target,symb)
 		rescue Exception => e
 			raise "#{self.class} couldn't find the class for symbol=> #{symb}\n#{e}"
 		end
@@ -42,6 +42,11 @@ class ClassReferences4 < SexpProcessor
 		#need a tree_dup method.
 		#puts "PARSE:" + @sexp.inspect[0,100]
 		process(sexp)
+
+	#clean up symbols.
+		@reffs = @reffs.select{|s|
+			Class === default_class(s)
+		}	
 	end
 	def parse_name(exp)
 

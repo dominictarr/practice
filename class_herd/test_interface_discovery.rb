@@ -137,6 +137,9 @@ def test_self_reference
 
         assert_equal_idw(boots,idw,:wrap_string)
 	puts boots.interface(idw_klass)
+
+	wrap_array(idw)
+
 end
 def test_self_reference_double
         boots = InterfaceDiscoveryWrapper.new
@@ -144,10 +147,23 @@ def test_self_reference_double
 	idw2_klass = boots.wrap(idw_klass)
         idw = idw2_klass.new
 
-        assert_equal_idw(boots,idw,:wrap_string)
+	wrap_array(idw)
+	s1 = boots.wrap(String)
+	s2 = idw.wrap(s1)
+
+	h = s2.new("hello")
+
+	h.upcase!
+	assert_equal "HELLO",h
+	puts "***********"
+	puts idw.interface(s2).inspect
+	puts boots.interface(s2).inspect
+
+        puts idw.interface(s1).inspect
+        puts boots.interface(s1).inspect
+
+	assert_equal_idw(boots,idw,:wrap_string)
         puts boots.interface(idw_klass)
-
-
 end
 
 def test_double_wrap
@@ -198,6 +214,24 @@ Hello.send(:define_method, :method){"hello"}
 
 assert_equal "hello",h.method
 assert_equal "hello",h.method_1(:method).call
+end
+
+def assert_arity (klass,wrapped)
+	assert_equal (klass,wrapped)
+	klass.instance_methods.each{
+		|m|
+		assert wrapped.instance_method(m), "#{wrapped}.#{m} not defined!"
+		assert_equal klass.instance_method(m).arity, wrapped.instance_method(m).arity, "expected #{klass}.instance_method(:#{m}).arity == #{wrapped}.instance_method(:#{m}).arity."
+ 
+	}
+end
+
+def test_arity
+idw = InterfaceDiscoveryWrapper.new
+a = [Hello,String,CodeBlockUser,TestInterfaceDiscovery,InterfaceDiscoveryWrapper]
+
+#a.each{|m|assert_arity(m,m)}
+a.each{|m|assert_arity(m,idw.wrap(m))}
 
 end
 

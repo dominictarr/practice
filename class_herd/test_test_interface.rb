@@ -27,8 +27,8 @@ end
 		assert_has_interface?(int,:Primes,Primes,true) 
 		assert_has_interface?(int,:Primes,String,false)
 		begin
-                assert_has_interface?(int,:Zazu,Primes,false)
-		assert false, "expected has_interface? to throw exception"
+                	assert_has_interface?(int,:Zazu,Primes,false)
+			assert false, "expected has_interface? to throw exception"
 		rescue; end
  		#assert int.has_interface?(:Primes,SmartPrimes), ahi_message(:Primes,SmartPrimes,true) 
                 #assert int.has_interface?(:Primes,TooCleverPrimes), ahi_message(:Primes,TooCleverPrimes,true)

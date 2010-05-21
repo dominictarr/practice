@@ -19,7 +19,18 @@ module ClassHerd
 			tr = TestResult.new()
 			tests.each {|method|
 				#all << tr
-				c_test = test_klass.new(method)
+				begin
+					c_test = test_klass.new(method)
+				rescue Exception => e
+
+				if test_klass.instance_method(method) then
+					reason = "#{test_klass}.respond_to?(#{method}) == false"
+               			else #elsif (method(test_method_name).arity == 0 ||
+                			#method(test_method_name).arity == -1))
+					reason = "#{test_klass}.method(:#{method}).arity = #{test_klass.instance_method(method).arity} (should be 0 or -1)"
+				end
+					raise "problem with test #{test_klass}.#{method}\n because: #{reason} \n #{e}"
+				end
 				tr.add_listener(TestResult::FAULT) {|value|
 				@message << FaultMessage.new(value,tr)
 				#pass this to another class?

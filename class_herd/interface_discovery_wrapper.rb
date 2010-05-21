@@ -35,27 +35,10 @@ class InterfaceDiscoveryWrapper
 	end
 	klass.send(:alias_method, :"idw_#{meth}", meth)
 	klass.send(:define_method, meth){|*args,&block|
-
-			#puts "WANTS TO CALL METHOD:#{meth} #{args[0]},#{args[1]}"
-			#if(args[0] == "method") then
-         		#      puts "WANTS TO CALL METHOD ON METHOD"
-         		#end
-			#end
-			#puts "call idw_special_method(#{args[0]})"
-			
-			#r = idw_special_method(:"#{args[0]}")
-			#elsif (meth.to_s == 'idw_special_method')
-  			#puts "WANTS TO CALL METHOD:#{meth} #{args[0]},#{args[1]}"
-                      
-			#else
-	             #          m = idw_method("idw_#{meth}".to_sym)
-         			m = method("idw_#{meth}".to_sym)
-                     		r = m.call(*args,&block)
-			#end
+		#redo this using eval and producing matching arity value.
+         		m = method("idw_#{meth}".to_sym)
+                     	r = m.call(*args,&block)
 			idw_special_add_method(meth)
-		#	unless idw.interface(klass).include? meth then
-		#		idw.interface(klass) << meth
-		#	end
                		r
 		 }
 	end
