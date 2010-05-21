@@ -1620,3 +1620,56 @@ class copy doesn't pass the interface test - problem caused by X not equal X''
 
 hmm. more robust way to check for equality or classes?
 what about, if your coping a copied class, set @duped to original.@duped
+
+
+~/~/~ TEST RESULTS ~/~/~
+
+test_class_copy passes interface_tester!!!
+
+test_references still fails because the test is too hard-wired.
+soft-wiring it's working, but there is also the problem of class_references returning things which arn't classes. and all the core classes (which end up in tests...) which are not necessary.
+
+	several errors like:<:"ClassHerd::TestClassSub"> expected but was
+	<:"ClassHerd::ClassCopier::TestClassReferences_cc1::TestClassSub">.
+	should I hook class name to fix this so that wrapping a class
+	still gives the name of the class the wrapper is pretending to be?
+
+	I feel like this is going one step too far, but i'll try it and see what happens.
+
+	two problems remaining:
+		1. class_references returns local reference names. i.e. they dont have 
+		the module if they dont need it.
+		2. when class_references is running in test_interface it returns different
+		references.
+
+		1 = easy, 2 = hard.
+
+		2 also causes errors in test_file_explorer
+		
+suspect problem caused by class_conductor affecting parsing.
+
+		1 is fixed.
+################
+parsing seems to be causing slowness. 
+
+idea: hook require and do the parsing then. dont do it again later...
+also, make a smart way to just parse the changes in copied classes.
+################
+
+
+problem 2:
+test is parsed,
+figured out problem class references being wrapped while performing self reference.
+GOT A SIGNAL!
+class references gets a different parse when target class is wrapped by IDW.
+theory: it also parses the super class.
+experiment: vary the target class, and the wrapping method.
+
+ClassCopy works sweet.
+ClassConductor is not compatible with String.
+InterfaceDiscoveryWrapper adds elements even with EmptyClass.
+
+                        ##}Sneaky Idea{##
+if a class is duped parse the original class (side step problem...)
+
+where does this extra stuff come from?

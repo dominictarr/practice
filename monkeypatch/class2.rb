@@ -6,7 +6,13 @@ class Class
 
 	attr_accessor :duped, :replacements
 	@duped = nil
-
+	def is_duplicated?
+		!(@duped.nil?)
+	end
+	def original_class
+		@duped || self
+	end
+	
 	#alias_method :was_equal?, :equal?
 	def eql? obj
 	#	if !(obj.is_a? Class) then return false; end
@@ -17,6 +23,11 @@ class Class
 	
 	def == obj
 		eql? obj
+	end
+
+	alias_method :real_name, :name
+	def name
+		@duped ? @duped.real_name : real_name
 	end
 
 	alias_method :left_angle_bracket, :<

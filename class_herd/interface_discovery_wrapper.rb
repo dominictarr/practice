@@ -94,8 +94,8 @@ class InterfaceDiscoveryWrapper
         k.send(:alias_method, :idw_special_method, :method)
         k.send(:instance_variable_set, :@duped,klass)
 	#wrap_method(k,:method)
-	m = k.instance_methods - #+ k.private_methods - 
-		["idw_method","method","class"]
+	m = k.instance_methods - # k.private_methods - 
+		(["idw_method","method","class"] + Object.methods)
 	#(k.instance_methods - ["idw_method","method"])
 	m.each{|method|
 		wrap_method(k,method.to_sym)

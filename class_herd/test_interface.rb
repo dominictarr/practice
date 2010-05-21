@@ -28,8 +28,7 @@ class TestInterface
 
 #impersonate a class and hook .new to return an instance?
 	def lazy
-		if @done then return; 
-		end
+		if @done then return; end
 		@done = true
 		cr = ClassReferences4.new
 		cr.parse(@test)
@@ -40,7 +39,7 @@ class TestInterface
 		@wrappers = Hash.new
 		finder = ClassFinder.new
 		@idw = InterfaceDiscoveryWrapper.new	
-	@symbols.each {|sym|
+		@symbols.each {|sym|
 		begin	
 		@default_class[sym] = finder.from_symbol(test,sym.to_s)
 		rescue
@@ -50,7 +49,8 @@ class TestInterface
 		puts "remaining: #{@symbols.inspect}"
                 
 		end
-	}	
+	}
+	puts "symbols: #{@symbols.inspect}"
 	@symbols.each {|sym|
         		#target_klass = @subjects.find {|sub| sub.name.to_sym == target_sym}
 	
@@ -58,7 +58,11 @@ class TestInterface
 	
 			#wrap each reference which you have a copy of
 			#wrappers[sym] = _on(VCR2)._replace(:Object, default_class[sym])
+			puts "############"
+			puts "wrappers[#{sym}]=#{default_class[sym]}"
 			wrappers[sym] = @idw.wrap(default_class[sym])
+			puts "############"
+			#puts 
 			to_run._replace(sym, wrappers[sym])
 
 			if(default_class[sym].nil?) then

@@ -8,10 +8,21 @@ require 'class_herd/class_finder'
 
 module ClassHerd
 class ClassReferences4 < SexpProcessor
-	attr_accessor :name, :super_class, :reffs, :sexp
+	attr_accessor :name, :super_class, :super_class_name, :reffs, :sexp
 	
+	def ref_classes
+		puts "!!!>:#{reffs.inspect}"
+		reffs.collect {|s|
+		default_class(s)
+		}
+	end
+
 	def default_class(symb)
-		@finder.from_symbol(@target,symb)
+		begin
+			@finder.from_symbol(@target,symb)
+		rescue Exception => e
+			raise "#{self.class} couldn't find the class for symbol=> #{symb}\n#{e}"
+		end
 	end	
 	def initialize ()
 		@reffs = []
@@ -20,12 +31,16 @@ class ClassReferences4 < SexpProcessor
 		unsupported=[]
 	end
 	def parse(klass)
+	
+		if klass.is_duplicated? then
+			klass = klass.original_class
+		end
 		@target = klass
 		@sexp = Parser.parse_class(klass)
 		sexp = Parser.parse_class(klass)
 		#sexp.dup#only duplicates the first layer.
 		#need a tree_dup method.
-		#puts "PARSE:" + @sexp.inspect
+		#puts "PARSE:" + @sexp.inspect[0,100]
 		process(sexp)
 	end
 	def parse_name(exp)
@@ -51,7 +66,8 @@ class ClassReferences4 < SexpProcessor
 		
 #		if @name.nil? then
 			@name = parse_name(exp.shift)
-			@super_class = parse_name(exp.shift)
+			@super_class_name = parse_name(exp.shift)
+			@super_class = @finder.from_symbol(@target,@super_class_name)
 
 #		puts "#{@name } < #{@super_class}"
 #		else
