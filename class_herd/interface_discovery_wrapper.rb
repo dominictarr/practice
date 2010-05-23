@@ -6,6 +6,13 @@ module ClassHerd
 class InterfaceDiscoveryWrapper
 	
 	def interface(x)
+		#~ unless x.is_a? Class then
+			#~ raise "InterfaceDiscoveryWrapper.interface(x) should be called with a Class, but was :#{x}"
+		#~ end
+		#~ if x.is_duplicated? then
+			#~ x = x.duped
+		#~ end
+		
 		if @interface[x].nil? then 
 			@interface[x] = []
 		end
@@ -25,6 +32,20 @@ class InterfaceDiscoveryWrapper
 	@copier = ClassCopier.new
 	@idw = self
 	end
+	def make_args (arity)
+		args = []
+		var = nil
+		if(arity == 0)
+			return "&block"
+		elsif (arity < 0)
+			var = "*args"
+			arity = (arity + 1) * -1
+		end
+		arity.times{|i| args << "arg#{i}"}
+		if var then args << var; end
+		args << "&block"
+		return args.join(",")
+	end
 
 	def wrap_method (klass,meth)
 	#method_method = klass.instance_method(:idw_special_method)
@@ -35,15 +56,26 @@ class InterfaceDiscoveryWrapper
 	#else	
 	#puts "wrapped :#{ meth}"
 	end
+	#args = make_args(klass.method(:"idw_#{meth}").arity)
+	args = make_args(klass.instance_method(meth).arity)
 	klass.send(:alias_method, :"idw_#{meth}", meth)
-	klass.send(:define_method, meth){|*args,&block|
-		#redo this using eval and producing matching arity value.
-         		m = method("idw_#{meth}".to_sym)
-                     	r = m.call(*args,&block)
-			idw_special_add_method(meth)
-               		r
-		 }
+
+	#~ klass.send(:define_method, meth){|*args,&block|
+		#~ #redo this using eval and producing matching arity value.
+         		#~ m = method("idw_#{meth}".to_sym)
+                     	#~ r = m.call(*args,&block)
+			#~ idw_special_add_method(meth)
+			#~ r
+		 #~ }
+	klass.class_eval("def #{meth} (#{args})
+				idw_special_add_method(:#{meth})
+				return method(\"idw_#{meth}\").call(#{args});
+	end")
+
+	if(klass.instance_method(meth).arity != klass.instance_method("idw_#{meth}").arity) then
+		raise "error, wrapped method.arity not equal to original arity!"
 	end
+end
 
 	def wrap (klass)
 	if (klass.method_defined? :idw_special_wrappers) then
@@ -66,17 +98,21 @@ class InterfaceDiscoveryWrapper
 	end
 	
 	k.send(:define_method, :idw_special_wrappers){idw}
-	k.send(:define_method, :idw_special_add_method){|meth|
-	#	puts "IDW_WRAPPERS: #{k.send(:class_variable_get, :@@idw_wrappers).length}"
-		puts "add method: #{meth}"
-		k.send(:class_variable_get, :@@idw_wrappers).each{|idw|
-#		puts k.send(:class_variable_get, :@@idw_wrappers).inspect
-		   unless idw.idw_special_interface(k).include? meth then
-                          idw.idw_special_interface(k) << meth
-                   end
-		}
-	}
-
+	#~ k.send(:define_method, :idw_special_add_method){|meth|
+		#~ k.send(:class_variable_get, :@@idw_wrappers).each{|idw|
+		   #~ unless idw.idw_special_interface(k).include? meth then
+                          #~ idw.idw_special_interface(k) << meth
+                   #~ end
+		#~ }
+	#~ }
+	k.class_eval( "def idw_special_add_method (meth)
+	#puts \"idw_special_add_method:\" + meth.to_s
+		@@idw_wrappers.each{|idw|
+	#puts \"*\" 
+			unless idw.idw_special_interface(self.class).include? meth then
+				idw.idw_special_interface(self.class) << meth
+			end
+		} end")
         k.send(:alias_method, :idw_special_method, :method)
         k.send(:instance_variable_set, :@duped,klass)
 	#wrap_method(k,:method)

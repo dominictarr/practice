@@ -1734,4 +1734,9 @@ including one test causes other tests to fail!
 thats a weird problem.
 
 okay! i've reproduced the error!
-it's caused by a wrapping a wrapped idw class, with wrapped IDW instance.
+It's caused by a wrapping a wrapped idw class, with wrapped IDW instance
+fixed it! aliased 'interface' and named one 'idw_special_interface' so that it doesn't get wrapped. 
+I didn't even have to fully understand the problem there, I just guessed.
+
+okay, next problem is arity...
+rewrite the wrapping method so it preserves arity.

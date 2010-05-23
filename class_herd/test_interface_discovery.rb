@@ -186,34 +186,34 @@ def test_double_wrap
 end
 
 class Hello; end
-def test_double_alias
-h = Hello.new
-Hello.send(:define_method, :hi){"hello"}
-Hello.send(:alias_method, :hi_original, :hi)
-Hello.send(:alias_method, :hi_old, :hi)
-assert_equal "hello", h.hi
-assert_equal "hello", h.hi_old
-Hello.send(:define_method, :hi){"hello_there"}
-assert_equal "hello_there", h.hi
-assert_equal "hello", h.hi_old
-Hello.send(:alias_method, :hi_old2, :hi)
-Hello.send(:define_method, :hi){"good_day"}
-assert_equal "good_day", h.hi
-assert_equal "hello_there", h.hi_old2
-assert_equal "hello", h.hi_old
-assert_equal "hello", h.hi_original
+#~ def test_double_alias
+#~ h = Hello.new
+#~ Hello.send(:define_method, :hi){"hello"}
+#~ Hello.send(:alias_method, :hi_original, :hi)
+#~ Hello.send(:alias_method, :hi_old, :hi)
+#~ assert_equal "hello", h.hi
+#~ assert_equal "hello", h.hi_old
+#~ Hello.send(:define_method, :hi){"hello_there"}
+#~ assert_equal "hello_there", h.hi
+#~ assert_equal "hello", h.hi_old
+#~ Hello.send(:alias_method, :hi_old2, :hi)
+#~ Hello.send(:define_method, :hi){"good_day"}
+#~ assert_equal "good_day", h.hi
+#~ assert_equal "hello_there", h.hi_old2
+#~ assert_equal "hello", h.hi_old
+#~ assert_equal "hello", h.hi_original
 
-#that seems to work. what if you alias the method but dont define anything.
-end
+#~ ##that seems to work. what if you alias the method but dont define anything.
+#~ end
 
-def test_double_alias2
-h = Hello.new
-Hello.send(:alias_method, :method_1, :method)
-Hello.send(:define_method, :method){"hello"}
+#~ def test_double_alias2
+#~ h = Hello.new
+#~ Hello.send(:alias_method, :method_1, :method)
+#~ Hello.send(:define_method, :method_1){"hello"}
 
-assert_equal "hello",h.method
-assert_equal "hello",h.method_1(:method).call
-end
+#~ assert_equal "hello",h.method_1
+#~ assert_equal "hello",h.method(:method_1).call
+#~ end
 
 def assert_arity (klass,wrapped)
 	assert_equal (klass,wrapped)
