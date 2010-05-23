@@ -2,8 +2,63 @@ require 'class_herd/interface_discovery_wrapper'
 require 'test/unit'
 
 module ClassHerd
-class TestInterfaceDiscovery < Test::Unit::TestCase
+class TestInterfaceDiscoveryDebug < Test::Unit::TestCase
 include Test::Unit
+def assert_equal_idw(idw1,idw2,sym)
+	m = method(sym)
+	k1 = m.call(idw1)
+	k2 = m.call(idw2)
+	assert_equal idw1.interface(k1),idw2.interface(k2)
+end
+
+class CodeBlockUser
+def call_block (&block)
+		return block.call
+	end 
+
+	def save_block (&block)
+		@block = block
+	end
+	def call_saved_block (*args, &block)
+		@block.call(*args, &block)
+	end
+end
+
+def wrap_string(idw)
+        a_klass = idw.wrap(String)
+	a = a_klass.new("hello")
+	a.upcase!
+	assert_equal "HELLO",a
+	#puts a_klass
+	a_klass
+end
+ 
+def wrap_array(idw)
+        a_klass = idw.wrap(Array)
+        a = a_klass.new([:a,:b,:c,:d])
+        assert_equal [:a,:b,:c,:d],a
+        d = a.dup
+        a.delete :b 
+        a.delete :d
+        d.delete :a
+        d.delete :b
+        assert_equal [:a,:c],a
+        assert_equal [:c,:d],d
+        d = d.reverse
+	return a_klass
+end
+
+def assert_compatible? (idw,k1,k2,bool)
+
+assert (idw.is_compatible?(k1,k2) == bool), "expected #{k1} to #{bool ? '' : 'not'} be compatible with #{k2}"
+end
+
+def assert_is_a? (o,c)
+	assert o.is_a?(c), "expected #{o}.is_a?(#{c}). o.class=#{o.class}"
+end
+
+class Hello; end
+
 
 def test_simple
 	idw = InterfaceDiscoveryWrapper.new
@@ -32,24 +87,6 @@ def test_more_methods
 	a.reverse
 	w.reverse
   	assert_equal a,w
-end
-
-class CodeBlockUser
-	def call_block (&block)
-		return block.call
-	end 
-
-	def save_block (&block)
-		@block = block
-	end
-	def call_saved_block (*args, &block)
-		@block.call(*args, &block)
-	end
-end
-
-def assert_compatible? (idw,k1,k2,bool)
-
-assert (idw.is_compatible?(k1,k2) == bool), "expected #{k1} to #{bool ? '' : 'not'} be compatible with #{k2}"
 end
 
 def test_block_method
@@ -82,10 +119,6 @@ oesn't wrap."
 	assert_equal 36, cbu.call_saved_block(9,4)
 end
 
-def assert_is_a? (o,c)
-	assert o.is_a?(c), "expected #{o}.is_a?(#{c}). o.class=#{o.class}"
-end
-
 def test_is_a?
         idw = InterfaceDiscoveryWrapper.new
         cbu_klass = idw.wrap(CodeBlockUser)#returns a class, which, 
@@ -98,72 +131,50 @@ def test_is_a?
 	assert_is_a? CodeBlockUser.new, cbu_klass 
 end
 
-def wrap_string(idw)
-        a_klass = idw.wrap(String)
-	a = a_klass.new("hello")
-	a.upcase!
-	assert_equal "HELLO",a
-	#puts a_klass
-	a_klass
-end
- 
-def wrap_array(idw)
-        a_klass = idw.wrap(Array)
-        a = a_klass.new([:a,:b,:c,:d])
-        assert_equal [:a,:b,:c,:d],a
-        d = a.dup
-        a.delete :b 
-        a.delete :d
-        d.delete :a
-        d.delete :b
-        assert_equal [:a,:c],a
-        assert_equal [:c,:d],d
-        d = d.reverse
-	return a_klass
-end
-
-def assert_equal_idw(idw1,idw2,sym)
-	m = method(sym)
-	k1 = m.call(idw1)
-	k2 = m.call(idw2)
-	assert_equal idw1.interface(k1),idw2.interface(k2)
+def test_self_reference2
+	top = InterfaceDiscoveryWrapper.new
+	idw_klass = top.wrap(InterfaceDiscoveryWrapper)
+	##idw_klass = InterfaceDiscoveryWrapper
+	idw = idw_klass.new
+	idw.wrap(idw_klass)
 end
 
 def test_self_reference
       	boots = InterfaceDiscoveryWrapper.new
 	idw_klass = boots.wrap(InterfaceDiscoveryWrapper)
+#~ #    	idw_klass = InterfaceDiscoveryWrapper.new
 	idw = idw_klass.new
-
+		
         assert_equal_idw(boots,idw,:wrap_string)
 	puts boots.interface(idw_klass)
 
 	wrap_array(idw)
 end
 
-def test_self_reference_double
-        boots = InterfaceDiscoveryWrapper.new
-        idw_klass = boots.wrap(InterfaceDiscoveryWrapper)
-	idw2_klass = boots.wrap(idw_klass)
-        idw = idw2_klass.new
+#~ def test_self_reference_double
+        #~ boots = InterfaceDiscoveryWrapper.new
+        #~ idw_klass = boots.wrap(InterfaceDiscoveryWrapper)
+	#~ idw2_klass = boots.wrap(idw_klass)
+        #~ idw = idw2_klass.new
 
-	wrap_array(idw)
-	s1 = boots.wrap(String)
-	s2 = idw.wrap(s1)
+	#~ wrap_array(idw)
+	#~ s1 = boots.wrap(String)
+	#~ s2 = idw.wrap(s1)
 
-	h = s2.new("hello")
+	#~ h = s2.new("hello")
 
-	h.upcase!
-	assert_equal "HELLO",h
-	puts "***********"
-	puts idw.interface(s2).inspect
-	puts boots.interface(s2).inspect
+	#~ h.upcase!
+	#~ assert_equal "HELLO",h
+	#~ puts "***********"
+	#~ puts idw.interface(s2).inspect
+	#~ puts boots.interface(s2).inspect
 
-        puts idw.interface(s1).inspect
-        puts boots.interface(s1).inspect
+        #~ puts idw.interface(s1).inspect
+        #~ puts boots.interface(s1).inspect
 
-	assert_equal_idw(boots,idw,:wrap_string)
-        puts boots.interface(idw_klass)
-end
+	#~ assert_equal_idw(boots,idw,:wrap_string)
+        #~ puts boots.interface(idw_klass)
+#~ end
 
 def test_double_wrap
 
@@ -185,7 +196,6 @@ def test_double_wrap
 	#IDW is wrapping... maybe it would be simpler to map from the original class instance?
 end
 
-class Hello; end
 def test_double_alias
 h = Hello.new
 Hello.send(:define_method, :hi){"hello"}
@@ -206,13 +216,21 @@ assert_equal "hello", h.hi_original
 #that seems to work. what if you alias the method but dont define anything.
 end
 
-def test_double_alias2
+def test_double_alias2 	#this test works different when it's wrapped. 
+					#you could be adding a method AFTER it's wrapped.
+					#so we should wrap alias_method, and define_method 
+					#and have it something more appropoate.
+					#at least, have it throw an exception and say 
+					#"hey! you can't do this! (for these good reasons)"
 h = Hello.new
 Hello.send(:alias_method, :method_1, :method)
 Hello.send(:define_method, :method){"hello"}
 
-assert_equal "hello",h.method
-assert_equal "hello",h.method_1(:method).call
+assert_equal("hello",h.method)
+assert_equal Method, (h.method(:method)), "expected h.method(:method).class == Method"
+assert_equal Method, (h.method_1(:method)).class , "expected h.method(:method).class == Method"
+assert h.method_1(:method).is_a?(Method), "expected h.method(:method).is_a? Method"
+assert_equal("hello",(h.method_1(:method)).call)
 end
 
 def assert_arity (klass,wrapped)
@@ -224,13 +242,12 @@ def assert_arity (klass,wrapped)
 	}
 end
 
-def test_arity
-idw = InterfaceDiscoveryWrapper.new
-a = [Hello,String,CodeBlockUser,TestInterfaceDiscovery,InterfaceDiscoveryWrapper]
+#~ def test_arity
+#~ idw = InterfaceDiscoveryWrapper.new
+#~ a = [Hello,String,CodeBlockUser,TestInterfaceDiscoveryDebug,InterfaceDiscoveryWrapper]
 
-#a.each{|m|assert_arity(m,m)}
-a.each{|m|assert_arity(m,idw.wrap(m))}
-
-end
+#~ #a.each{|m|assert_arity(m,m)}
+#~ a.each{|m|assert_arity(m,idw.wrap(m))}
+#~ end
 
 end;end

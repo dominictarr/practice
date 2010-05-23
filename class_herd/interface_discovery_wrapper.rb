@@ -4,12 +4,14 @@ require 'class_herd/class_copier'
 
 module ClassHerd
 class InterfaceDiscoveryWrapper
+	
 	def interface(x)
 		if @interface[x].nil? then 
 			@interface[x] = []
 		end
 		@interface[x]
 	end
+	alias_method(:idw_special_interface, :interface)
 	#def instances(x)
         #        if @instances[x].nil? then
         #                @instances[x] = []
@@ -62,14 +64,15 @@ class InterfaceDiscoveryWrapper
        	if([self] != k.send(:class_variable_get,:@@idw_wrappers)) then
 		raise "instance variable didwnt work"
 	end
-
+	
 	k.send(:define_method, :idw_special_wrappers){idw}
 	k.send(:define_method, :idw_special_add_method){|meth|
 	#	puts "IDW_WRAPPERS: #{k.send(:class_variable_get, :@@idw_wrappers).length}"
+		puts "add method: #{meth}"
 		k.send(:class_variable_get, :@@idw_wrappers).each{|idw|
-		
-		   unless idw.interface(k).include? meth then
-                          idw.interface(k) << meth
+#		puts k.send(:class_variable_get, :@@idw_wrappers).inspect
+		   unless idw.idw_special_interface(k).include? meth then
+                          idw.idw_special_interface(k) << meth
                    end
 		}
 	}

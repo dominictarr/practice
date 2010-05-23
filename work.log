@@ -1726,3 +1726,12 @@ XXX
 having IDW map wrapped classes to interfaces is problematic for wrapping something twice...
 change it to map from original class.
 
+@@@@@@
+argh. found the cause of the interface_discovery stack overflow error. 
+
+is caused by test_self_reference. if test_self_reference is included, EVERY test_* method gets the stack overflow.
+including one test causes other tests to fail!
+thats a weird problem.
+
+okay! i've reproduced the error!
+it's caused by a wrapping a wrapped idw class, with wrapped IDW instance.

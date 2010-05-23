@@ -15,7 +15,7 @@ class Class
 	
 	#alias_method :was_equal?, :equal?
 	def eql? obj
-	#	if !(obj.is_a? Class) then return false; end
+		if !(Class === obj) then return false; end
 			obj2 = obj.duped || obj 
 			obj1 = duped || self 
 		return obj1.equal? obj2
