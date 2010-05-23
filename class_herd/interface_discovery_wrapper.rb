@@ -6,12 +6,13 @@ module ClassHerd
 class InterfaceDiscoveryWrapper
 	
 	def interface(x)
-		#~ unless x.is_a? Class then
-			#~ raise "InterfaceDiscoveryWrapper.interface(x) should be called with a Class, but was :#{x}"
-		#~ end
-		#~ if x.is_duplicated? then
-			#~ x = x.duped
-		#~ end
+		unless x.is_a? Class then
+			raise "InterfaceDiscoveryWrapper.interface(x) should be called with a Class, but was :#{x}"
+		end
+		if x.is_duplicated? then
+			x = x.duped
+			puts "interface(#{x}).is_duplicated?"
+		end
 		
 		if @interface[x].nil? then 
 			@interface[x] = []
@@ -133,7 +134,15 @@ end
 
 	def is_compatible? (k1,k2)
 		if interface(k2).empty? then 
-			raise "InterfaceDiscoveryWrapper doesn't know anything about #{k2}. can't say if #{k1} is compatible with #{k2}"
+			raise "InterfaceDiscoveryWrapper doesn't know anything about #{k2}. 
+			can't say if #{k1} is compatible with #{k2}.
+			must be one of: #{@interface.keys.inspect}
+			#{k2}.is_duplicated? = #{k2.is_duplicated?}
+			#{k2}.duped = #{k2.duped}
+			interface(#{k2.duped}) = #{interface(k2).inspect}
+
+			it's only empty because no methods have been called on it. IDW knows that. fix this.
+			"
 		end
 	puts "is_compatible?(#{k1},#{k2})" 	
 	i = interface(k2).collect {|m| m.to_s}

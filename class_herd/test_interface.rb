@@ -75,10 +75,10 @@ class TestInterface
 		@result = data.result
 		
 		@symbols.each {|sym|
-			puts "#{sym}=>#{@idw.interface(sym)}, #{@idw.interface(default_class[sym])}, #{@idw.interface(wrappers[sym]).inspect}"
+			puts "#{sym}=>#{@idw.interface(default_class[sym])}.inspect}"
 			int_methods[sym] = []
 			#ObjectSpace.each_object(wrappers[sym])
-				if @idw.interface(sym) then
+				if @idw.interface(default_class[sym]) then
 				int_methods[sym] = int_methods[sym] +  @idw.interface(wrappers[sym]).collect{|it| 
 					it.to_s}
 				end
