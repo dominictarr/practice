@@ -1,5 +1,4 @@
-require 'class_herd/test_interface'
-require 'monkeypatch/autorunner'
+#require 'monkeypatch/autorunner'
 module ClassHerd
 class Interface
 attr_accessor :test,:symbol, :int_methods
@@ -9,6 +8,6 @@ attr_accessor :test,:symbol, :int_methods
 		@int_methods = methods
 	end
 	def supports? (klass)
-	      !(@methods.find {|f| !(klass.instance_methods.include? f)})
-	end
+	      !(@int_methods.find {|f| !(klass.instance_methods.include? f)})
+      end
 end;end

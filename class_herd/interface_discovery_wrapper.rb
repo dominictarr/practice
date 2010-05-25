@@ -5,13 +5,23 @@ require 'class_herd/class_copier'
 module ClassHerd
 class InterfaceDiscoveryWrapper
 	
+	def wrapped?(x)
+		unless x.is_a? Class then
+			raise "InterfaceDiscoveryWrapper.wrapped?(x) should be called with a Class, but was :#{x}"
+		end
+		if x.is_duplicated? then
+			x = x.duped
+		end
+		
+		return !(@interface[x].nil?)
+	end
+	
 	def interface(x)
 		unless x.is_a? Class then
 			raise "InterfaceDiscoveryWrapper.interface(x) should be called with a Class, but was :#{x}"
 		end
 		if x.is_duplicated? then
 			x = x.duped
-			puts "interface(#{x}).is_duplicated?"
 		end
 		
 		if @interface[x].nil? then 
@@ -68,6 +78,7 @@ class InterfaceDiscoveryWrapper
 			#~ idw_special_add_method(meth)
 			#~ r
 		 #~ }
+
 	klass.class_eval("def #{meth} (#{args})
 				idw_special_add_method(:#{meth})
 				return method(\"idw_#{meth}\").call(#{args});
@@ -133,17 +144,20 @@ end
 	end
 
 	def is_compatible? (k1,k2)
-		if interface(k2).empty? then 
-			raise "InterfaceDiscoveryWrapper doesn't know anything about #{k2}. 
-			can't say if #{k1} is compatible with #{k2}.
-			must be one of: #{@interface.keys.inspect}
-			#{k2}.is_duplicated? = #{k2.is_duplicated?}
-			#{k2}.duped = #{k2.duped}
-			interface(#{k2.duped}) = #{interface(k2).inspect}
+		#~ if interface(k2).empty? then 
+			#~ raise "InterfaceDiscoveryWrapper doesn't know anything about #{k2}. 
+			#~ can't say if #{k1} is compatible with #{k2}.
+			#~ must be one of: #{@interface.keys.inspect}
+			#~ #{k2}.is_duplicated? = #{k2.is_duplicated?}
+			#~ #{k2}.duped = #{k2.duped}
+			#~ interface(#{k2.duped}) = #{interface(k2).inspect}
 
-			it's only empty because no methods have been called on it. IDW knows that. fix this.
-			"
-		end
+			#~ it's only empty because no methods have been called on it. IDW knows that. fix this.
+			#~ "
+		#~ end
+	unless wrapped?(k2) then 
+		raise "is_compatible(k1,k2) needs a k2 where wrapped?(k2) == true. was: wrapped?(#{k2}) = false"; 
+	end
 	puts "is_compatible?(#{k1},#{k2})" 	
 	i = interface(k2).collect {|m| m.to_s}
 	

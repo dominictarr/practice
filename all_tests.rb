@@ -10,7 +10,7 @@ tests = tests.split("\n").select{|it|
 		it =~ /^.*\/test_.*\.rb$/
 		}
 tests.inspect
-tests = tests - ["class_herd/test_rewire2.rb","class_herd/test_interface.rb"]
+#tests = tests - ["class_herd/test_rewire2.rb","class_herd/test_interface.rb"]
 tests.each{|test|
 	puts test
 	require test

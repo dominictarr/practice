@@ -1740,3 +1740,16 @@ I didn't even have to fully understand the problem there, I just guessed.
 
 okay, next problem is arity...
 rewrite the wrapping method so it preserves arity.
+-done
+
+monday 24 may.
+then wrapped no all interface methods are returning the right stuff. run interface_tester test_test_interface
+
+tuesday 25th, 13:01
+In auckland.
+
+I've got just a few errors left. something about interfaces. I think I need to overhaul the interface checking system.
+i had made an interface class for representing that... but hadn't used it. it's not tested, because i've already used 
+the name test_interface for something else.... time to refactor all those names...
+
+done, and now the error has magicially changed to something else!

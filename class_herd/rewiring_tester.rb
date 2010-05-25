@@ -36,7 +36,7 @@ class RewiringTester
 		map
 	end
 	def run_test(test_klass)
-	interface = TestInterface.new(test_klass)
+	interface = InterfaceTester.new(test_klass)
 
 	sm = sub_map(interface,@subjects)
 	sm.keys
@@ -58,7 +58,7 @@ class RewiringTester
 		}	
 	tests.each {|sub| 
 
-	@test_data << TestData.new(sub)}
+	@test_data << DataForTest.new(sub)}
 	end
 	
 	def initialize (tests, klasses)
