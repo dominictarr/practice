@@ -103,6 +103,7 @@ end
 
 	#k = klass.dup
 	k = @copier.copy(klass)
+	puts "	IDW.wrap(#{klass}) => #{k}"
 	idw = [self]
 	k.send(:class_variable_set,:@@idw_wrappers,[self])
        	if([self] != k.send(:class_variable_get,:@@idw_wrappers)) then
@@ -118,7 +119,7 @@ end
 		#~ }
 	#~ }
 	k.class_eval( "def idw_special_add_method (meth)
-	#puts \"idw_special_add_method:\" + meth.to_s
+	puts \"		\#{meth.to_s} <--- \#{self.class}.add_method()\"
 		@@idw_wrappers.each{|idw|
 	#puts \"*\" 
 			unless idw.idw_special_interface(self.class).include? meth then

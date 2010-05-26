@@ -1752,4 +1752,20 @@ I've got just a few errors left. something about interfaces. I think I need to o
 i had made an interface class for representing that... but hadn't used it. it's not tested, because i've already used 
 the name test_interface for something else.... time to refactor all those names...
 
-done, and now the error has magicially changed to something else!
+wednesday, 26th, may.
+
+refactored the logging (puts's) in interface_tester and interface_test_runner. given some clarity it became obvious 
+where the problem is. sometimes test interface is not actually getting the methods.
+
+normal interface tests run fine, but running test_interface_tester through interface_tester can't see doesn't 
+end up seeing the methods which get called. although the tests still pass. (although it works on test primes)
+
+2 ideas:
+	1.the methods are ending up somewhere else.
+	2. the wrapped objects are not actually being initialized.
+	
+	approches:
+	1.ObjectSpace the IDWs and query which what interfaces they know.
+	2.ObjectSpace the wrappers and check they are initialized.
+	
+	aha! interface_tester is not actually inserting the wrapped classes when it is itself running in the interface_tester!

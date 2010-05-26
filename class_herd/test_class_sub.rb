@@ -34,7 +34,9 @@ def initialize(s)
 end
 
 def say
-	"Hello, #{@name}!"
+	r = "Hello, #{@name}!"
+	puts "#{self.class.inspect}.say=>#{r}"
+	r
 end
 end
 
@@ -43,7 +45,9 @@ class Bonjour1 < Hello1
 #~ @name = s
 #~ end
 def say
-	"Bonjour, #{@name}!"
+	r = "Bonjour, #{@name}!"
+	puts "#{self.class.inspect}.say=>#{r}"
+	r
 end
 end
 
@@ -70,7 +74,7 @@ class TestClassSub < Test::Unit::TestCase
 def test_sub
 	cs = ClassSub.new
 	name = "Jeremy"
-	puts "x = #{Bonjour1}.new(name)"
+#	puts "x = #{Bonjour1}.new(name)"
 	x = Bonjour1.new(name)
 	assert_equal "Bonjour, Jeremy!",x.say
 	x = Hello1.new(name)

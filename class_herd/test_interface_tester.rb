@@ -36,19 +36,33 @@ def test_primes
 	ints = int.interfaces
 	assert ints[0].is_a? Interface
 	assert TestPrimes, ints[0].test
+	assert_equal [:Primes], int.symbols
+	assert_equal [:primes], int.int_methods[:Primes] .collect{|it| it.to_sym}
+	puts "^^^^^^^^"
+	puts int.symbols.inspect
+	puts ints.inspect
+	j = Interface.new(TestPrimes,:Primes,int.int_methods)
+	assert_equal :Primes, j.symbol
+	assert_equal int.int_methods, j.int_methods
+	assert_equal TestPrimes, j.test
+	
+	assert Symbol === ints[0].symbol, "ints[0].symbol should be a Symbol, but was :#{ints[0].symbol.class}"
 	assert_equal :Primes, ints[0].symbol
 	
 	assert int.wrappable?
 end
 	def test_class_sub
-		puts "&&&&&&&&&&&&&"
+		#~ puts "&&&&&&&&&&&&&"
 		int = InterfaceTester.new(TestClassSub)
 		assert int.wrappable?, "expected test to be wrappable"
 		assert_equal [:ClassSub,:Bonjour1,:Hello1] , int.symbols
-                assert_has_interface?(int,:ClassSub,ClassSub,true)
+		assert_has_interface?(int,:ClassSub,ClassSub,true)
                 assert_has_interface?(int,:Bonjour1,Bonjour1,true)
                 puts "&&&&&&&&&&&&&"
-		puts int.interfaces.inspect
+		#~ puts int.interfaces.inspect
+		assert_equal ["say"], int.int_methods[:Bonjour1]
+		puts int.int_methods[:ClassSub]
+		#assert_equal ["sub"], int.int_methods[:ClassSub]
 		assert_has_interface?(int,:Bonjour1,ClassSub,false)
                 assert_has_interface?(int,:Hello1,ClassSub,false)
 	#assert_equal  Primes, int.default_class[:Primes]

@@ -5,24 +5,36 @@ ARGV.each{ |it|
 puts it
 require it}
 tests = []
+puts "#############"
+puts "START interface tester"
+puts "tests:"
 ObjectSpace.each_object(Class){ |it|
 	if Test::Unit::TestCase > it then
-		puts it
+		puts "	#{it}"
 		tests << it
 	end
 }
 ints = []
+
+puts "\nRUN TESTS\n"
+
 tests.each{|test|
-puts '#############'
+puts ""
+puts 'mwmwmwmwmwmwmwmwm'
 puts "TEST: #{test}"
-puts '#############'
+puts '============='
 ti = InterfaceTester.new(test)
-puts ti.wrappable? ? "WRAPPED SUCCESS" : "TEST FAILED"
+puts "WRAPPED TEST #{test} ->#{ti.wrappable? ? "SUCCESS" : "FAILED"}"
+puts "wmwmwmwmwmwmwmwmw"
 ints = ints.concat(ti.interfaces)
 }
 
-puts 'ALL INTERFACES:'
-ints.each {|it|
-	puts "#{it.test}.#{it.symbol}->#{it.int_methods.inspect}"
-}
+#~ puts 'ALL INTERFACES:'
+#~ ints.each {|it|
+	#~ puts "#{it.test}.#{it.symbol}->#{it.int_methods.inspect}"
+#~ }
+
+puts "STOP interface tester"
+puts "#############"
+exit(0)
 end
