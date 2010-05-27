@@ -36,5 +36,5 @@ ints = ints.concat(ti.interfaces)
 
 puts "STOP interface tester"
 puts "#############"
-exit(0)
+#exit(0)
 end

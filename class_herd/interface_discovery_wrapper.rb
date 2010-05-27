@@ -119,7 +119,7 @@ end
 		#~ }
 	#~ }
 	k.class_eval( "def idw_special_add_method (meth)
-	puts \"		\#{meth.to_s} <--- \#{self.class}.add_method()\"
+	#puts \"		\#{meth.to_s} <--- \#{self.class}.add_method()\"
 		@@idw_wrappers.each{|idw|
 	#puts \"*\" 
 			unless idw.idw_special_interface(self.class).include? meth then

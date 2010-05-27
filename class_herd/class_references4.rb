@@ -11,7 +11,7 @@ class ClassReferences4 < SexpProcessor
 	attr_accessor :name, :super_class, :super_class_name, :reffs, :sexp
 	
 	def ref_classes
-		puts "!!!>:#{reffs.inspect}"
+#		puts "!!!>:#{reffs.inspect}"
 		reffs.collect {|s|
 		default_class(s)
 		}
@@ -30,9 +30,10 @@ class ClassReferences4 < SexpProcessor
 		super
 		unsupported=[]
 	end
-	def parse(klass)
+	def parse(klass, parse_duped = false)
 	
-		if klass.is_duplicated? then
+		if klass.is_duplicated? and !parse_duped then
+#			puts "parsing duplicated class"
 			klass = klass.original_class
 		end
 		@target = klass

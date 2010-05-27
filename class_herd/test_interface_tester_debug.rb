@@ -67,18 +67,18 @@ end
 		assert_equal Hello1, int.default_class[:Hello1]
         	assert_has_interface?(int,:ClassSub,ClassSub,true)
                 assert_has_interface?(int,:Bonjour1,Bonjour1,true)
-                puts "&&&&&&&&&&&&&"
-		#~ puts int.interfaces.inspect
+                #~ puts "&&&&&&&&&&&&&"
+		#~ ##~ puts int.interfaces.inspect
 
-		puts int.wrappers[:ClassSub].inspect
+		#~ puts int.wrappers[:ClassSub].inspect
 
-		puts int.wrappers[:Bonjour1].inspect
-		puts int.wrappers[:Hello1].inspect
-                puts "^^^^ wrappers"
-		puts	int.wrappers[:ClassSub].send(:class_variable_get,:@@idw_wrappers).inspect
-               puts "^^^^ interface discovery wrapper"
-		puts	int.send(:instance_variable_get,:@idw).inspect
-               puts "^^^^ interface_tester's interface discovery wrapper"
+		#~ puts int.wrappers[:Bonjour1].inspect
+		#~ puts int.wrappers[:Hello1].inspect
+                #~ puts "^^^^ wrappers"
+		#~ puts	int.wrappers[:ClassSub].send(:class_variable_get,:@@idw_wrappers).inspect
+               #~ puts "^^^^ interface discovery wrapper"
+		#~ puts	int.send(:instance_variable_get,:@idw).inspect
+               #~ puts "^^^^ interface_tester's interface discovery wrapper"
 		
 #		assert int.wrappers[:ClassSub].send(:class_variable_get,:@@idw_wrappers).include? 
  

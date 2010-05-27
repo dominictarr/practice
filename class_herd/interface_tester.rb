@@ -34,13 +34,14 @@ class InterfaceTester
 		cr.parse(@test)
 		@symbols = cr.reffs
 		check_symbols(@symbols)
-		
+		puts 
 		@default_class = Hash.new
 		@int_methods = Hash.new
 		to_run = _on(@test) #rewired test class
 		@wrappers = Hash.new
 		finder = ClassFinder.new
 		@idw = InterfaceDiscoveryWrapper.new	
+
 		puts "-------------------- start INTERFACE TEST -(#{@test.inspect}) ---"
 		#puts "Setting up Interface tests for #{@test.inspect}"
 		puts "<<<<"
@@ -67,9 +68,15 @@ class InterfaceTester
 			#~ puts "wrappers[#{sym}]=#{default_class[sym]}"
 			wrappers[sym] = @idw.wrap(default_class[sym])
 			#~ puts "############"
-			#~ #puts 
+			#~ #puts
 			to_run._replace(sym, wrappers[sym])
-
+			puts "REMAP #{sym.inspect}->#{wrappers[sym].inspect}"
+			
+			#when interface tester is running in an interface test it seems miss the replacement,
+			#and end up using the defaults instead. hence, the IDW doesn't hear anything.
+			#what I think is happening, is sym is changing or the reference on the duplicated class is different!
+			
+			
 			if(default_class[sym].nil?) then
 				raise "default_class[sym] is nil. wanted: #{sym.inspect}"
 			end

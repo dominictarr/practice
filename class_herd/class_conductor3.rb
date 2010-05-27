@@ -5,6 +5,8 @@
 
 require 'monkeypatch/class2'
 require 'class_herd/class_copier'
+require 'class_herd/class_references4'
+
 
 module ClassHerd
 module ClassConductor3
@@ -25,5 +27,20 @@ module ClassConductor3
 		const_set(x, y)
 		self
 	end	
+	def _rewires
+		#get all constants which map to classes which are reffs
+		map = Hash.new
+		r =ClassReferences4.new
+		r.parse(self)
+#		puts "#{self}._rewires = \n#{constants.inspect}=>#{r.reffs.inspect}"
+		constants.each{|const|
+			klass = const_get(const)
+			if Class === klass and 
+				r.reffs.include? const.to_sym then
+				map[const.to_sym] = klass
+			end
+		}
+		map
+	end
 end
 end

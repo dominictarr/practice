@@ -93,7 +93,8 @@ class Class
 		alias_method :to_s_old, :to_s
 		def to_s
 			if(duped)
-				return "#<#{duped.inspect}\' (#{nest_inspect(@replacements,"|","=>")})>"
+#				return "#<#{duped.inspect}\' (#{nest_inspect(@replacements,"|","=>")})>"
+				return "<#{duped.inspect}\' (#{_rewires.inspect})>"
 			else
 				to_s_old
 			end

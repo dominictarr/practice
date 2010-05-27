@@ -1231,7 +1231,7 @@ might be easy with a functional language.
 ~~~~~~~~
 
 Sunday 16th, 18:03
-deciding what to do next. i feel that a demonstratable prototype will be ready in a week or two.
+deciding what to do next. I feel that a demonstratable prototype will be ready in a week or two.
 it will have
 	* configuration/composition generation
 	* automatic interface testing
@@ -1430,6 +1430,7 @@ is there anything else I should consider for Interfaces?
     /home/ubuntu/code/practice/class_herd/test_v_c_r.rb:83:in `new'
 #still some lagging comparison problems. -- methods i don't usually use.
 	- try testing class_conductor.
+
 ~~~~~ THATS ABOUT IT!
 
 okay... first, fix sexp_processor?
@@ -1462,7 +1463,7 @@ what method does x2 call?
 x, or x''?
 it could still call x.
 
-hmm. I hook 'method' but when i call the hook it calls method, and if I redefine 'method' it calls the redefined method.
+hmm. I hook 'method' but when I call the hook it calls method, and if I redefine 'method' it calls the redefined method.
 
 added tests to check for double wrapping and self-reference to test_interface_discovery, 
 it's passing but that doesn't mean i can run interface_tester on it. 
@@ -1481,7 +1482,7 @@ will class finder be able to find one of these?
 do i need to name them and put them somewhere?
 ClassReferences4 is a dependency for TestInterface. so this error will be causing problems there also.
 
-HOW TO MAKE A ANON CLASS INTO A REAL CLASS:
+HOW TO MAKE AN ANON CLASS INTO A REAL CLASS:
 assign it to a constant.
 
 class Mini; end
@@ -1767,5 +1768,49 @@ end up seeing the methods which get called. although the tests still pass. (alth
 	approches:
 	1.ObjectSpace the IDWs and query which what interfaces they know.
 	2.ObjectSpace the wrappers and check they are initialized.
-	
+	****************
 	aha! interface_tester is not actually inserting the wrapped classes when it is itself running in the interface_tester!
+	****************
+	okay, so I vaguely know where this error is located. i've considered that possibly fixing it isn't necessary right now.
+	testing the meta code on it self is a good test of it's robustness, but at the prototype stage high robustness 
+	isn't essential.
+CURRENT ERRORS.
+	1.test_interface_tester testing it self fails to handle assign rewires properly.
+	2.interface doesn't distinguish internal methods. which will cause incompatiblity. 
+		maybe only record methods from a specific caller/.rb? i.e. the test?
+	3. test vcr - wrong instance allocation. not sure what this is but another thing i don't use anymore.
+	
+NEXT STEPS:
+	1.composition layer.
+		- parse the default structure from a given application, output a convient editable format (yaml)
+		- and allow it to be reconfigured... 
+		- command to run a configuration.
+	2. module server.
+		- store all information on tests, 
+		- receive new classes
+		- provide interface for editing compositions.
+		- show test data for a given composition
+		- other possibilities for given modules
+PLAN
+	write a basic composition layer, then use that to build the module server.
+	want to edit the code for the server interactively. have interface customized per user.
+	but even be able to edit whole server. that means that a program can have more than one composition layer.
+	like the interface, ontop of the server. to an unprivilged user, the server appears to be a platform. 
+	multiple platforms - a ziggurat 
+	
+	
+COMPOSITION
+
+	use a format so that it will come out well when converted to YAML.
+	notes from last time I thought about this:
+	on(x){:A => suggested(a,b,c,d).use(c){:symb => blah, etc.defaults}
+	
+	use lists and maps for yaml.
+	{use: InitialClass
+		Symbol: ClassToUse
+		AnotherSymbol: {use: SuchAndSuch
+					Symbol: ReplacementSym 
+						#use replacement_sym instead of Symbol on the SuchAndSuch
+						#which is used instead of AnotherSymbol on InitialClass}}
+when you load a Composition
+you can query the classes and check the structure, and create a new instance. hmm.

@@ -1,5 +1,6 @@
 
 require 'class_herd/class_conductor3'
+require 'class_herd/class_references4'
 require 'test/unit'
 
 
@@ -51,6 +52,8 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 		
 		assert r.fump.is_a? Lom
 		assert r.goo.is_a? Ras
+		
+		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._rewires)
 	end
 	
 	def test__replace_2level
@@ -77,6 +80,8 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 		#assert r2.goo.is_a? Zhaf
 		assert r2.goo.hu.is_a? Zax
 		assert r2.goo.wim.is_a? Kiki
+		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._rewires)
+
 	end
 	
 	#this defines how dups should appear the same.
@@ -100,6 +105,8 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 	assert g1.is_a? Lom
 	assert l1.is_a? Lom
 
+	assert_equal ({}, g._rewires)
+	assert_equal ({}, l._rewires)
 	end
 	#what about if there are several layers, with different configurations.
 end
