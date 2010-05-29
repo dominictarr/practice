@@ -18,6 +18,9 @@ class Composer
 		end
 		self
 	end
+	def of (klass)
+		klass._wiring
+	end
 end
 class Composition
 	attr_accessor :map
@@ -33,11 +36,11 @@ class Composition
 	end
 	def rewire(a_map)
 		r = Rewirer.new
-		r.for(eval(@map[:use]))
-		(@map.keys - [:use]).each{|it|
-			klass_name = @map[it]
-			if Composer === klass_name then
-				klass = rewire(klass.map)
+		r.for(eval(a_map[:use]))
+		(a_map.keys - [:use]).each{|it|
+			klass_name = a_map[it]
+			if Hash === klass_name then
+				klass = rewire(klass_name)
 			else
 				klass = eval(klass_name)
 			end
@@ -50,5 +53,10 @@ class Composition
 	end
 	def create (*args,&block)
 		classes.new(*args,&block)
+	end
+	def of (klass)
+		#build a new composition from the structure of a given class
+		
+
 	end
 end;end

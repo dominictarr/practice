@@ -1813,4 +1813,43 @@ COMPOSITION
 						#use replacement_sym instead of Symbol on the SuchAndSuch
 						#which is used instead of AnotherSymbol on InitialClass}}
 when you load a Composition
-you can query the classes and check the structure, and create a new instance. hmm.
+you can query the classes and check the structure, 
+and create a new instance. hmm.
+
+Composition represent the "wiring" of an Application.
+an Application is a set of classes without outside dependencies.
+it could be one class or many.
+
+I need a convient Class method to retrive the "wiring" of a class. 
+that includes default wiring, and rewiring.
+
+this problem is more sophisticated than I first realized.
+for example, what happens when a class refurs to it self?
+should I implement as simply as possible or attempt a real 
+implementation to get a feel for the problem?
+
+attempt REAL IMPLEMENTATION
+
+second attempt ran into problems with self reference.
+printing causes stack overflows, etc.
+
+the built in classes handle self reference so I realized that 
+the correct method is to use builders to create a data structure
+from basic types. Hashes I guess.
+
+builder to make composition from use, replace etc.
+builder to make composition from given class
+builder to make classes from composition
+
+problem with array ==. 
+array == is confused if there is cyclic membership.
+yaml handles this though 
+- so can convert to yaml and check that.
+
+NEXT: create classes from composition datastruct.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+On The Horizon.
+composition editor which allows others to extend, 
+and rewire compositions. and leave a few sockets open...
+and maybe configure settings on classes once they are initialized.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

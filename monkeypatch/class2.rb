@@ -1,3 +1,5 @@
+require 'class_herd/class_references4'
+
 class Class
 #if someone else has hooked and given it the same alias a bad thing will happen.
 
@@ -94,11 +96,36 @@ class Class
 		def to_s
 			if(duped)
 #				return "#<#{duped.inspect}\' (#{nest_inspect(@replacements,"|","=>")})>"
-				return "<#{duped.inspect}\' (#{_rewires.inspect})>"
+				return "<#{duped.to_s}\' (#{_rewires.to_s})>"
 			else
 				to_s_old
 			end
 		end
+		
+		def _reffs
+			if @reffs.nil? then
+				cr = ClassHerd::ClassReferences4.new
+				cr.parse(self)
+				@reffs = cr.reffs
+			end
+			@reffs
+		end
+		def _wiring
+		map = Hash.new
+		cr = ClassHerd::ClassReferences4.new
+		cr.parse(self)
+		#if it has not been rewired, give the default.
+		cr.reffs.each{|r|
+			if constants.include? r.to_s and 
+				Class === const_get(r) then
+				map[r] = const_get(r)
+			else #default wiring.
+				map[r] = cr.default_class(r)
+			end
+		}
+		map
+	end
+
 end
 	
 	class Object 

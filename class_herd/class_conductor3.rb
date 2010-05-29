@@ -32,7 +32,7 @@ module ClassConductor3
 		map = Hash.new
 		r =ClassReferences4.new
 		r.parse(self)
-#		puts "#{self}._rewires = \n#{constants.inspect}=>#{r.reffs.inspect}"
+		#puts "#{self}._rewires = \n#{constants.inspect}=>#{r.reffs.inspect}"
 		constants.each{|const|
 			klass = const_get(const)
 			if Class === klass and 

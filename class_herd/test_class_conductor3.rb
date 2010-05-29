@@ -54,8 +54,14 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 		assert r.goo.is_a? Ras
 		
 		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._rewires)
+		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._wiring)
+		assert_equal ({:Lom => Lom, :Ras => Ras}, Rak._wiring)
 	end
-	
+	def test_self_reference
+		rcc = _on(Rak)#might want to nice up the interface here...
+		rcc._replace(:Lom,rcc)
+		##rcc.new #->stack overflow
+	end
 	def test__replace_2level
 		rcc = _on(Rak)#might want to nice up the interface here...
 		
@@ -81,6 +87,7 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 		assert r2.goo.hu.is_a? Zax
 		assert r2.goo.wim.is_a? Kiki
 		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._rewires)
+		assert_equal ({:Lom => Zax, :Ras => Zhaf}, rcc._wiring)
 
 	end
 	
@@ -107,6 +114,8 @@ class ClassHerd::TestClassConductor3 < Test::Unit::TestCase
 
 	assert_equal ({}, g._rewires)
 	assert_equal ({}, l._rewires)
+	assert_equal ({}, g._wiring)
+	assert_equal ({}, l._wiring)
 	end
 	#what about if there are several layers, with different configurations.
 end
