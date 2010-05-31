@@ -3,44 +3,72 @@ require 'yaml'
 module ClassHerd
 class Composition3
 	attr_accessor :library, :ary, :map
-	def initialize(struct = nil, lib = nil)
+	def initialize(lib = nil)
 		@library = lib || Hash.new
-		if Class === struct then
+#		if Class === struct then
+#			use(struct)
+#		elsif Array === struct then
+#			raise "createing composition from Array unsupported"
+#		end
+	end
+	def defaults(*defaults)
+		defaults.each{|d|
+			if Class === d then
+				#add default elements to the library
+				#so that it isn't parsed further.
+				@library[d.object_id] = [d.name]
+			else
+				raise "defaults passed item which is not a Class: #{d}"
+			end
+		}
+		self
+	end
+	def read(struct)
+#		if @inited then return; end
+#		@inited = true;
+#		struct = using
+			if Class === struct then
+			##begin
 			use(struct)
 			struct._wiring.each{|sym,klass|
-				replace(sym,Composition3.new(klass,@library))
-			}
-		elsif Array === struct then
-			raise "createing composition from Array unsupported"
+		#		get_array(klass)
+		#		replace(sym,Composition3.new(,@library))
+			replace(sym,get_array(klass))
+		}
+			##rescue Exception => e
+			##	raise "error when composing #{struct.inspect} : #{e}"
+			##end
 		end
+		self
 	end
-	#~ def from_array(ary)
-		#~ unless String === ary[0]  and 
-			#~ ((ary.length == 2 and Hash === ary[1]) or ary.length == 1) then 
-			#~ raise "array should contain [\"ClassName"
-		#~ end
-		#~ @ary = ary
-		#~ @map = ary[1]
-	#~ end
+	def get_array (klass)
+		@library[klass.object_id] || Composition3.new(@library).read(klass).ary
+	end
 	def use(klass)
 		if @ary.nil? then
 			l = @library[klass.object_id]
 			if l.nil? then 
-				@ary = @library[klass.object_id] = [klass.name]
+				@library[klass.object_id] = self
+				@ary = [klass.name]
 			else
-				raise "cannot recompose #{klass}"
+#				@ary = @library[klass.object_id] 
+				raise "cannot recompose #{klass} \nCompositon3 don't want classes which area already mapped"
 			end
 			self
 		else
-			Composition3.new(nil,@library).use(klass)
+			Composition3.new(@library).use(klass)
 		end
+	end
+	def using 
+		if @ary.nil? then nil  else eval @ary[0] end
 	end
 	def for_class(klass)
 		k = @library[klass.object_id]
 		if k.nil? then 
-			@library[klass.object_id] = [klass.name]
+			@library[klass.object_id] = Composition3.new(@library).use(klass)
+			@library[klass.object_id] .ary
 		else
-			k
+			k.ary
 		end
 	end
 	def replace(sym, klass)
@@ -49,16 +77,19 @@ class Composition3
 		end
 		if Composition3 === klass then
 			@map[sym] = klass.ary
-		else
+		elsif Array === klass
+			@map[sym] = klass
+		elsif Class === klass
 			@map[sym] = for_class(klass)
 		end
 		self
 	end
 	def == (other)
 		begin
-			@map == other.map and
-			@ary == other.ary and
-			@library == other.library
+			#@map == other.map and
+			#@ary == other.ary and
+			#@library. == other.library
+			composition.to_yaml == other.composition.to_yaml 
 		rescue NoMethodError => e
 			false
 		end

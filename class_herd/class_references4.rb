@@ -84,7 +84,8 @@ class ClassReferences4 < SexpProcessor
 
 		while exp.length > 0 do
 			sexp = exp.shift
-#			puts "defn's:" + sexp.inspect
+			
+			#puts "defn's:" + sexp.inspect
 			code << process(sexp)
 		end
 		return code

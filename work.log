@@ -1853,3 +1853,77 @@ composition editor which allows others to extend,
 and rewire compositions. and leave a few sockets open...
 and maybe configure settings on classes once they are initialized.
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+###########################
+Predictive Text System for Chorded keyboard.
+
+if they keys are layed out well, then a predictive system could 
+eliminate the need for chording. the T9 system on cell phones.
+the predictive texting on my phone is annoying. 
+but i've often said I could write a better one.
+
+(wireless) numeric keypad turned on it's side. 
+
+3 * 4 = 12 letter keys. 2 letters per key for 10 keys, and two 3 letter keys.
+and symbols <>{}[]()"' ,./?:;!@#$%^&*_+-= -~` = 29
+thats 10 enclosing symbols <>{}[]()"'
+~ about 3 symbols per key.
++ numbers = 10.
+how many shift keys:
+letters2, enclosing_symbols, symbols2, symbols3 (symbols 1+2), numbers
+
+or use multi presses to get the second layer of rarely used symbols.
+
+simple predictive:
+just use contextual analysis of the last few letters to guess the next one.
+press a cycle button change between different possibilities for the last word.
+
+(for example, my phone predicts bucklame when I try to type auckland.
+buck seems more likely than auck but if I correct it a few times. 
+it should just give me auckland. also, I should be able to press cycle to get
+other possible completions.
+with only 2 letters per key prediction will be easier, and with letters unlikely 
+to share a context will make prediction easier.
+###########################
+
+
+
+Composition.
+encountered errors building composition from Object
+other Core classes create more complexity also. 
+time to make settings for limiting composing from a class?
+
+
+############
+found a bug in ParseTree.
+NoMethodError: undefined method `-' for nil:NilClass
+when you try and parse Object.
+parse_tree.rb line 21:
+    a[1..a.index(superclass)-1]
+but a.index(superclass) is nil.
+
+also there is a bunch of other weird shit when you parse Object.
+- in the actual sexp's. 
+I don't really want to rewire Object 
+instead write stuff to limit extent to composing.
+i.e. when you get to core classes, just stop.
+############
+
+way to specify defaults?
+	- Composition3.new.defaults(classes)
+	will have to change Composition3 to lazy initialize so it has time to recieve the defaults.
+	things that appear in the default list, are not broken down any deeper.
+	OKAY. I got composition working, loading classes. stopping at defaults.
+	I want t really dramaticly big class structure to read.
+	and to test that the structure would build a class tree which is the same as before.
+	and that the new class tree reads into the same composition.
+	
+	I have discovered 2 new errors in ClassHerd::TestClassCopier. - FIXED
+	also, i've re defined Class._rewires so that TestInterfaceDiscovery doesn't work any more.
+	 - FIXED
+	monday may 31.
+	
+	TestInterfaceWrapper is going into an infite loop
+	Compostition3 on RewiringTester -> uninitialized constant ProcWrapper.
+		(this is a problem in class finder)
+	NEXT: fix these errors,

@@ -1,7 +1,13 @@
 require 'test/unit'
 require 'yaml'
 require 'class_herd/composition3'
+require 'class_herd/composer2'
 require 'class_herd/test_rewirer'
+require 'class_herd/interface_tester'
+require 'class_herd/rewiring_tester'
+require 'monkeypatch/class2'
+require 'class_herd/file_explorer'
+#require 'class_herd/test_interface_discovery'
 
 module ClassHerd
 class TestComposition3 < Test::Unit::TestCase
@@ -12,12 +18,11 @@ def test_single
 	c = Composition3.new
 	c.use(TestRewirer::Ras)
 	assert_equal [TestRewirer::Ras.name], c.composition
-	c2 = Composition3.new(TestRewirer::Ras)
+	c2 = Composition3.new.read(TestRewirer::Ras)
 	assert_equal [TestRewirer::Ras.name], c2.composition
-	end
+end
 
 def test_multiple
-
 	c = Composition3.new
 
 	c.use(TestRewirer::Zhaf).
@@ -30,11 +35,22 @@ def test_multiple
 		replace(:Kiki,TestRewirer::Kiki).
 		replace(:Gav,TestRewirer::Gav)
 	
-	c3 = Composition3.new(TestRewirer::Zhaf)
+	c3 = Composition3.new.read(TestRewirer::Zhaf)
+	assert_equal c2.composition,c3.composition
 	assert_equal c2.composition,c3.composition
 	assert_equal c2,c3
-
 end
+#~ def test_map_equal
+	#~ a = {:a => "AAA"}
+	#~ a2 = {:a => "AAA"}
+	#~ assert_equal a,a2
+	
+	#~ a[:a_ref] = a
+	#~ a2[:a_ref] = a2
+	#~ assert_equal a.to_yaml,a2.to_yaml
+	#~ assert_equal a,a2
+#~ end
+
 def test_two_level
 	c = Composition3.new
 
@@ -57,29 +73,6 @@ def test_two_level
 		#puts arry.to_yaml 
 		#puts c.composition.to_yaml
 end
-#~ def test_with_named
-	#~ c = Composition2.new
-
-	#~ c.use(TestRewirer::Zhaf).
-		#~ replace(:Kiki,c2 = c.use(TestRewirer::Rak).
-			#~ replace(:Lom,TestRewirer::Gav).
-			#~ replace(:Ras,TestRewirer::Zax)).
-		#~ replace(:Gav,c2)
-	#~ ##~ d.use(TestRewirer::Zhaf).
-		#~ ##~ replace(:Kiki,c.use(TestRewirer::Rak).
-			#~ ##~ replace(:Lom,TestRewirer::Gav).
-			#~ ##~ replace(:Ras,TestRewirer::Zax)).
-		#~ ##~ replace(:Gav,c.use(TestRewirer::Rak).
-			#~ ##~ replace(:Lom,TestRewirer::Gav).
-			#~ ##~ replace(:Ras,TestRewirer::Zax))
-
-	#~ assert_equal c.map[:Kiki],c.map[:Gav]
-	#~ assert_equal c.map[:Kiki].object_id,c.map[:Gav].object_id
-	#~ kmap = c.classes._wiring
-	#~ assert_equal kmap[:Kiki].object_id,kmap[:Gav].object_id, "classes created by same Composition2 should be same object"
-	#~ assert_equal c, d = Composition2.new(c.classes)
-	#~ assert_equal d.map[:Kiki].object_id,d.map[:Gav].object_id
-#~ end
 
 def test_self_reference
 	c = Composition3.new
@@ -91,6 +84,36 @@ def test_self_reference
 	z = [TestRewirer::Zhaf.name, map]
 	map[:Kiki] = z 
 	assert_equal  z.to_yaml, c.composition.to_yaml
-	assert_equal(z, c.composition)	
+	#assert_equal(z, c.composition)	
 end
+def yaml_composition_defaults (klass,*defs)
+	y = Composition3.new.
+		defaults(*defs).
+		read(klass).composition.to_yaml
+	puts y
+	y
+end
+def yaml_composition(klass)
+	yaml_composition_defaults(klass,Object,Hash,Array,String,Class,Module,Exception)
+end
+
+def  test_composer
+	yaml_composition(Composer2)
+	yaml_composition(InterfaceDiscoveryWrapper)
+	yaml_composition(YAML)
+	yaml_composition(Rewirer)
+	yaml_composition(FileExplorer)
+	yaml_composition(Composition3)
+
+	yaml_composition_defaults(Array,Object)
+	yaml_composition_defaults(Hash,Object)
+	yaml_composition_defaults(Exception,Object)
+	yaml_composition_defaults(Class,Object)
+
+#	yaml_composition(TestInterfaceDiscovery)
+#	yaml_composition (RewiringTester)
+#ProcWrapper.new
+#
+end
+
 end;end

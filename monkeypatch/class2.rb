@@ -110,7 +110,10 @@ class Class
 			end
 			@reffs
 		end
-		def _wiring
+	def _rewires
+		_wiring (false)
+	end
+	def _wiring (defaults = true)
 		map = Hash.new
 		cr = ClassHerd::ClassReferences4.new
 		cr.parse(self)
@@ -119,7 +122,7 @@ class Class
 			if constants.include? r.to_s and 
 				Class === const_get(r) then
 				map[r] = const_get(r)
-			else #default wiring.
+			elsif defaults then #default wiring.
 				map[r] = cr.default_class(r)
 			end
 		}
