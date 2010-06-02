@@ -1921,9 +1921,12 @@ way to specify defaults?
 	I have discovered 2 new errors in ClassHerd::TestClassCopier. - FIXED
 	also, i've re defined Class._rewires so that TestInterfaceDiscovery doesn't work any more.
 	 - FIXED
+	 
 	monday may 31.
 	
 	TestInterfaceWrapper is going into an infite loop
 	Compostition3 on RewiringTester -> uninitialized constant ProcWrapper.
 		(this is a problem in class finder)
-	NEXT: fix these errors,
+	NEXT: 
+		1. fix these errors, 
+		2. test reconstrructing classes from compositions.
