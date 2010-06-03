@@ -28,7 +28,7 @@ class ClassReferences4 < SexpProcessor
 		@reffs = []
 		@finder = ClassFinder.new
 		super
-		unsupported=[]
+		@unsupported=[]
 	end
 	def parse(klass, parse_duped = false)
 	
