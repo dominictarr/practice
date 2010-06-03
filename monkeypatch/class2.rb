@@ -116,14 +116,22 @@ class Class
 	def _wiring (defaults = true)
 		map = Hash.new
 		cr = ClassHerd::ClassReferences4.new
+				begin
 		cr.parse(self)
+		rescue
+				raise "_wiring couldn't load a class for :#{self}"
+		end
 		#if it has not been rewired, give the default.
 		cr.reffs.each{|r|
 			if constants.include? r.to_s and 
 				Class === const_get(r) then
 				map[r] = const_get(r)
 			elsif defaults then #default wiring.
-				map[r] = cr.default_class(r)
+				begin
+					map[r] = cr.default_class(r)
+				rescue 
+					puts "_wiring couldn't load a class for :#{r}"
+				end
 			end
 		}
 		map

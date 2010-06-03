@@ -26,7 +26,7 @@ class TestClassReferences < Test::Unit::TestCase
 #when you parse a Class it doesn't give innerclasses... 
 #which is simpler, actually!
 
-def d_test_simple
+def test_simple
 	ref = ClassReferences4.new
 	ref.parse(TestPrimes)
 	assert_equal ns(TestPrimes), ref.name
@@ -42,7 +42,7 @@ def ns (klass) #name symbol.
 	klass.name.to_sym
 end
 
-def d_test_refclasses
+def test_refclasses
 	ref = ClassReferences4.new
 	ref.parse(TestClassSub)
 
@@ -110,7 +110,7 @@ def make_class (klass)
 	self.class.const_set(:"#{n}X",c)
 	c
 end
-def d_test_duplicated_class
+def test_duplicated_class
 	assert_references (OuterClass,Object,String)
 	#self.class.const_set(:"OuterClass1243",OuterClass.dup)
 	oc = make_class(OuterClass)
@@ -132,7 +132,7 @@ def d_test_duplicated_class
 
 end
 
-def d_test_self_reference #why did I forget to test self reference for this long?
+def test_self_reference #why did I forget to test self reference for this long?
 
 ref = ClassReferences4.new
 
@@ -180,7 +180,7 @@ def assert_wrapped_references(straight, wrapped)
 	assert_set_eql ref1.reffs,ref2.reffs
 end
 include ClassHerd::ClassConductor3
-def d_test_self_reference_wrapped #why did I forget to test self reference for this long?
+def test_self_reference_wrapped #why did I forget to test self reference for this long?
 
 	#~ puts "-------------------"
 	#~ puts "-TEST SELF REFERENCE - Wrapped"

@@ -4,7 +4,7 @@
 #require 'test_class_sub'
 require 'sexp_processor'
 require 'class_herd/parser'
-require 'class_herd/class_finder'
+require 'class_herd/class_finder2'
 
 module ClassHerd
 class ClassReferences4 < SexpProcessor
@@ -21,12 +21,12 @@ class ClassReferences4 < SexpProcessor
 		begin
 			c = @finder.from_symbol(@target,symb)
 		rescue Exception => e
-			raise "#{self.class} couldn't find the class for symbol=> #{symb}\n#{e}"
+			raise "#{self.class} couldn't find the class for symbol=> #{symb} in #{@target}\n#{e}"
 		end
 	end	
 	def initialize ()
 		@reffs = []
-		@finder = ClassFinder.new
+		@finder = ClassFinder2.new
 		super
 		@unsupported=[]
 	end
@@ -46,7 +46,11 @@ class ClassReferences4 < SexpProcessor
 
 	#clean up symbols.
 		@reffs = @reffs.select{|s|
-			Class === default_class(s)
+			begin
+				Class === default_class(s)
+			rescue Exception => e
+				puts "#{e}"
+			end
 		}	
 	end
 	def parse_name(exp)

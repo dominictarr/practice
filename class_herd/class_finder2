@@ -1,0 +1,7 @@
+
+module ClassHerd
+class ClassFinder2
+
+	def from_symbol(klass,sym)
+
+end;end

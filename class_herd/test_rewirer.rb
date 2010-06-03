@@ -113,13 +113,13 @@ class TestRewirer < Test::Unit::TestCase
 #	puts rcc2.reffs.inspect
 
 	z3 = rcc2.create
-		assert Zax === z3.hu, "expected Ras === z2.hu"
+		assert Zax === z3.hu, "expected Ras === z3.hu"
 	rcc2.replace(:Gav, Ras)
 	assert_equal({:Gav => Ras},rcc2.klass._rewires)
 #	puts rcc2.reffs.inspect
 #	puts rcc2.klass.replacements.inspect
 	z3 = rcc2.create
-		assert Ras === z3.hu, "expected Ras === z2.hu"
+		assert Ras === z3.hu, "expected Ras === z3.hu"
 
 	end
 end;end

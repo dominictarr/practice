@@ -104,6 +104,8 @@ def  test_composer
 	yaml_composition(Rewirer)
 	yaml_composition(FileExplorer)
 	yaml_composition(Composition3)
+	yaml_composition(TestRewirer)
+	yaml_composition (RewiringTester)
 
 	yaml_composition_defaults(Array,Object)
 	yaml_composition_defaults(Hash,Object)
@@ -111,7 +113,6 @@ def  test_composer
 	yaml_composition_defaults(Class,Object)
 
 #	yaml_composition(TestInterfaceDiscovery)
-#	yaml_composition (RewiringTester)
 #ProcWrapper.new
 #
 end
