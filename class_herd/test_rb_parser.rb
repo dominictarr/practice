@@ -5,7 +5,7 @@ module ClassHerd
 class TestRbParser < Test::Unit::TestCase
 	#this is an implementation test, 
 	#not an interface test.
-	EXAMPLE_PATH = "/home/ubuntu/code/practice/class_herd"
+	EXAMPLE_PATH = "./class_herd"
 	def test_handle_class_name
 		p = RbParser.new(nil)
 		assert_equal :Object, p.handle_class_name(nil)

@@ -59,8 +59,8 @@ class TestRewirer < Test::Unit::TestCase
 			 Rewirer.new.for(Zhaf).replace(:Gav,Zax).klass		 
 			 )
 		r2 = rcc.create
-		assert_equal ({:Lom => Zax, :Ras => Zhaf},rcc.klass._rewires)
-		assert_equal ({:Gav => Zax},rcc.klass._rewires[:Ras]._rewires)
+		assert_equal({:Lom => Zax, :Ras => Zhaf},rcc.klass._rewires)
+		assert_equal({:Gav => Zax},rcc.klass._rewires[:Ras]._rewires)
 
 		assert r2.fump.is_a? Zax
 		assert_equal "Zhaf", r2.goo.what
@@ -86,7 +86,7 @@ class TestRewirer < Test::Unit::TestCase
 		rcc = Rewirer.new.for(Zhaf).replace(:Gav,Zax)
 		cr2 = ClassReferences4.new
 		cr2.parse(rcc.klass,true)
-		assert_equal ({:Gav => Zax},rcc.klass._rewires)
+		assert_equal({:Gav => Zax},rcc.klass._rewires)
 		
 		#~ puts cr.sexp.inspect
 		#~ puts cr.reffs.inspect
@@ -108,14 +108,14 @@ class TestRewirer < Test::Unit::TestCase
 #	puts rcc.reffs.inspect
 
 	rcc2 = Rewirer.new.for(rcc.klass)
-	assert_equal ({:Gav => Zax},rcc.klass._rewires)
+	assert_equal({:Gav => Zax},rcc.klass._rewires)
 #	puts rcc2.klass.replacements.inspect
 #	puts rcc2.reffs.inspect
 
 	z3 = rcc2.create
 		assert Zax === z3.hu, "expected Ras === z2.hu"
 	rcc2.replace(:Gav, Ras)
-	assert_equal ({:Gav => Ras},rcc2.klass._rewires)
+	assert_equal({:Gav => Ras},rcc2.klass._rewires)
 #	puts rcc2.reffs.inspect
 #	puts rcc2.klass.replacements.inspect
 	z3 = rcc2.create

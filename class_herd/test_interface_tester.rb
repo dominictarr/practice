@@ -3,7 +3,7 @@ require 'test/unit'
 require 'primes/TestPrimes'
 require 'class_herd/interface_tester'
 require 'class_herd/interface'
-require 'monkeypatch/array'
+require 'monkeypatch/TestCase'
 require 'class_herd/test_class_rule'
 require 'class_herd/test_class_sub'
 
@@ -67,12 +67,6 @@ end
                 assert_has_interface?(int,:Hello1,ClassSub,false)
 	#assert_equal  Primes, int.default_class[:Primes]
 	end
-	def assert_same_set (s1,s2)
-		assert s1.same_set?(s2), "expected #{s1.inspect}.same_set? #{s2.inspect}"
-	end
-        def assert_sub_set (s1,s2)
-                assert s1.sub_set?(s2), "expected #{s1.inspect}.sub_set? #{s2.inspect}"
-        end
 	def test_class_rule
 		int = InterfaceTester.new(TestClassRule)
 		assert [:ClassRule,:Integer, :String, :Array, :Numeric].same_set? int.symbols

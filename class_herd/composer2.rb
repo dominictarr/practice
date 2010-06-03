@@ -30,7 +30,7 @@ class Composer2
 			#use a library to store Composer2's 
 			if @map then
 				@map.each{|sym,array|
-					r.replace(sym,get_class(array))
+					r.replace(sym.to_s,get_class(array))
 				}
 			end
 		end

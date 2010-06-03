@@ -1,9 +1,10 @@
 require 'test/unit'
 require 'class_herd/file_explorer'
+require 'monkeypatch/TestCase'
 
 module ClassHerd 
 class TestFileExplorer < Test::Unit::TestCase
-	EXAMPLE_PATH = '/home/ubuntu/code/practice/class_herd/'
+	EXAMPLE_PATH = './class_herd/'
 	def test_examples
 		ex = FileExplorer.new(EXAMPLE_PATH + "examples")
 		assert_equal [EXAMPLE_PATH + "examples/empty_class.rb"], 
@@ -12,13 +13,13 @@ class TestFileExplorer < Test::Unit::TestCase
 					ex.rb_for_symb(:"Module1::Class1")
 		assert_equal [EXAMPLE_PATH + "examples/outer_class.rb"], 
 					ex.rb_for_symb(:"OuterClass::InnerClass")
-		assert_equal [EXAMPLE_PATH + "examples/example_modules_2.rb",
+		assert_same_set [EXAMPLE_PATH + "examples/example_modules_2.rb",
 				EXAMPLE_PATH + "examples/example_modules.rb"], 
 					ex.rb_for_symb(:"Module1")
 	end
 	def test_recursive
 		puts "TEST RECURSIVE"
-		path = '/home/ubuntu/code/practice'
+		path = '.'
 		ex = FileExplorer.new(path)
 		assert_equal [EXAMPLE_PATH + "examples/empty_class.rb"], 
 					ex.rb_for_symb(:EmptyClass)
