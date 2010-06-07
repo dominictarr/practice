@@ -1,0 +1,4 @@
+options: {:yaml_given=>true, :exit=>false, :require_given=>true, :verbose_given=>true, :command=>nil, :remap=>[["Factors="]], :yaml=>"./bin/test_factors", :test=>false, :remap_given=>true, :require=>[["factors/factors.rb", "factors/fast_factors.rb", "factors/test_factors.rb"]], :verbose=>true, :help=>false}
+require factors/factors.rb,factors/fast_factors.rb,factors/test_factors.rb
+composition:
+["TestFactors", {:Factors=>["Factors", {:Primes=>["Primes"]}]}]

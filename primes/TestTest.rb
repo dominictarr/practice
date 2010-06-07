@@ -2,10 +2,10 @@
 
 require 'test/unit'
 require 'test/unit/testresult'
-require 'TestPrimes'
-require 'Primes'
-require 'TooCleverPrimes'
-require 'SmartPrimes'
+require 'primes/TestPrimes'
+require 'primes/Primes'
+require 'primes/TooCleverPrimes'
+require 'primes/SmartPrimes'
 include Test::Unit
 
 def runtest(test_klass,method,subject)

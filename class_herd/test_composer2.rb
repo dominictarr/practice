@@ -1,3 +1,4 @@
+
 require 'test/unit'
 require 'yaml'
 require 'class_herd/composer2'

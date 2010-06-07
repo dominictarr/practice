@@ -1,0 +1,4 @@
+options: {:class_given=>true, :yaml=>nil, :exit=>true, :remap=>[["ClassFinder2=/"]], :verbose_given=>true, :class=>"ClassHerd::TestClassFinder", :output=>nil, :test_given=>true, :command=>nil, :verbose=>true, :require_given=>true, :remap_given=>true, :test=>true, :exit_given=>true, :require=>[["class_herd/test_class_finder.rb", "class_herd/class_finder.rb"]], :help=>false}
+require class_herd/test_class_finder.rb,class_herd/class_finder.rb
+composition:
+["ClassHerd::TestClassFinder", {:ExampleSubclass=>["ClassHerd::TestClassFinder::ExampleSubclass"], :SomeConstants2=>["SomeConstants2", {:String=>["String"], :DoNothing=>["DifferentModule::ModuleWithConstants::DoNothing"], :AnotherEmptyClass=>["DifferentModule::AnotherEmptyClass"]}], :OuterClass=>["OuterClass", {:String=>["String"]}], :ClassFinder2=>["ClassHerd::ClassFinder2"]}]

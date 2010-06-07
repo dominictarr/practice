@@ -1,0 +1,5 @@
+#! bin/compose -r primes/TestPrimes.rb primes/SmartPrimes.rb -y
+--- 
+- TestPrimes
+- :Primes: 
+  - Primes

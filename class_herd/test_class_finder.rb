@@ -44,6 +44,7 @@ require 'class_herd/examples/another_empty_class'
 	
 def test_class_include_module_require
 	#assert_find(self.class,ClassFinder2,:ClassFinder2)
+
 	puts "expect AnotherEmptyClass => #{SomeConstants2.new.dont_do_it}"
 	puts "expect DifferentModule::ModuleWithConstants::DoNothing => #{SomeConstants2.new.from_include}"
 	puts "expect DifferentModule::AnotherEmptyClass=> #{eval("DifferentModule::AnotherEmptyClass")}"
@@ -52,7 +53,9 @@ def test_class_include_module_require
 	#okay, SomeConstants.new.from_include returns a new DifferentModule::ModuleWithConstants::DoNothing
 	looker = SomeConstants2
 	symb = :AnotherEmptyClass
+#	fail("ERORS")
 	f = ClassFinder2.new
+	puts "$^@#$@#% :" + f.class.to_s
 	c = f.from_symbol(looker,symb)
 	assert c
 	puts "test_class_include_module_require: #{c}"

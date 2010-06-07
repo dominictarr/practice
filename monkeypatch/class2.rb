@@ -96,7 +96,7 @@ class Class
 		def to_s
 			if(duped)
 #				return "#<#{duped.inspect}\' (#{nest_inspect(@replacements,"|","=>")})>"
-				return "<#{duped.to_s}\' (#{_rewires.to_s})>"
+				return "<#{duped.to_s}\' (#{_rewires.inspect})>"
 			else
 				to_s_old
 			end

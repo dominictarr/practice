@@ -1,0 +1,6 @@
+#!/usr/bin/ruby 
+
+require 'rubygems'
+require 'class_herd/composer_cmd'
+
+ClassHerd::ComposerCmd.new(ARGV)

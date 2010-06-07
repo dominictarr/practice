@@ -1,4 +1,5 @@
 require 'yaml'
+require 'monkeypatch/class2'
 
 module ClassHerd
 class Composition3

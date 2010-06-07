@@ -1,0 +1,10 @@
+options: {:remap_given=>true, :exit=>false, :yaml_given=>true, :help=>false, :require_given=>true, :command=>nil, :verbose_given=>true, :remap=>[["Primes="]], :yaml=>"bin/test_primes2", :test=>false, :require=>[["primes/TestPrimes.rb", "primes/SmartPrimes.rb"]], :verbose=>true}
+require primes/TestPrimes.rb,primes/SmartPrimes.rb
+composition:
+["TestPrimes", {:Primes=>["Primes"]}]
+Loaded suite ./bin/composer
+Started
+..........
+Finished in 0.008247 seconds.
+
+10 tests, 10 assertions, 0 failures, 0 errors

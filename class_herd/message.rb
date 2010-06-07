@@ -1,4 +1,5 @@
 
+
 module ClassHerd
 class TestDataMessage
 	attr_accessor :value, :test
@@ -21,7 +22,7 @@ class TestEndMessage < TestDataMessage
 	end
 	
 	def to_s 
-		"\t" + @value.to_s 
+		"\t" + @value.to_s + " #{short}"
 		#+ "\n #{short} \t" + @result.to_s
 		end
 	

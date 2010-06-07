@@ -1,0 +1,6 @@
+#require primes/TestPrimes.rb
+#require primes/SmartPrimes.rb
+--- 
+- TestPrimes
+- :Primes: 
+  - Primes

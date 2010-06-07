@@ -1,6 +1,6 @@
 require "test/unit"
-require "TooCleverPrimes"
-require "TestPrimes"
+require "primes/TooCleverPrimes"
+require "primes/TestPrimes"
 
 class TestTooCleverPrimes < TestPrimes 
 	

@@ -1,0 +1,5 @@
+#! bin/composer --require factors/factors.rb factors/fast_factors.rb factors/test_factors.rb   --exit   --test  --yaml 
+--- 
+- TestFactors
+- :Factors: 
+  - FastFactors

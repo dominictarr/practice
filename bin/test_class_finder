@@ -1,0 +1,18 @@
+#! bin/composer --require class_herd/test_class_finder.rb class_herd/examples/empty_class.rb  --exit --test --yaml 
+--- 
+- ClassHerd::TestClassFinder
+- :ExampleSubclass: 
+  - ClassHerd::TestClassFinder::ExampleSubclass
+  :SomeConstants2: 
+  - SomeConstants2
+  - :AnotherEmptyClass: 
+    - DifferentModule::AnotherEmptyClass
+    :String: &id001 
+      - String
+    :DoNothing: 
+    - DifferentModule::ModuleWithConstants::DoNothing
+  :OuterClass: 
+  - OuterClass
+  - :String: *id001
+  :ClassFinder2: 
+  - ClassFinder

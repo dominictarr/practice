@@ -34,6 +34,17 @@ def test_more_methods
   	assert_equal a,w
 end
 
+def test_call_meta_functions
+        idw = InterfaceDiscoveryWrapper.new
+        wArray = idw.wrap(Array)#returns a class, which, 
+ 	w = wArray.new([:a,:b,:c])
+		w.methods
+		w.public_methods
+		w.private_methods
+		
+	
+end
+
 class CodeBlockUser
 	def call_block (&block)
 		return block.call

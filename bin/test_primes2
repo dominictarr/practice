@@ -1,0 +1,7 @@
+#! bin/composer   --exit --test --yaml 
+--- 
+- primes/TestPrimes
+--- 
+- TestPrimes
+- :Primes: 
+  - Primes

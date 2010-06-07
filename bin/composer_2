@@ -1,0 +1,24 @@
+#! bin/composer -s
+--- 
+- class_herd/composer_cmd.rb
+- class_herd/data_for_test2.rb
+--- 
+- ClassHerd::ComposerCmd
+- :DataForTest: 
+  - ClassHerd::DataForTest2
+  :Recomposer: 
+  - ClassHerd::Recomposer
+  :Composer2: &composer2
+    - ClassHerd::Composer2
+    - :Composer2: *composer2
+      :Rewirer: 
+      - ClassHerd::Rewirer
+      - :ClassReferences4: 
+        - ClassHerd::ClassReferences4
+        - :ClassFinder2: 
+          - ClassHerd::ClassFinder2
+        :ClassCopier: 
+        - ClassHerd::ClassCopier
+  :Composition3: &comp3 
+    - ClassHerd::Composition3
+    - :Composition3: *comp3
