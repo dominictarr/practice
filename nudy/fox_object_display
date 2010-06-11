@@ -1,0 +1,38 @@
+
+
+class FoxFactory
+
+	def self.field(container,f)
+
+	end
+	def self.action(container,a)
+
+	end
+
+	def self.viewer(container,vfa)
+		if vf.is_a? Field then
+			self.field(container,vfa)
+		elsif vf.is_a? Action then
+			self.action(container,vfa)
+		elsif vf.is_a? ObjectViewer then
+			FoxObjectDisplay.new(container,viewer)
+		end
+	end
+end
+
+class FoxObjectDisplay
+	attr_accessor :viewer
+	def initialize (container,viewer)
+		#if container isn't a fox container raise an exception with an informative messsage
+		@viewer = viewer
+
+		#wrap everything in a groupbox, and then use the FoxFactory to load the fields and actions.
+		
+		g = FXGroupBox.new(container, viewer.title,GROUPBOX_TITLE_LEFT|FRAME_RIDGE|LAYOUT_FILL_X|LAYOUT_FILL_Y)
+
+		viewer.fields.each{|e|
+			FoxFactory.viewer(container,e)
+		}
+	end
+
+end

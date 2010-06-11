@@ -1,0 +1,8 @@
+
+require 'test/unit'
+
+class TestInterfaceBuilder2 < Test::Unit::TestCase 
+include Test::Unit
+
+
+end
