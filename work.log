@@ -1,3 +1,615 @@
+check there areopti
+
+Business Diary
+
+writing business plan. and getting my self warmed up with ruby.
+
+reading StartUp - A Silicon Valley Adventure. by Jerry Kaplan.
+
+read a business story and a business text simultaniously. story gives me nuggets, and excites and motivates.
+
+also, watch TED talks.
+
+don't waste all day reading, just enough to motivate.
+
+worying about whether to NDA or not to NDA.
+talking about idea with people generates new insights.
+
+mike last night: think about route of traversal between concrete examples and abstractions. the wrong examples or abstractions can confuse.
+
+thats a good idea. -> here is a applicable first market -> here are markets to expand into.
+abstract -> concrete -> abstract
+
+with luke: songwriter's method to for naming concepts. write down every word you can think of. look up synonyms and eptymology on internet.
+
+was looking for a clean word to denote the puting-together-of software. decided on 'compose'. (& 'recompose') 'configure' sounds very boring.
+
+becoming much more aware of words. I wish I could add a thesaurus to the right click menu on google docs. are you reading this google?
+
+started pottering around with ruby. I wish I could fix the criptic error messages!
+
+"Silver Bullet" = hyperbole? ... ah, get someone else to call it a silver bullet? it's a very nice word. remeber I read a caption on book about xerox which said they had to understate thier machine in advertising, thier machine was to fantastic no one belived it could be real.
+
+reading StartUp I noticed the author remembered a lot of detail. thought it would be a good idea to keep diary.
+
+Sunday 4/18/10
+
+Pottered around with ruby. built a test runner to execute all tests on a list of classes.
+
+only essential form is that test Extends Test::Unit::TestCase and defines Initialize(s,klass=DefaultClass)
+
+(and uses klass.new when it needs to create a test subject.
+
+this code isn't tested. and I didn't really work at making it good. just went for instant gratification. will have to rewrite same concept with tests.
+
+will end up writing code to test all classes on all tests. will have to run a test class through the test to see what methods are called... and then use that to filter out the Classes which will fail because they don't have the right interface.
+
+class test results webpage?
+
+it seems like the first thing is to write the test harnesses, and then look into the configuration problem.
+
+Sunday 4/18/10 7:15 pm
+
+Wrote a metatest. it tests tests, and tested it on it self, and the TestPrimes which I wrote yesterday.
+then suddenly it was 2 am. enjoying it! tomorrow,
+write a test runner? or the testResult/class library? the thing which runs all the tests on all the classes?
+
+Monday 2 am
+
+after simon left the makerspace meet (where we talked about possibliltys of kite boats, and space elevators)
+
+I watched some ted talks to get in the mood , made a coffee, and noticed it was past midnight.
+
+Tuesday 12:20 am
+
+hmm.
+1.write a proper (tested) test runner.
+runs a test on a class and can retrive all the test results. I don't know what I will do with the results yet. present them to user on webpage and store them in DB?
+not very difficult.
+
+2. composition. given the record of test results, figure out how to define an application structure in terms of tests.
+medium.
+
+investigate dependency injection in ruby, hijacking class.new and initializing a different class, and scraping the code or bytecode and changing calls to new to a call to my class factory.
+
+3. figure out how to submit classes.
+how can i send a new class to a remote server?
+send a .rb file?
+or something with the byte code?
+
+investigate class loading.
+(run a class which loads a ruby file and evals it, then can do stuff with the objects)
+can i call require inside a class or include with a variable?
+
+this is the most interesting technical problem right now.
+
+Took notes on "ClassFarming" and decided next step was to investigate package management software - specificially, RubyGems (notes). I read through the documentation, and I also have the source code. I can run a server, and I think this will be an invaluable resource for figuring out how to do the ClassFarming problem.
+
+it's 5 am now.
+
+I think this diary is a good idea, and is going well. a website like this, but optomised for gathering information from web in less linear fashion a la KMS may be a very good app.
+
+time for sleep.
+Tuesday 5:09 am
+
+wednesday. 2:30 pm ish (2pm + polish boots)
+
+read through rubygems code.
+investigated commands, build (combines files into a tar format file .gem file), server (hosts installed .gem files. and push. which sends a gem file to rubygems.org
+
+disapointingly, the server command does not create a server you can push to.
+
+the next question is how does rubygems give you the files you need. but maybe this isn't the next question I need to persue,
+
+because there is a more gaping hole in my plan... how do i send a class across a network and use it in a running program on the other side?
+
+wednesday 8:09 pm
+
+did very little work yesterday due to hangover.
+
+read about google, and facebook profits and compared them to users. google sells about $20 worth of advertising per year, for every human connected to the internet.
+facebook has 400 M users, and currently, makes $1. (although this is just estimations, since it's not actually a public company yet. [that means it's not on the stock market])
+
+and twitter which has 25 M users, but hasn't started making money yet.
+
+put together spreadsheet of this information, but got bored. will write some code.
+
+also, discovered a oppertunity to make a app to script mysource matrix which i think i could sell to matrix users, or to squiz. it would involve useing javascript running in another frame to push buttons on matrix, and allow you to do things like create multiple documents of the same type, automaticially update things etc.
+
+I can log into the website from outside niwa. so that looks means a possible barrier is not present. I'd say that I could possibly make tens of thousands a year with little work. or possibly sell out to squiz.
+
+do a quick proof of concept test. or draft a quick business plan tomorrow.
+
+yesterday I met andrew from adioso.com it's a budget airline search. wow. it's really cool. you can even search for things like wellington to USA. there are a few interface issues to get cleared up to make it really slick, but i can see huge potential. especially for the casual traveler. say you wanted to travel from nz to timbuktu and take 5 months? I doubt any search system does anything like that. even 'wellington to anywhere weekend' is very cool.
+
+Friday 7:24
+
+read http://www.wired.com/magazine/2010/04/ff_hackers/all/1
+and http://ycombinator.com/ideas.html -ideas Y combinator would like to fund. several of my ideas fit into that. good excuse to go to USA?
+
+what are some little reflection problems I can test? need to do some programming...
+
+load class passed in at compile time.
+serialize a proc and load it again.
+serialize a class and load it again.
+list all classes which have a property
+run a test, and wrap all the classes it invokes and gather the interfaces they depend's on.
+
+wrote code to:
+automaticially wrap any new class
+substitute one class for another (there are so many possible ways to do this it gets very complicated)
+
+sat 3:22 am
+
+sat 11:30 am
+
+on the way home i decided the substitutor should just map from one class to another (for now). if we need more capability we can add it when we think of a better way to do it later.
+
+just thought of a better way to do it.
+you say something like
+sub(from,to, test {},init{},wrap{})
+
+test,init, and wrap are optional...
+    test is executed and if result is not nil it will perform the sub.
+    init is called to create the instance. otherwise to.new is called.
+    if there are maps a>b & b>c should that mean a>c?
+    the instance is passed to wrap, and the instance var reassigned to the result.
+
+now that I have a bit of code for the sub, integrating it into the lang conflicts with the code i did to write the autowrapper.
+
+is this the time to make a more comprensive interception code? looks like maybe.
+
+I could rewrite the autowrapper code to fit into the sub interface. the question is how to i hierachialize it?
+
+for example, I might want to wrap every thing...
+
+/*maybe this is the time to investigate now dep.inj. goes in ruby.
+
+hmm. it could be handy if i could shadow/hook *.new for a certain class, but that seems unlikely without rewriting ruby.*/
+
+hmm. what if everything comes in at the same level, and the heirachy is infured from a stack trace.
+
+say: instead of mapping X->Y you can say A:B->C which would sub a C for a B only when that B was created by an A. also might need wild cards A:?:C->D any thing created by A uses a D instead of a C.
+
+then wrapping could happen in tests by going TestCase->?
+
+how about this syntax:
+
+:dot, :query, :star
+
+compose( applyto(GrandParent, :Wild,Parent), klass, test {}, init{},wrap{})
+
+all arguments are optional. for example
+
+compose(wrap{})
+    #wraps everthing
+
+    #wraps everthing who has a TestCase ancestor
+compose(applyto(String),init{})
+    #initializes all stings with {}. (unless there is a more specific rule for initilizing.
+
+how to extend a rule?
+
+rule(applyto(TestCase,:star), wrap{}).rule(applyto(AssertMessage),nowrap)
+
+don't wrap AssertMessages if they decend from a TestCase.. no wrap is a bit messy.
+
+it would be better to add a test
+rule(applyto(TestCase,:star), wrap{}).add(test{! is an AssertMessage})
+
+
+or am I trying to be too clever right now? resist the temptation...
+
+stoping to go sailing with mike...
+
+satuarday 1:09 pm
+
+Tuesday 5:54 pm
+
+been thinking about flying cars, and the initialization reinjection problem.
+
+ideally I want to be able to say "if X asks for a Y give it a Z"
+
+two basic ways to achive this:
+1.  knowing what instance called a given function.
+i'm not sure if this is possible. 
+
+you know what class called a function (with the stacktrace). - could the stack trace be tagged?
+
+2. assign new symbols to a class which shadows the global symbols. 
+say, define a class named X.Y which is actually Z. then when X makes a new Y it actually gets Z. I would want to be able to do this at an instance level.
+
+3. parse and edit the code to change the meaning when you call a .new
+
+...stop about tuesday 7 ish
+
+wednesday 5 pm ish
+
+simpler ways to achieve something similar...
+1. intercept calls to Class.new and use the stacktrace.
+    1.1 subclass instances you want to reassign classes to, you may be able to see that...
+2. parse the stack trace to get the class of the class's parent.
+3.force classes to follow a convention (this goes against a key principle)
+4. parse the .rb file and insert a convention (this is acceptable)
+
+5. rewrite ruby so that I have a function to return stack trace as instances.
+
+~key principle: don't force anyone to follow any conventions ~
+
+distinction between runtime interception and precompile editing. 
+
+if the initialization interface is the same, (which it could be) then it does not matter which I use at this point. means => use stacktrace parsing.
+
+bad news: the ruby stacktrace only returns a list of the .rb files... instead of the classes. this a problem, .rb files do not necessarily have to reflect the class. this means a messy work around.
+
+usually it does... 
+
+okay.
+
+web 28, 8 pm
+
+working on composition.
+
+#question: what sort of behaviour should be expected in these cases:
+# 1.A->B: 
+#ask for A get B.
+# 2. A->B, B->C
+# 3. A->B, B->A
+# if 2 means ask for A, get C, what does 3 mean? it means crash.
+# else 3 means ask for A get B, but ask for B, get A.
+# and 2 means ask for A get B, ask for B get C
+#this second interperation has less failor modes. -> so go with this for now.
+
+ClassConductor
+
+well! I now have a call which:
+1. intercepts the creation of new objects.
+2. can be configured to use different objects:
+    r = ClassConductor.newrule("Name")
+    r.replace(OldClass,NewClass)
+3. a rule can be given a test which controls when it applies... (test takes the class, and it's init args)
+    r.test { |klass,*args| some condition on these (or maybe the stacktace?)}
+4. can be given a wrap method which is called after the class is initialized.
+    r.wrap {|obj| do whatever...} 
+(test conditions need to be written into the wrap block... would it make more sense to attach wrap functions to the replace? ... this would be complicated, which suggests I've made a syntax misdesign somewhere else...
+
+simpler rules with more hierarchy?
+
+although, I have enough sophistication to do the next couple of things... I will probably learn more from trying to use the design than starting again right now.
+
+Next Things:
+TestRunner or ClassLibrary
+
+ClassLibrary runs on a server and accepts classes. 
+it uses TestRunner to see what it can learn about them.
+
+TestRunner finds all the tests, discovers the interfaces, and tries other classes with the interfaces in the tests.
+
+or another thing, which figures out the composition of a given program... ObjectSpace? or parse the  .rb to work-around the stacktrace prob. ***
+
+[if code queries Classes  that will case problems. well, someone will have to rewrite those modules, and refur to tests instead...]
+
+*** tag all the objects with stack trace info and then look through ObjectSpace to see where everything ends up...
+
+might need some sort of graphing thing for displaying application composition...
+
+what is simplest thing that is actually usable for something?
+
+1. instead of a server. include this project as a library. 
+2. it can run all tests.
+3. specify composition by tests instead of classes.
+4. run all tests and calculate possible configurations of a composition.
+
+there is a hole...how can I make a propper composition, if I cant really see who created a new instance?
+
+hmm. then next problem is who-created-this-instance?...
+
+1.Investigate Dependency Injection in RUBY
+
+about 1 am thursday.
+
+Thursday 3:30 pm
+
+thought today: might need to reinterperet symbols also. (i.e. class which are staticially reffed) - as well as initializations. => parseing and editing pre-compile code. 
+
+which means parsing the code. check out rubinius - a ruby compiler/interpereter written in ruby.
+
+considered python for a second. but apparently you can't modify built-in classes.
+
+
+http://www.engineyard.com/blog/2009/improving-the-rubinius-bytecode-compiler/ 
+
+also see 
+ParseTree a gem to convert rubycode into s-expressions written in C
+RubyParser a gem with same output as P.T. but written in pure ruby
+Ruby2Ruby a gem which converts from sexp back to ruby code.
+
+a S-expression is a symbolic expression. it's lisp, basicially! this discovery is very positive!
+
+signing off
+thursday 29 7:13 pm.
+
+friday 8:13 pm
+get something to eat. then experiment with s-expressions.
+8:28 feed on indomie
+check out RewriteRails (rewrites ruby code to not use monkey-patching)
+heckle (mutates code to check tests fail)
+rubymacros - lisp style macros in ruby
+
+satuarday 1 pm
+looking at more stuff with parsing ruby. got sexp_processor to work... use ruby_parser instead of ParseTree.
+ 
+example reference to a constant (with module):
+    s(:colon2, s(:colon2, s(:const, :Test), :Unit), :TestCase)
+example reference to local constant 
+    s(:const, :VCR)
+(in the context, it was a class referred to in the requires)
+
+when a class is defined, everything is wrapped in a s:(scope ...) sexp. 
+maybe a new const defined within the scope will shadow the require()'d classes.
+
+Build some classes to experiment.
+
+Experiment 1.
+theory: a class defined within another class will shadow a class defined in outside, but not something outside that.
+
+method:
+class A{
+foo = "outside"
+}
+class B{
+class A{
+foo = "inside"
+}
+
+test A.new.foo == "inside"
+}
+
+test A.new.foo == "outside"
+
+IT WORKED!
+
+see code/practice/syntax_experiment/shadowing.rb
+
+Experiment 2.
+the same effect can be achived by adding an inner class dynamicially.
+
+method:
+class A{
+foo = "outside"
+}
+class B{
+
+test A.new.foo == "outside"
+}
+
+test A.new.foo == "outside"
+test B.test == "outside"
+B.addclass A{
+foo = "inside"
+}
+test B.test == "inside"
+
+THIS WORKED TOO.! see   code/practice/syntax_experiment/dymanic_shadowing.rb
+
+
+hmm. I remember reading somewhere you can add stuff to instances as well.
+it doesn't look like you can add a new constant to an instance. only a new method.
+
+but what about dynamicially creating a new subclass of something?
+
+thats easy: 
+class Kaz
+def newFug; Fug.new; end
+end
+
+Rak = Class.new(Kaz)
+
+then, we can add a new method by:
+
+Rak.define_method.call(:fug) {puts "wugfugffu"}
+
+adding a new Constant (i.e. a class)
+
+Rak.const_set(:Fug, Mur)
+
+assert Rak.new.newFug.is_a?(Mur) =>fail
+ha! it doesn't work because Rak extends Kaz, but inherits newFug... but doesn't change the meaning of Fug in Kaz.newFug
+
+BUT!
+
+you don't have to subclass! you can duplicate a class
+Rak = Kaz.dup
+Rak.const_set(:Fug, Mur)
+assert Rak.new.newFug.is_a?(Mur) =>pass!
+
+what about hooking __send__, call or whatever, so that you can build a stack of instances which called the current function.
+
+Object.__send__
+Method.call
+
+this doesn't work. ruby doesn't seem to call methods via these functions. to work this approch you'd have to hook every function. it would be better to use parsing->sexp->ruby and just changeing the bits you want reconfigured.
+
+INJECTION Reconsidered
+1.use Constant shadowing to reconfigure defaults, and class.new hooking to reconfigure new instances where necessary. should be able to do quite a bit, and we havn't even gotten into sexps yet.
+
+HEY: idea! replace ParticularClass.new to use a different class in particular situations (i.e. by checking stacktrace)
+
+challenge: .new is a class method. not an instance method. how do you add a class method dynamicailly?
+
+this is best method so far:
+to_use = T::A2
+A.class_eval  "def self.new 
+puts \"A.NEW HOOKED dynamicially deciding to use #{to_use}\"; 
+if(#{to_use }) then #{to_use }.new else super; end 
+end"
+
+awesome. now i could probably write a heirachical reconfigurer.
+
+~~~~~~~~~~~~~
+sunday 3:32 pm
+
+someone told me about a wellington city thing where you submitted a busines idea in 100 words and the best one got $25,000 seed capital. it's drawn in july sometime. -> must look into this stuff.
+
+talk to Sam McLoud about idea. he probably has some hacker contacts.
+~~~~~~~~~~~~~
+
+been writing a new version of ClassConductor (ClassConductor2) which uses Shadowing.
+
+it's working, the interface could be nicened... 
+
+to use a module? (and include that in the classes - means they could be reconfigured again later.)
+
+A.dup != A.
+and
+A.is_a? A.dup == false
+this will cause problems. probably have to hook == and the other comparator methods.
+make them behave as if A.dup is a subclass of A... or equal?
+
+what about A.dup == A.dup? should probably return true.
+
+the duplicated classes will have to retain a pointer to the class they came from.
+
+tuesday 12:36 am
+written basic implementation of this...
+A.dup == A
+class B < A
+B.dup < A
+ 
+NEXT:
+Either a Test Harness, or something to parse all the symbols*, and figure out the interfaces.
+i.e. discover the hook points...
+
+or, Parse all symbols,
+wrap & run tests to figure out interfaces.
+
+what output do I want? I need to know what classes are in a file, and what symbols they refur to.
+
+could I just strip out all information which is no a class, colon2, or const and ignore everything else from the sexp?
+
+or, relist it the classes forward?
+
+(module Mmm
+(class Rak
+(X::Y::Z)
+(A::B::C)
+(class Rar
+    (G::H))))
+
+wednesday 2:05 am.  
+been working since 3 pm, except 2.5 hours for MMM
+got sick of trying to install linux on Asus eee and started coding. 
+I now have a parser to discover which Classes a class refurs to. this will be used to discover what points can be re hooked.
+
+whats next?
+
+a test harness which uses shadowing and parsing to rewire the test.
+
+wow, this is getting closer to the prototype faster than i thought it would!
+wednesday 2:15 am
+
+
+wednesday 3:12
+now happily running Ubuntu Karmic  Netbook Remix on asus eee. also, got Ubuntu One to find it, and now it's syncing with the desktop.
+
+next thing then: a test harness
+    materials: a test case, which refurs to one object.
+       a collection of subject classes which can be wired into the test.
+     dup the test and wire in the subjects and report on test results.
+
+wednesday 6:12
+ I've sluggishly written a script which implements the above crudely for hardwired classes/tests
+
+the dificulty moving forward is that i don't have an ideal way parse a class...only to parse a .rb file.
+I could write the tester to take parse inputs and leave
+
+1.takes a List of classes, and a list of tests
+2.references for tests (might have to use a manifest class or something for now, until can bootstrap outta here)
+2.extract the interfaces of the classes the tests reference
+3. find the classes which have the right interfaces.
+4. run the tests on the on the classes in every combination, and return the results.
+
+results should be:
+a mapping of classes which are default test subjects -> possible substitutions. (hmm, I havn't thought about this enough... so just return test->passing combinations?
+
+so if we have tests [TestPrimes] and classes[Primes,TooCleverPrimes,SmartPrimes, BrokePrimes]
+we want back:
+testdata:
+[Test [replacements] TestResult]
+i.e.
+[Test replacements TestResult]
+[TestPrimes [[Primes, TooCleverPrimes]] [pass...]] etc.
+
+Just encountered my first monkey patch clash. I knew this was coming. hmm. whats some clever way to gaureentee it never happens? for now, am just prefixing my monkey patching with "_" (that fixed it)
+
+stumbled upon a problem with VCR's. they dont equal the classes they wrap. looks like will have to  record them to use Class.dup
+
+took a break and hit the jackpot on TED http://www.ted.com/talks/simon_sinek_how_great_leaders_inspire_action.html
+ 
+he say why, then how, then what.
+communicate your beliefs first. decisions are made on a belief level, not a fact level. do business with people who believe what you believe.
+
+'the goal is not to do business with everybody who needs what you have, the goal is to do business with people who belive what you belive'
+
+it's right what I needed to hear. to do: rewrite business plan in form of why. I can certainly do that. infact i think it will come out much better that way.
+
+there is a party on out in the kitchen... but i'm not in party mode. i'm in work mode.
+
+and it's time for bed.
+
+thursday 12:37 am.
+
+sunday 11:51 pm
+
+[been keeping notes in ~/work.log on the asus eee last couple of days]
+
+discovered that the output of ParseTree is different if it's parsing a class, and if it's parsing a source file.
+
+a trivial difference is that the there is the calls to require in the header, and thats wrapped in a scope sexp.
+
+but also, there is the more significant difference that in a class definition, parsing a source file gives you this format:
+s(:class :ClassName :SuperClassName s(:scope s(:defn ...
+and parsing from a class gives you this format:
+s(:class :ClassName :SuperClassName s(:defn ...
+
+just a list of defn's instead of a scope. also, the defns are put in alphabetical order.
+
+i've posted a bug to the ParseTree project.
+http://rubyforge.org/tracker/index.php?func=detail&aid=28184&group_id=439&atid=1778
+I might have to write a processor to make both consistant?
+
+I could spend alot of time here. what are my aims?
+
+I want to progress with my prototype. it got stuck when i was trying to run test_class_references and my parser was confused because that classfile had more than one class defined inside it.
+
+also, my parsing code had gotten complicated. several layers, and then it didn't give the idea syntax when i got to test_rewire.
+
+my feeling at the moment, is
+I need most to parse classes.
+decide what format is best for test_rewire
+rewite parsing code to use ParseTree & classes.
+
+okay.
+
+
+~~~~~~~~~
+idea:
+program to turn USB numeric keypad as chorded keyboard.
+USB numeric keypad ~= $20 on trademe.
+can also get flexible silicon keypads.
+hold onto hand with a strap and reach around the back...
+downside: can't use the thumb. but there are lots of buttons so there might not need so much chording.
+
+with predictive typing... you could skip chording, and get really fast...
+
+there is a opensource predictive typing system now called Presage
+http://sourceforge.net/projects/presage/
+
+you can generate different predictive models for whatever corpus you like,
+
+and it takes plugins for the predictive model.
+~~~~~~~~~~
+
 start
 fri May  6 07:49:46 UTC 2010
 
@@ -13,9 +625,9 @@ working on test_test_rewire
 known problem with vcr.==... investigating similar problems.
 trying wrapping on other tests.
 test_class_sub failed
-	problem is: test sub has other classes defined in the same file (which confuses it) 
-	class parser doesn't take modules yet. it will need to.
-	probably the parser returning module::class would give it a better interface anyway.
+problem is: test sub has other classes defined in the same file (which confuses it) 
+class parser doesn't take modules yet. it will need to.
+probably the parser returning module::class would give it a better interface anyway.
 
 i need a diagram of the classes here.
 
@@ -67,8 +679,8 @@ this is really tricky because sometimes the tree structure is partially flattene
 ... hmm, the structure of the output matches the structure of the schema.
 
 what about the structure of the process?...
-	...when the output is flat...the process should be flat?
-	what does code which parses a nested structure into a flat one look like?
+...when the output is flat...the process should be flat?
+what does code which parses a nested structure into a flat one look like?
 
 write 
 code to make a nested structure falt
@@ -94,8 +706,8 @@ classes it thinks it can plug in.
 
 TODO: 
 further testing of test_rewire. 
-	another simple class.
-	a test which uses two classes.
+another simple class.
+a test which uses two classes.
 write something to test all the classes in the project.
 rewrite interface discovery wrapper (VCR) IDW?
 test whether shadowing also works for builtins i.e. Array.
@@ -118,7 +730,7 @@ started about 7ish?
 today got test_rewire2 working with multiple substitutions.
 1.need to tidy up the test running code. it's been duplicated. 
 2.need a tight little class with good printing methods
-	from full debug information to just a note to silent.
+from full debug information to just a note to silent.
 3. silence automatic running from test/unit.
 4. write better Interface Discovery Wrapper
 
@@ -180,13 +792,12 @@ the current thread.
 what next?
 code to run all tests on all classes in a project?
 start looking into how I might run a class manager server? 
-	- no can wait until configuration is happening.
+- no can wait until configuration is happening.
 parse configuration from every file in a project and graph how they fit together?
-	- how to display configuration?
-	- i'd need an example program to reconfigure.
-	- just something structure which showed the layers of dependencies and
-		what could be pluged in there?
-		
+- how to display configuration?
+- i'd need an example program to reconfigure.
+- just something structure which showed the layers of dependencies and
+what could be pluged in there?
 i found how to load the contents of a directory:
 Dir.new(path).entries
 also, saw something interesting in test/unit
@@ -288,7 +899,7 @@ what about a tree of possibilities,
 with marks on the chosen.
 on(x){:A => suggested(a,b,c,d).use(c){:symb => blah, etc}
 #name things
-	declare something: use(c).name(:name) 
+declare something: use(c).name(:name) 
 refur to something: use_named(:name)
 special dependency: .require(...)
 #otherwise use parsed classes automaticially.
@@ -321,9 +932,9 @@ working on test_test_rewire
 known problem with vcr.==... investigating similar problems.
 trying wrapping on other tests.
 test_class_sub failed
-	problem is: test sub has other classes defined in the same file (which confuses it) 
-	class parser doesn't take modules yet. it will need to.
-	probably the parser returning module::class would give it a better interface anyway.
+problem is: test sub has other classes defined in the same file (which confuses it) 
+class parser doesn't take modules yet. it will need to.
+probably the parser returning module::class would give it a better interface anyway.
 
 i need a diagram of the classes here.
 
@@ -375,8 +986,8 @@ this is really tricky because sometimes the tree structure is partially flattene
 ... hmm, the structure of the output matches the structure of the schema.
 
 what about the structure of the process?...
-	...when the output is flat...the process should be flat?
-	what does code which parses a nested structure into a flat one look like?
+...when the output is flat...the process should be flat?
+what does code which parses a nested structure into a flat one look like?
 
 write 
 code to make a nested structure falt
@@ -402,8 +1013,8 @@ classes it thinks it can plug in.
 
 TODO: 
 further testing of test_rewire. 
-	another simple class.
-	a test which uses two classes.
+another simple class.
+a test which uses two classes.
 write something to test all the classes in the project.
 rewrite interface discovery wrapper (VCR) IDW?
 test whether shadowing also works for builtins i.e. Array.
@@ -426,7 +1037,7 @@ started about 7ish?
 today got test_rewire2 working with multiple substitutions.
 1.need to tidy up the test running code. it's been duplicated. 
 2.need a tight little class with good printing methods
-	from full debug information to just a note to silent.
+from full debug information to just a note to silent.
 3. silence automatic running from test/unit.
 4. write better Interface Discovery Wrapper
 
@@ -488,13 +1099,12 @@ the current thread.
 what next?
 code to run all tests on all classes in a project?
 start looking into how I might run a class manager server? 
-	- no can wait until configuration is happening.
+- no can wait until configuration is happening.
 parse configuration from every file in a project and graph how they fit together?
-	- how to display configuration?
-	- i'd need an example program to reconfigure.
-	- just something structure which showed the layers of dependencies and
-		what could be pluged in there?
-		
+- how to display configuration?
+- i'd need an example program to reconfigure.
+- just something structure which showed the layers of dependencies and
+what could be pluged in there?
 i found how to load the contents of a directory:
 Dir.new(path).entries
 also, saw something interesting in test/unit
@@ -626,9 +1236,9 @@ working on test_test_rewire
 known problem with vcr.==... investigating similar problems.
 trying wrapping on other tests.
 test_class_sub failed
-	problem is: test sub has other classes defined in the same file (which confuses it) 
-	class parser doesn't take modules yet. it will need to.
-	probably the parser returning module::class would give it a better interface anyway.
+problem is: test sub has other classes defined in the same file (which confuses it) 
+class parser doesn't take modules yet. it will need to.
+probably the parser returning module::class would give it a better interface anyway.
 
 i need a diagram of the classes here.
 
@@ -680,8 +1290,8 @@ this is really tricky because sometimes the tree structure is partially flattene
 ... hmm, the structure of the output matches the structure of the schema.
 
 what about the structure of the process?...
-	...when the output is flat...the process should be flat?
-	what does code which parses a nested structure into a flat one look like?
+...when the output is flat...the process should be flat?
+what does code which parses a nested structure into a flat one look like?
 
 write 
 code to make a nested structure falt
@@ -707,8 +1317,8 @@ classes it thinks it can plug in.
 
 TODO: 
 further testing of test_rewire. 
-	another simple class.
-	a test which uses two classes.
+another simple class.
+a test which uses two classes.
 write something to test all the classes in the project.
 rewrite interface discovery wrapper (VCR) IDW?
 test whether shadowing also works for builtins i.e. Array.
@@ -731,7 +1341,7 @@ started about 7ish?
 today got test_rewire2 working with multiple substitutions.
 1.need to tidy up the test running code. it's been duplicated. 
 2.need a tight little class with good printing methods
-	from full debug information to just a note to silent.
+from full debug information to just a note to silent.
 3. silence automatic running from test/unit.
 4. write better Interface Discovery Wrapper
 
@@ -793,13 +1403,12 @@ the current thread.
 what next?
 code to run all tests on all classes in a project?
 start looking into how I might run a class manager server? 
-	- no can wait until configuration is happening.
+- no can wait until configuration is happening.
 parse configuration from every file in a project and graph how they fit together?
-	- how to display configuration?
-	- i'd need an example program to reconfigure.
-	- just something structure which showed the layers of dependencies and
-		what could be pluged in there?
-		
+- how to display configuration?
+- i'd need an example program to reconfigure.
+- just something structure which showed the layers of dependencies and
+what could be pluged in there?
 i found how to load the contents of a directory:
 Dir.new(path).entries
 also, saw something interesting in test/unit
@@ -934,9 +1543,9 @@ working on test_test_rewire
 known problem with vcr.==... investigating similar problems.
 trying wrapping on other tests.
 test_class_sub failed
-	problem is: test sub has other classes defined in the same file (which confuses it) 
-	class parser doesn't take modules yet. it will need to.
-	probably the parser returning module::class would give it a better interface anyway.
+problem is: test sub has other classes defined in the same file (which confuses it) 
+class parser doesn't take modules yet. it will need to.
+probably the parser returning module::class would give it a better interface anyway.
 
 i need a diagram of the classes here.
 
@@ -988,8 +1597,8 @@ this is really tricky because sometimes the tree structure is partially flattene
 ... hmm, the structure of the output matches the structure of the schema.
 
 what about the structure of the process?...
-	...when the output is flat...the process should be flat?
-	what does code which parses a nested structure into a flat one look like?
+...when the output is flat...the process should be flat?
+what does code which parses a nested structure into a flat one look like?
 
 write 
 code to make a nested structure falt
@@ -1015,8 +1624,8 @@ classes it thinks it can plug in.
 
 TODO: 
 further testing of test_rewire. 
-	another simple class.
-	a test which uses two classes.
+another simple class.
+a test which uses two classes.
 write something to test all the classes in the project.
 rewrite interface discovery wrapper (VCR) IDW?
 test whether shadowing also works for builtins i.e. Array.
@@ -1039,7 +1648,7 @@ started about 7ish?
 today got test_rewire2 working with multiple substitutions.
 1.need to tidy up the test running code. it's been duplicated. 
 2.need a tight little class with good printing methods
-	from full debug information to just a note to silent.
+from full debug information to just a note to silent.
 3. silence automatic running from test/unit.
 4. write better Interface Discovery Wrapper
 
@@ -1101,13 +1710,12 @@ the current thread.
 what next?
 code to run all tests on all classes in a project?
 start looking into how I might run a class manager server? 
-	- no can wait until configuration is happening.
+- no can wait until configuration is happening.
 parse configuration from every file in a project and graph how they fit together?
-	- how to display configuration?
-	- i'd need an example program to reconfigure.
-	- just something structure which showed the layers of dependencies and
-		what could be pluged in there?
-		
+- how to display configuration?
+- i'd need an example program to reconfigure.
+- just something structure which showed the layers of dependencies and
+what could be pluged in there?
 i found how to load the contents of a directory:
 Dir.new(path).entries
 also, saw something interesting in test/unit
@@ -1233,16 +1841,16 @@ might be easy with a functional language.
 Sunday 16th, 18:03
 deciding what to do next. I feel that a demonstratable prototype will be ready in a week or two.
 it will have
-	* configuration/composition generation
-	* automatic interface testing
-	* be able to load a new application composition.
+* configuration/composition generation
+* automatic interface testing
+* be able to load a new application composition.
 but wont manage the path...
 
 next problems:
-	* composition datastructure.
-	* interface test runner.
-	* composition template builder
-	? interface test database?... just serialize the whole Hash map or whatever?
+* composition datastructure.
+* interface test runner.
+* composition template builder
+? interface test database?... just serialize the whole Hash map or whatever?
 
 ~~~~~~~~~~~~~~~~~~~
 process find classes with interface fast with a method -> [Class] map.
@@ -1253,12 +1861,12 @@ union returns the longest list which is a union of all arg lists.
 ~~~~~~~~~~~~~~~~~~~
 
 interface test runner:
-	1. find all tests.
-	2. run all tests to discover all interfaces.
-	3. check all classes and map interfaces to supporting classes
-	4. wire supporting classes into tests and map interfaces to passing classes.
-	?what about incompatibilities?
-	5. parse application, generate composition, with suggestions from tester.
+1. find all tests.
+2. run all tests to discover all interfaces.
+3. check all classes and map interfaces to supporting classes
+4. wire supporting classes into tests and map interfaces to passing classes.
+?what about incompatibilities?
+5. parse application, generate composition, with suggestions from tester.
 
 ~-~-~-~-~-~-~
 better tester which is compatible with all test frameworks.
@@ -1271,16 +1879,15 @@ better tester which is compatible with all test frameworks.
 about half the tests fail when wrapped in the VCR. this is essential, so maybe now is the time to work on the Interface Discovery.
 
 have two ideas:
-	1. alias every method on a class with a reporting method.
-	2. use set_trace_func to watch calls without interferring.
-	3. parse the test and see what methods it calls.
-	
+1. alias every method on a class with a reporting method.
+2. use set_trace_func to watch calls without interferring.
+3. parse the test and see what methods it calls.
 this doesn't #have# to be prefect - this detects which classes might be good to test, 
 but it's okay if people claim thier class has an interface... and test that. 
 
 2. seems more powerful, but, now that i've just looked into it, 1. seems simpler to implement.
 3. would be simple, but wouldn't cover the cases where a class is passed somewhere else 
-	and initialized there.
+and initialized there.
 
 prodded 2. trace is massive, with many other calls you're not interested in. there are other similar problems which i have only just realized... what about the class calling itself?
 i'd encounter implementaion methods not related to the interface.
@@ -1294,12 +1901,12 @@ argh. the trace function doesn't give you the method! how annoying is that? i'd 
 sounds like alot of work. -> alias every method.
 
 
-	   @#@#@#@#@#@#@#@#@#@#@#@
-	   BIG IDEA: UNIVERSE GAME 
+  @#@#@#@#@#@#@#@#@#@#@#@
+  BIG IDEA: UNIVERSE GAME 
 
-	      ~/~ "WIZARDS" ~/~
+     ~/~ "WIZARDS" ~/~
 
-	   @#@#@#@#@#@#@#@#@#@#@#@
+  @#@#@#@#@#@#@#@#@#@#@#@
 
 a game where the game is programming the game from inside the game.
 
@@ -1425,11 +2032,11 @@ is there anything else I should consider for Interfaces?
 # getting the interface functions, rather than the internal implementation functions.
 # check arity.
 # interface_testing depends on parsing. currently sexp_process fails if it sees a cfunc.
-	-which it encounters when testing test_test_interface.
+-which it encounters when testing test_test_interface.
 # test_v_c_r gives this: TypeError: wrong instance allocation
     /home/ubuntu/code/practice/class_herd/test_v_c_r.rb:83:in `new'
 #still some lagging comparison problems. -- methods i don't usually use.
-	- try testing class_conductor.
+- try testing class_conductor.
 
 ~~~~~ THATS ABOUT IT!
 
@@ -1447,8 +2054,7 @@ $$$$
 made a test to see if IDW could wrap itself.
 it could. i was expecting it to fail. it looks like .methods does not return aliased methods.
 interface testing test_test_interface still fails in a infinite loop / stack overflow.
-	- maybe this is double wrapping. YUSS. error reproduced!
-	
+- maybe this is double wrapping. YUSS. error reproduced!
 method is aliased, and then the alias is aliased.
 but if a old new method calls another aliased method, 
 the old new method now refurs to the new new method.
@@ -1499,31 +2105,30 @@ irb(main):072:0> m
 irb(main):073:0> m.name
 
 I know this will be important. but I don't know what I will do with this information yet.
-	? Modify the class making code so that ClassFinder can find it?
-	then I could get test_class_finder flexible enough to pass wrapped?
-	
-	then TestTestInterface might work wrapped.
+? Modify the class making code so that ClassFinder can find it?
+then I could get test_class_finder flexible enough to pass wrapped?
+then TestTestInterface might work wrapped.
 
-	I only just learned you could do this and what to do with it.
+I only just learned you could do this and what to do with it.
 
-	my head is spinning.
+my head is spinning.
 
-	prehaps the thing to do is testing class finder. I don't really know what
-	class finder needs to do yet. 
-	what about :
-		1.take any class.
-		2.modularise it=> find all references, rewire them.
-		3.reparse it, and remap everything again.
-		4.be able to do the above, but also do it for all sub-parts recursively.
+prehaps the thing to do is testing class finder. I don't really know what
+class finder needs to do yet. 
+what about :
+1.take any class.
+2.modularise it=> find all references, rewire them.
+3.reparse it, and remap everything again.
+4.be able to do the above, but also do it for all sub-parts recursively.
 
-	I can stick the duplicated classes in a module. 
-	but I dont know how to decide where to put them yet.
+I can stick the duplicated classes in a module. 
+but I dont know how to decide where to put them yet.
 
-	hey! this is related to the problem of how to manage the source files on the server.
+hey! this is related to the problem of how to manage the source files on the server.
 
-	okay, make a ClassCopier which controls the duping of classes.
-	then add it into IDW, and ClassConductor3.
-	hmm. have	
+okay, make a ClassCopier which controls the duping of classes.
+then add it into IDW, and ClassConductor3.
+hmm. have
 
 ~~~~~~~~~~~~~~~~~~~~~
 NEW CONCEPT NAMED: "Flexible Ontology" 
@@ -1630,27 +2235,26 @@ test_class_copy passes interface_tester!!!
 test_references still fails because the test is too hard-wired.
 soft-wiring it's working, but there is also the problem of class_references returning things which arn't classes. and all the core classes (which end up in tests...) which are not necessary.
 
-	several errors like:<:"ClassHerd::TestClassSub"> expected but was
-	<:"ClassHerd::ClassCopier::TestClassReferences_cc1::TestClassSub">.
-	should I hook class name to fix this so that wrapping a class
-	still gives the name of the class the wrapper is pretending to be?
+several errors like:<:"ClassHerd::TestClassSub"> expected but was
+<:"ClassHerd::ClassCopier::TestClassReferences_cc1::TestClassSub">.
+should I hook class name to fix this so that wrapping a class
+still gives the name of the class the wrapper is pretending to be?
 
-	I feel like this is going one step too far, but i'll try it and see what happens.
+I feel like this is going one step too far, but i'll try it and see what happens.
 
-	two problems remaining:
-		1. class_references returns local reference names. i.e. they dont have 
-		the module if they dont need it.
-		2. when class_references is running in test_interface it returns different
-		references.
-		[3, i remember now that i've fixed it. class references returns all Constants 
-		even if they are not classes] 
-		1 = easy, 2 = hard.
+two problems remaining:
+1. class_references returns local reference names. i.e. they dont have 
+the module if they dont need it.
+2. when class_references is running in test_interface it returns different
+references.
+[3, i remember now that i've fixed it. class references returns all Constants 
+even if they are not classes] 
+1 = easy, 2 = hard.
 
-		2 also causes errors in test_file_explorer
-		
+2 also causes errors in test_file_explorer
 suspect problem caused by class_conductor affecting parsing.
 
-		1 is fixed.
+1 is fixed.
 ################
 parsing seems to be causing slowness. 
 
@@ -1762,56 +2366,51 @@ normal interface tests run fine, but running test_interface_tester through inter
 end up seeing the methods which get called. although the tests still pass. (although it works on test primes)
 
 2 ideas:
-	1.the methods are ending up somewhere else.
-	2. the wrapped objects are not actually being initialized.
-	
-	approches:
-	1.ObjectSpace the IDWs and query which what interfaces they know.
-	2.ObjectSpace the wrappers and check they are initialized.
-	****************
-	aha! interface_tester is not actually inserting the wrapped classes when it is itself running in the interface_tester!
-	****************
-	okay, so I vaguely know where this error is located. i've considered that possibly fixing it isn't necessary right now.
-	testing the meta code on it self is a good test of it's robustness, but at the prototype stage high robustness 
-	isn't essential.
+1.the methods are ending up somewhere else.
+2. the wrapped objects are not actually being initialized.
+approches:
+1.ObjectSpace the IDWs and query which what interfaces they know.
+2.ObjectSpace the wrappers and check they are initialized.
+****************
+aha! interface_tester is not actually inserting the wrapped classes when it is itself running in the interface_tester!
+****************
+okay, so I vaguely know where this error is located. i've considered that possibly fixing it isn't necessary right now.
+testing the meta code on it self is a good test of it's robustness, but at the prototype stage high robustness 
+isn't essential.
 CURRENT ERRORS.
-	1.test_interface_tester testing it self fails to handle assign rewires properly.
-	2.interface doesn't distinguish internal methods. which will cause incompatiblity. 
-		maybe only record methods from a specific caller/.rb? i.e. the test?
-	3. test vcr - wrong instance allocation. not sure what this is but another thing i don't use anymore.
-	
+1.test_interface_tester testing it self fails to handle assign rewires properly.
+2.interface doesn't distinguish internal methods. which will cause incompatiblity. 
+maybe only record methods from a specific caller/.rb? i.e. the test?
+3. test vcr - wrong instance allocation. not sure what this is but another thing i don't use anymore.
 NEXT STEPS:
-	1.composition layer.
-		- parse the default structure from a given application, output a convient editable format (yaml)
-		- and allow it to be reconfigured... 
-		- command to run a configuration.
-	2. module server.
-		- store all information on tests, 
-		- receive new classes
-		- provide interface for editing compositions.
-		- show test data for a given composition
-		- other possibilities for given modules
+1.composition layer.
+- parse the default structure from a given application, output a convient editable format (yaml)
+- and allow it to be reconfigured... 
+- command to run a configuration.
+2. module server.
+- store all information on tests, 
+- receive new classes
+- provide interface for editing compositions.
+- show test data for a given composition
+- other possibilities for given modules
 PLAN
-	write a basic composition layer, then use that to build the module server.
-	want to edit the code for the server interactively. have interface customized per user.
-	but even be able to edit whole server. that means that a program can have more than one composition layer.
-	like the interface, ontop of the server. to an unprivilged user, the server appears to be a platform. 
-	multiple platforms - a ziggurat 
-	
-	
+write a basic composition layer, then use that to build the module server.
+want to edit the code for the server interactively. have interface customized per user.
+but even be able to edit whole server. that means that a program can have more than one composition layer.
+like the interface, ontop of the server. to an unprivilged user, the server appears to be a platform. 
+multiple platforms - a ziggurat 
 COMPOSITION
 
-	use a format so that it will come out well when converted to YAML.
-	notes from last time I thought about this:
-	on(x){:A => suggested(a,b,c,d).use(c){:symb => blah, etc.defaults}
-	
-	use lists and maps for yaml.
-	{use: InitialClass
-		Symbol: ClassToUse
-		AnotherSymbol: {use: SuchAndSuch
-					Symbol: ReplacementSym 
-						#use replacement_sym instead of Symbol on the SuchAndSuch
-						#which is used instead of AnotherSymbol on InitialClass}}
+use a format so that it will come out well when converted to YAML.
+notes from last time I thought about this:
+on(x){:A => suggested(a,b,c,d).use(c){:symb => blah, etc.defaults}
+use lists and maps for yaml.
+{use: InitialClass
+Symbol: ClassToUse
+AnotherSymbol: {use: SuchAndSuch
+Symbol: ReplacementSym 
+#use replacement_sym instead of Symbol on the SuchAndSuch
+#which is used instead of AnotherSymbol on InitialClass}}
 when you load a Composition
 you can query the classes and check the structure, 
 and create a new instance. hmm.
@@ -1910,23 +2509,453 @@ i.e. when you get to core classes, just stop.
 ############
 
 way to specify defaults?
-	- Composition3.new.defaults(classes)
-	will have to change Composition3 to lazy initialize so it has time to recieve the defaults.
-	things that appear in the default list, are not broken down any deeper.
-	OKAY. I got composition working, loading classes. stopping at defaults.
-	I want t really dramaticly big class structure to read.
-	and to test that the structure would build a class tree which is the same as before.
-	and that the new class tree reads into the same composition.
+- Composition3.new.defaults(classes)
+will have to change Composition3 to lazy initialize so it has time to recieve the defaults.
+things that appear in the default list, are not broken down any deeper.
+OKAY. I got composition working, loading classes. stopping at defaults.
+I want t really dramaticly big class structure to read.
+and to test that the structure would build a class tree which is the same as before.
+and that the new class tree reads into the same composition.
+I have discovered 2 new errors in ClassHerd::TestClassCopier. - FIXED
+also, i've re defined Class._rewires so that TestInterfaceDiscovery doesn't work any more.
+- FIXED
+ 
+monday may 31.
+TestInterfaceWrapper is going into an infite loop
+Compostition3 on RewiringTester -> uninitialized constant ProcWrapper.
+(this is a problem in class finder)
+NEXT: 
+1. fix these errors, 
+2. test reconstrructing classes from compositions.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Wednesday, June 2. 4:09 pm
+back in wellington. checked out and run tests in on my desktop. 
+ran into errors, because I've had to modify some of the parsing classes so it will actually core classes.
+
+~~~~~~~~~~~~~
+Installed ubuntu 10. 9 kept on crashing for some reason. 10 feels very slick.
+
+next: setup private key for github.
+
+okay. gonna run off.
+
+Thursday 3-6-10, 2:18
+
+setting up dependencies to run tests.
+sudo apt-get install ruby rubygems ruby-dev
+sudo gem install ParseTree sexp_processor ruby_parser
+
+running the tests on another machine is a good test. shows what dependencies there are. I had a few hacked mods to my lsexp_processor. but i've fixed that now.
+
+also, what I thought was a infinite loop in TestInterfaceWrapper, was actually just taking a very long time.
+
+okay, I think I've got composer and composition working now. whats next?
+
+    WHATS NEXT?
+        1. figure out why TestInterfaceDiscovery is so slow. (suspect it's parsing too much stuff)
+        2. make sure composition can recompose any thing. (there was a problem with classes which have non-class constants)
+        3. write command to generate composition, and to run a composition.
+
+
+looking into ClassFinder problem. if a class includes a module, class finder won't see the things that that module requires... never mind! Just fixed it!
+now using ClassFinder2
+
+okay. wrote  thing which generates a yaml composition file,
+ >composition [classname] [require'd files] > class_compsositon.yaml
+
+open that with :
+>composer [class_composition.yaml] [require'd files]
+
+composer doesn't do anything accept create the class (not even initialize it)
+I can imagen loads of stuff which would be cool to do:
+    1. automaticially figure out what .rb files are required. (taking into account files loading down stream files). at least, preserve the require'd files specified in the composition command.
+    2. generate executable files (i.e. with #! compose)
+    3. extensive and useful command line options.
+
+bin/composer -h
+Options:
+   --command, -c <s>:   command to execute on composition
+      --yaml, -y <s>:   composition to load
+  --require, -r <s+>:   .rb files to require
+          --exit, -x:   exit immediately following command
+          --help, -h:   Show this message
+
+bin/composition -h
+Options:
+     --class, -c <s>:   Specifiy Class to be composed
+      --yaml, -y <s>:   file to dump yaml into, else stdio
+  --require, -r <s+>:   .rb files to require
+          --help, -h:   Show this message
+
+GOT basic commands. will need a bit more work to get executable compositions. but this is something I can start using.
+
+pulled functionality of command out into a class. added an argument which can be used to bootstrap the configuration command. recompose the composer.
+
+the way I have achived this is to use an extra argument for specifying the composition for the composition command. the default composer_cmd loads that,  and then passes control over to it.
+another method might be to load the first composer, eat some or the arguments, then load the second, and so on.
+
+I imagen that there may be multiple points of composition. for example, user interface containers which can edit thier contents. how might this work?
+
+ideas:
+        add support for parameter setting to composition.
+             - a string which is evaluated in the class's instance following initialization.
+             - will have to hook .new, probably.
+        add support to load composition from another file.
+            - instead of symbol => [name, mapping], just go symbol => "composition.yaml"
+
+what about things that can dynamicially contain multiple modules? tool bars etc.
+should that be handled in the same place?
+or would that depend on a convention?
+maybe those settings can be set with the initialization script? how can those classes maintain thier dynamic customization? maybe they should store it in a class variable or constant... making the configuration a little more firm?
+
+maybe I could have a way that a class could add code to it's composition. it would depend on a convention, but it would be configurable on the composition layer.
+
+    ~or~
+
+class configuration state could be managed in a parallel composition like layer.
+
+or...
+
+you could have a 'proxy(?)' class is has a composition, and lazy initializes itself when initialized.
+
+or, maybe
+  
+have a class which handled plugins. it would reflect on it self to see what extra constants are defined and handle stuff for those.
+
+example:
+[ToolBar {Plugins =>
+            [Plugins {Tool1 => Tool1, etc}]
+}]
+ToolBar knows Plugins' interface and plugins does whatever it takes to manage all it's stuff.
+including adding and removing plugins, and getting data and to and from them, and checking that they have the correct interfaces & behaviour.
+maybe, ToolBar can pass a test in to say what behaviour it's plugins must use. or Plugins can even have a PluginTest class, which can be composed into Plugins, Plugins knows it's a test and not a plugin. 
+
+ ~~~~~~~~~~~~~~~~~~~~~
+looking for web application frameworks.
+
+ramaze (pronounced ra-ma-ze) looks good. it's lightweight and modular. un-opinionated.
+
+the tutorial uses sqlite database, which depends on 1.9.1.
+
+
+the tutorial uses sqlite database, which depends on 1.9.1.
+
+tried installing postgres and mysql. ran into problems with both, with missing libraries.
+for postgres:$ sudo apt-get install libmysqlclient15-dev
+$ sudo apt-get install libpq-dev
+for mysql:
+$ sudo apt-get install libmysqlclient15-dev
+
+the gems installed after that.
+sudo gem install pg mysql
+
+got ramaze running, and worked through the tutorial.
+ran into a number of problems where it didn't seem to be working and it wasn't obvious why.
+I don't like that.
+Also, you don't specify the classes anywhere . it just loads them through object space.
+you have to write HTML... or something very close to it. not cool.
+
+I like the idea of naked objects. just write the objects, and then the editors for that are generated automaticially. you could still have views and controllers. but they would say what class they viewed or controlled and then be selected.
+
+what about a naked object approch where you can edit and view any object in ruby, and then cripple that until you have an application which does one thing?
+
+Naked Objects definitely makes more sense to me. there is no ruby framework for Naked Objects. but a number in java.
+
+
+~~~~~~~~~~~~~~~~~
+
+Bamboo Geodesic Dome
+
+trouble I have had imagining a bamboo dome is how to join the ends.
+tieing 5 bits together at once (with innertube, of course!) would be difficult
+
+just now, I thought of the solution:
+tie 5 bits to gether in a overlaping star shape. tie the end of A onto just back from the end of B so that it wraps around. forming an inner pentagon.
+
+would need to balance the width of the poles and the size of the inner pentagon.
+
+build a model later today.
+~~~~~~~~~~~~~~~~~
+Ihave managed to get a windows/widget toolkit going for ruby - fxruby. it's a bit ugly - all looks windows, but it's a start.
+
+idea is to make a quick Naked Objects style toolkit. 
+
+call it "nudy" a 10/10 rubygem name, + you could use a cartoon nipple as the logo. plus, that makes a nice dig at prudes like steve jobs.
+
+approches:  
+    1.start  doing something 1/2 interesting. viewer for arbirat Array
+    2. make crud screen viewer for any object.
+        display attributes, class, inspect whatever etc.
+        detect attr, attr= methods and create fields for those.
+            if it's not just a simple object (string, number) then make a button which opens a crud                 screen.
+        make a GUI irb. where you can see objects which exist. methods, classes, modules, etc constants. make it as fully featured as possible, and then cripple it to get applications.
+
+what would a GUIRB require? crud viewer, started with ObjectSpace
+command line for typing eval statements...
+
+whats a crud viewer?
+    shows name
+    has fields for attributes. (primitives: Strings, number, boolean
+    has buttons for actions.
+    can display lists (i.e. ancestors)
+    drag and drop fields onto crud screens and pass it to actions.
+  
+method conventions
+setters/getters:
+attr, attr=
+plural and get:
+methods -> array, method(1)
+action and checker:
+apply, applied? unapply (i.e. taint, tainted? and untaint) ...may have arity > 0
+
+has settings for which methods it displays as fields, which as actions (buttons), which as sub cruds. (i.e. an customer or customer address may appear as a sub crud on an invoice)
+
+whether actions should show as a list of buttons, or as a button which brings up a menu.
+
+if an action takes arguments, specify what types arguments must be. ?
+
+maybe switch the crud viewers into edit mode and reposition the buttons or change the viewer. at run time. be able to save it, and reload the program like that. imagine doing that to a website! crazy!
+
+can specify what type(s) a field can be.
+
+    ways to set a non primitive field.
+        1. type name and it searches.
+        2. open ObjectSpace searcher which lists everything (sortable, filterable) of the specified                 types.
+        3. combination search & list (if search is non unique)
+        4. enable user to create new items.
+
+Lists:
+ display a list.
+types of list:
+    short. primitive objects.
+    harmogenous lists (each member the same type)
+        display crud viewer in a single line, with fields as headers
+        list of list of primitives:
+            display like spreadsheet.
+    list of different types:
+        display as tabbed crud,
+        display as list of crud components... between dividers... without headerizing.
+
+fx examples worth checking
+browser
+dirlist
+header
+groupbox
+
+
+|@@@@@@@@@@@@@@eeee........
+|@since we are automaticially generating the interface...
+|@              .....we can generate all sorts of interfaces
+|@ -interactive command line
+|@ -web app
+|@ -rich client/GUI
+|@ -web service API
+|@@@@@@@@@@@@@@eeee........
+
+nude objects framework
+
+layers:
+    ~ domain objects (objects which define the specific problem)
+    ~ bridge layer (loosly coupled to domain layer.  multiple possible viewers per domain objects)
+    ~ interface layer. (firmly coupled to bridge layer, appropriate to paticular interface techonology. gui, web, ICL, etc. )
+
+how to create the layers?
+    ~ have a map of domain_type->view_type
+    ~ set sub types on a particular viewer
+    ~ viewer has a test to say what class it displays, or a list of supported classes?
+
+viewer can set it's own sub viewer, else it asks parent for viewer.
+many instances of one class can have the same sub viewer types.
+
+
+started coding then got confused. new plan.
+write the classes for the layers. set them up manually.
+then write the builder.
+
+~~~~~~~~~~~~~
+PROGRESS!
+
+rewrote yesterday's crud nicer.
+refined idea of what I am doing here.
+
+next:
+implement actions,
+one-type lists
+reference (i.e. open up a window and search for object to assign)
+        some times this will be Any object of a particular type,
+        some times it will be any item from a specific list (i.e. which of a customer's addresses to deliver to)
+
+actions:
+    update: call method, and update viewer.
+    open:    call method and show result in window
+    save/open:    call method, and pass result to viewer which opened this dialog.
+
+one-type lists.
+    display a list of objects, with fields as columns.
+
+read-only fields.
+
+drag-drop setting.
+
+parameterized actions...
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+META-MODULAR
+
+is that the name of this idea?
+well, it denotes the key concept
+
+Meta-Modular.
+
+naming thing is one of the too-hard problems for computer science, so maybe
+thinking of the perfect denotional name is a good omen. the O could be an ouroboro. ha!
+
+metamodular.com is taken, but isn't being used. looks like it's owned by french telecom.
+meta-modular.com is free though. it's only going to cost $14 a year. I should get it. it has a slightly nicer flow with the hyphen.
+
+```````````````````````````
+might want to go to Bar Camp Auckland. it's in a month.
+I could do a presentation on meta-modular.
+I should prepare the presentation at least.
+
+the goal would be to find a co-founder.
+not interested in funding yet.
+
+talking to luke+chris, they thought I shouldn't say
+I was looking for a cofounder. let them come to me.
+Also, there is the question of IP.
+if I change my mind I could do my presentation on cyber-hoboism.
+
+I should also get my passport sorted out. I wouldn't be that expensive to go to similar conferences in Australia.
+
+CEO of Meta-Modular (remember to mention it's a startup)
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Sunday. June 13, 4:46 pm
+extreme basics of nude ruby gui working now.
+
+$$$$$$$$$$$$$$$$$$$$$$$$
+idea: developer cap﻿tcha. when demo system is up. make a little test which developers have to pass to prove they are developers - then they get to use stuff for free.
+could also let people use software in exchange for user testing.
+
+just have a series of simple problems to solve,
+    you could rank them
+    they could be a real small problem,
+    and people could be credited if they are actually used.
+    just have a testcase which thier code has to pass - sort of programming competition style.
+$$$$$$$$$$$$$$$$$$$$$$$$
+
+NUDE RUBY what I have
+display fields. actions. reference fields.
+ next steps:
+
+search fields
+    - it's a reference field, but you can search for a new value (for example using ObjectSpace)
+    - interface needs 3 options: edit, search, new
+        -edit (change change settings on current setting)
+        -search for a different object
+        -new create a new object of a certain/any type
+
+    -drop down menu on the button: edit,search,new.
+        -to make it fast to use, click and drag: so if you click and release it goes straight to edit.
+
+     -search.
+        -pass control to a viewer for Search domain object.
+        - when you click accept. call "save" or something and drop the search object.
+            -then you can implement what ever kind of searcher you like, and I'll make a default     one which uses ObjectSpace.
+    give field .menu function which returns a list of options. (this is probably the next step)
+            what does the presentation layer do with the selected option?
+            sometimes it should set the value or the field. sometimes it should display it
+                -maybe: assign it if it's a normal object. if it's a viewable, show it.
+
+THEN: drag and drop assigning.
+        wow, just noticed you can drag and drop from tab to tab in firefox... drop images into google docs etc.
+
+new word: Gigabux, as in Megabux * 1000
+	Kilabux sounds better than Kilobux.
+
+got an options popup working. it could also be represented as radio buttons.
+I've got a fragile system for making Options fields. would be better to use a member builder which understands the convention (attr,attr=,attrs...or attr_options?)
+
+okay, done.
+
+next is lists:
+    types of list to display:
+        :flat lists
+        :2 layer lists (list of flat lists)
+        :tree (Directed Acyclic Graph)
+        :Graph (may require pointers, and self reference)
+~~~~~~~~~~~~~~~~~~~
+hey, also, could have smart fields where you can type in eval statements... preserve them in the interface layer. execute statements in the instance space of the domain layer.
+let them default to a primitive if they don't start with =.might have to parse the string to check for dependencies. thats probably a good idea for security anyway.
+
+we'll need a way to sand box them.
+~~~~~~~~~~~~~~~~~~~
+
+okay, back to lists.
+
+    first write flat list field type.
+        -check if it's the same type
+        -check there are no lists in the list.
+
+~~~~~~~~~~~~~~~~~~~~
+Another Convention to Acknowledge:
+is_SOMETHING?
+and
+SOMETHINGed?
+
+means ->read only boolean (usually, it might return an object but is intended to be boolean)
+~~~~~~~~~~~~~~~~~~~~~
+oh yeah, what about updating the number and type of fields as a class changes?
+could be important for options fields,
+also for when we get to moving widgets around.
+
+have a look at fx/examples/button.rb it has the button moving around.
+~~~~~~~~~~~~~~~~~~~~~
+
+okay, I can check if a list is flat. how am I going to display the list?
+        I want fields, options, buttons, everything. in my list display.
+   in the fox example, table.rb is to most advanced. It has spanning cells and icons in the cells... ther must be some way to stick a button in one.... otherwise will have to build a table widget from something else.
+
+   FXTable can't take buttons and junk. 
+	I'll have to get the events and then send them to a particular object.
+	also, I can't stick buttons or menus in.
+	-that means I can't build off what I have done, and I cant take it as far.
+	Conclusion: FXTable is a dead end.
+		-building my own table may not scale as fast, but at the moment i'll be demonstrating small things.
+	what if I accessed the higher functionality via right click?
+
+	splitter is a better example.
+	what about headers though?
+		in header.rb there are headers over a table, but over on the right there are 
+
+	~~~~~~~~~~~~~~~~~~
+	instead of opening windows when editing a new object.
+	what about a new tab like browsing? or right click for window/tab
+	~~~~~~~~~~~~~~~~~~
+
+	aha! reading header.rb the header is actually seperate from the table. 
+	you make a listener which updates the table when it's adjusted
 	
-	I have discovered 2 new errors in ClassHerd::TestClassCopier. - FIXED
-	also, i've re defined Class._rewires so that TestInterfaceDiscovery doesn't work any more.
-	 - FIXED
-	 
-	monday may 31.
-	
-	TestInterfaceWrapper is going into an infite loop
-	Compostition3 on RewiringTester -> uninitialized constant ProcWrapper.
-		(this is a problem in class finder)
-	NEXT: 
-		1. fix these errors, 
-		2. test reconstrructing classes from compositions.
+	I think there is a way I can make widgets change thier layout widths also.
+	check: ratio.rb -FXHorizontalFrame displays widgets horizontally. 
+	so I can make a table by having a set of FXVerticalFrames inside a horizontal frame... 
+	and then settings the heights and widths of the inside widgets.
+
+	so... make a Widget table...
+
+	it's important that I get all the widths and heights right. (this would be easy with HTML)
+	clearly, write a class which manages the table. check that all the widths and heights are right. 
+
+	one question: how can I move rows?
+
+	children()
+	- Returns an array containing all child windows of this window
+	each_child( {|child| ...}
+	-Iterate over the child windows for this window. Note that this only reaches the direct child windows for this window and no deeper descendants. To traverse the entire widget tree, use each_child_recursive.
+	linkAfter(other)
+	- Relink this window after sibling window other, in the parent‘s window list.
+	linkBefore(other)
+	- Relink this window before sibling window other, in the parent‘s window list.
+
+	that should make reordering fairly easy.

@@ -3,12 +3,19 @@
 require 'rubygems'
 require 'fox16'
 require 'nudy/action'
+require 'nudy/reference'
 require 'nudy/field'
-require 'nudy/object_viewer'
-require 'nudy/interface_builder'
+require 'nudy/viewable'
+require 'nudy/interface_builder2'
+
+require 'nudy/attr_member_builder'
+require 'nudy/options_member_builder'
+
+	require 'nudy/fox_object_display'
+	include Fox
 
 class Person
-attr_accessor :name,:age,:sister,:height,:programmer,:male, :shopping,:liar,:another_person
+attr_accessor :name,:age,:sister,:height,:programmer,:male, :shopping,:liar,:another_person,:option
 def initialize 
 	@name = "bob"
 	@sister = "jenny"
@@ -17,6 +24,9 @@ def initialize
 	@programmer = true
 	@male = true
 	@liar = false
+	@option = nil
+@shopping = ['eggs','milk','cheese','bread', 'bacon','etc']
+end
 	def chop
 		self.height= self.height/2
 
@@ -32,8 +42,9 @@ def initialize
 		@liar = rand(2) == 1
 		self
 	end
-	#@shopping = ['eggs','milk','cheese','bread', 'bacon','etc']
-end
+	def options 
+		return @shopping
+	end
 end
 	#application layers:
 	#---------------
@@ -42,26 +53,22 @@ end
 	#user interface layer (implementation of an actual interface)
 	#~~~~~~~~~~~(screen)
 	#user (human/monkey/etc)
-
 	#setup interface layer
+
+	ib = InterfaceBuilder2.new
+	opt = OptionsMemberBuilder.new(Options)
+	ref = AttrMemberBuilder.new(Reference,Person)
+	ref.builder = ib
+	ib.add(opt,ref,AttrMemberBuilder.new(Field))
+	#ib.add(ActionMemberBuilder.new(Action,:methods,:clone))
+	ib.map(Object,Viewable).mask << :taguri
+	
 	p = Person.new
 	p.another_person = Person.new.randomize
 	p.another_person.name = 'gorge'
-	o = ObjectViewer.new(p)
-	def fields (parent,*fields)
-		fields.collect{|f|
-			Field.new(parent,f.to_s)
-		}
-	end
+	p.another_person.another_person = Person.new
 
-	defaults = InterfaceBuilder.new
-	defaults.add(Field,Fixnum,Float,Integer,String,TrueClass,FalseClass)
-	ib = InterfaceBuilder.new(defaults)
-	ib.add(ObjectViewer,Person).add_fields(:name,:age,:height,:programmer,:liar,:another_person).add_actions("randomize")
 	o = ib.build(p)
-
-	require 'fox_object_display'
-	include Fox
 
 	application = FXApp.new("Hello", "FoxTest")
 	main = FXMainWindow.new(application, "Hello", nil, nil, DECOR_ALL)

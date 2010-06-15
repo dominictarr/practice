@@ -1,11 +1,14 @@
-
-
 class AttrMemberBuilder
 		attr_accessor :target, :types, :builder
 	def initialize(target, *types)
 		@target = target
 		@types = types.empty? ? [Object] : types
 		@builder = nil
+	end
+	def set_builder (b)
+		puts "BUILDER = #{b}"
+		@builder = b
+		self
 	end
 	def check_types(obj)
 		@types.find {|f| f. === obj}
@@ -19,7 +22,6 @@ class AttrMemberBuilder
 	def has_method(owner,method)
 		owner.methods.include? method.to_s
 	end
-	
 	def handles? (owner, member)
 		#ap owner
 		#ap member
@@ -32,8 +34,8 @@ class AttrMemberBuilder
 	end
 	def build (owner,member)
 		t = target.new(owner,member)
-		if @builder and has_method(t,:builder) and check_arity(t,:builder,1) then
-			t.builder(@builder)
+		if @builder and has_method(t,:"builder=") and check_arity(t,:"builder=",1) then
+			t.builder = @builder
 		end
 		t
 	end

@@ -1,6 +1,5 @@
 require 'ap'
 class InterfaceBuilder2
-
 	class BuildPlan
 			attr_accessor :klass,:viewer,:names,:mask,:builder,:member_builders
 			def initialize(klass,viewer)
@@ -22,11 +21,9 @@ class InterfaceBuilder2
 	@mappings = []
 	@members = []
 	end
-
-
 	def map(klass = Object,viewer = ObjectViewer)
 		@mappings <<  b = BuildPlan.new(klass,viewer)
-		b.builder = self
+		#b.builder = self
 		b
 	end
 	def plan(klass)
@@ -39,27 +36,24 @@ class InterfaceBuilder2
 		@members = @members + members
 		self
 	end
-
-	def build (object)
+	def build (object,builder = self)
 		p = plan(object.class)
 		if p then
 			members = []
 			object.methods.each {|m|
 				unless p.masks(m) then
-					@members.find {|mb| mb.handles? (object,m) ? members << mb.build(object,m) : false}
+					@members.find {|mb| mb.handles?(object,m) ? members << mb.build(object,m) : false}
 				end
 			}
-		
 			viewer = p.viewer.new(object)
-			viewer.builder = p.builder
+			viewer.builder = p.builder || builder
 			viewer.add_members(*members)
 			viewer
 		elsif @parent
-			puts "CALL PARENT.build"
-			@parent.build(object)
+			puts "did not have plan for #{object.class} passing to parent"
+			@parent.build(object,builder)
 		else
-			puts "NOTHING CAN BE DONE"
-
+			raise "no InterfaceBuilders in the stack handles #{object}"
 		end
 	end
 end

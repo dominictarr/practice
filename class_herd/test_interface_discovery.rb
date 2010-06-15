@@ -31,7 +31,11 @@ def test_more_methods
 	assert_equal a.length,w.length
 	a.reverse
 	w.reverse
-  	assert_equal a,w
+	assert_equal a,w
+	a.delete :a
+	w.delete :a
+	assert_equal a,w
+
 end
 
 def test_call_meta_functions

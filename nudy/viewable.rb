@@ -7,6 +7,13 @@ class Viewable
 		@u_i_viewers = []
 		@builder
 	end
+	def member (name) #returns member with name, else returns nil
+		if name.is_a? String or name.is_a? Symbol then
+		@members.find { |it| it.name == name.to_s}
+		else 
+		@members.find { |it| it == name}
+		end
+	end
 	def add_members(*members)
 		members.each{|f| @members << f}
 		self

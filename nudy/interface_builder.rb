@@ -1,4 +1,4 @@
-require 'object_viewer'
+require 'nudy/object_viewer'
 
 #this class will build viewers around domain objects.
 #you say things like:

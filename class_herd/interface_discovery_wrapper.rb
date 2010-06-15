@@ -68,7 +68,6 @@ class InterfaceDiscoveryWrapper
 	#puts "wrapped :#{ meth}"
 	end
 	#args = make_args(klass.method(:"idw_#{meth}").arity)
-	args = make_args(klass.instance_method(meth).arity)
 	klass.send(:alias_method, :"idw_#{meth}", meth)
 
 	#~ klass.send(:define_method, meth){|*args,&block|
@@ -79,6 +78,7 @@ class InterfaceDiscoveryWrapper
 			#~ r
 		 #~ }
 
+	args = make_args(klass.instance_method(meth).arity)
 	klass.class_eval("def #{meth} (#{args})
 				idw_special_add_method(:#{meth})
 				return method(\"idw_#{meth}\").call(#{args});
