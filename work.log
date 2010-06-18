@@ -2959,3 +2959,156 @@ okay, I can check if a list is flat. how am I going to display the list?
 	- Relink this window before sibling window other, in the parent‘s window list.
 
 	that should make reordering fairly easy.
+
+	##################################################################################
+	#what about genetic algorithm to figure out test for when a function will change a state?
+	#example, [:a].delete :a will change state, because [:a].include? :a
+	# << will always change the state
+	#also, we can discover what will produce errors.
+	#or inductively prove that a method can't make errors.
+	#it it's found an error, find most concise test which predicts error.
+	##################################################################################
+	#if you incorperated a little smarts about dependencies
+	#say, learned about the methods which don't call other methods first
+	#the classes which don't have dependencies,etc. then the classes which depend on them
+	#it might be fairly effective - who knows?
+	#certainly, an interesting contrast to formal proving.
+	##################################################################################
+
+
+	wednesday, 18, 11:19 pm.
+
+	was just about getting fed up with FXRuby, but then I cracked the problem. I couldn't figure out how to make something display the width I wanted 	it. the key was: LAYOUT_FIX_X|LAYOUT_FIX_Y ... makes sense. but it would have been nice to have a warning.
+
+	thats got me thinking about the best way to assemble Fox widgets... 
+		wrap it in a nicer interface... what does that entail?
+			- store options in one place, and have inheritence,
+			- aim to get it a bit more htmlesq ~ which will be better than a GUI editor.
+			- mapping with names:
+				-child(:name) or decend(:child,:grandchild...)
+			-maybe something that will search till it finds that object.
+			-key => value syntax so you dont forget argument order
+
+	anyway.
+
+	now I have a row widget which has adjustable widths, and can reorder the fields.
+	next: 	put the rows into the table.
+		adjust widths or columns of each row as header is adjusted.
+		enable reordering of table. (like the rows)
+		update table when array changes?
+
+	what about dragging the size of fields around? i'd like a fully editable interface from the front end.
+
+
+	thurs 19
+	I've been thinking more about this genetic algorithm business.
+
+	there is a genetic algorith gem, but it only does flat GA's (i.e. it's boring crap)
+	ah, there is something called answer-factory sounds interesting
+	it depends on ruby1.9.1 which will be a bitch to upgrade - based on my playing around so far. i'll have to (re?)install gem
+	
+	for some reason it generates code into a language called nudge... whats wrong with ruby?
+	I'm sure I could make a simple random/systematic ruby generator easily enough.
+
+	right now though, I'm gonna make a random name generator, using markov chains... 
+	found one on the internet, but it wasn't very impressive.
+	
+	okay, done.
+	~~~~~~~~~~~~~~~~~~~~~
+	just realized a big problem with generating random ruby code: YOU DON'T KNOW RETURN TYPES! so how do you know what methods it might return?
+	you could just randomize them, and you'd get some.. but lots of no method errors.
+
+	convert S-Expressions into code just a little bit at a time, checking what value it is, keeping track of the context.
+	aha! if you just call eval, it keeps the current context.
+
+	okay, so i'd just have to iterate through the sexp's... actually, there may be problems when say, evaluating the inside of a def
+	and then evaluating the outside...no. evaluate something like a div only when your calling it. 
+	this is complicated... maybe, just do it in rubinius. 
+	
+	lets do that another time though.
+	~~~~~~~~~~~~~~~~~~~~~~
+
+	Back To Nudy.
+
+	okay, got a widget table working now.
+	fields are garish colours so I can see where borders are etc.
+
+	next will be sticking Fields into it. 
+	hmm, I think i'll adapt it to just handle my middle tier.or maybe just show a array as well...
+	also, each row needs a 'handle' it represenst the object as a whole. 
+	drag it into fields. reorder list by dragging it around.
+
+	Fox is really quite unfun. it's hard to find the documentation you need, and it's arity is huge. 
+	you can set something which makes something else not work (i.e. layout hints disabling setWidth)
+
+	I don't want to quit until I have a usable minimum. 
+	what does that entail?
+		...enough to implement invoice stuff...
+
+	or maybe I should give up here. progress is VERY slow. 
+	I think it would be much faster doing things in HTML.
+	that WAS the original plan anyway. 
+	or what about a interactive shell?
+	what about an interactive shell... as an experiment?
+	looking at the code for IRB puts me off. 
+	after wasting several days on Fox I want some results.
+
+	what about refactoring the class manipulation stuff to work on modules?
+	that is essential stuff. probably difficult but totally real. okay. THATS NEXT!
+	
+	then a non-ajax web interface.
+		just request an object_id. then use ObjectSpace._id2ref.... probably use the object_id of the viewer/field 
+		object and not the actual object.
+		that would be easy. 
+		submitting wouldn't be too hard
+		even javascript to update on the fly
+
+		I could display everything with just a few methods
+
+		okay, time for bed.
+
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	friday, 11:31 pm
+
+	ah, web servers are looking far more promising. also, the simplest servers are very simple! 
+	i can cunningly pass and changes I need to make back to the server my encoding something in 
+	yaml then escaping it.
+
+	that means I don't need to parse anything.
+
+	just write very thin adapters for my objects.
+
+	wow! just discovered some great websites demonstrating CSS only popup menus (i.e. no javascript), 
+	and javascript tables with sorting and reordering,
+	and colapsable trees!
+
+	this is going to be easy!
+
+	-also, been thinking about using LOCALHOST and a 'desktop-server' to run offline applications. 
+	especially, with HTML5 it's going to be easier and more powerful than regular GUI.
+
+	you can even do 3d stuff, so you could,like, make CAD programs and games in the browser.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+	okay, now I have links to other objects. whats next?
+		sending data back.
+		that means posting a field. ultimately, I'll do it in ajax with jQuery, but i'll have to write the back end. 
+		I don't really want to go around learning all about javascript right now, so i'll try and use the libraries
+		as directly as possible.
+
+		i'll have to write a thing for sinatra which accepts a post though.
+		
+		say, there is an ID=[object_id]&name=value
+
+		wow! i did it in about 5 seconds. including an error check.
+
+	the most time consuming bit it deciding what to do next. 
+
+	todo:
+	display of array of objects.
+	display of 2d array.
+	radio buttons
+	check boxes.
+	popup menus.
+	images.
+	smart fields ... with ruby in them!

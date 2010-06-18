@@ -1,6 +1,6 @@
 require 'test/unit'
 require 'psychic/psychic'
-require 'ap'
+
 class TestPsychic < Test::Unit::TestCase
 include Test::Unit
 	#Psychic can make observe any object. 
@@ -99,21 +99,15 @@ include Test::Unit
 		assert state, "closure was not called for opperation: \"#{code}\""
 		false
 	end	
-	def test_array
+
+	def test_mutable(klass,code)#checks that result actually changes, and the block is called.
 		before = nil		
-		a = []
+		a = klass.new
 		c = false
 		Psychic.connect_mutable(a) {|object,method,value,*args,&block|
-			ap "#{before.inspect}.#{method}(#{args.join(',')}) => #{object.inspect}"
+			puts "#{before.inspect}.#{method}(#{args.join(',')}) => #{object.inspect}"
 			c = true
 		}
-		code = "a << :a
-		a.delete :a
-		a << :a
-		a << :b
-		a << :c
-		a.reverse!
-		a.reverse!"
 		b = binding
 		code.split("\n").each{|s| 
 			before = a.dup
@@ -122,11 +116,53 @@ include Test::Unit
 			assert a != before, "expected opperation: #{s} to alter #{a.inspect} from #{before.inspect}"
 		}
 
+	end
 
+	def test_array
+	code = "a << :a
+		a.delete :a
+		a << :a
+		a << :b
+		a << :c
+		a.reverse!
+		a.reverse!
+		a[1] = 2
+		a[2] = 0
+		a << [1,2,3]
+		a << nil
+		a.compact!
+		a.flatten!
+		a.slice!(1,4)
+		a << a.dup
+		a.flatten!
+		a.map! {|x| x.to_s + '!'}
+		a.uniq!"
+		test_mutable(Array,code)	
 	end
 
 	def test_hash
-		
+		test_mutable(Hash,"a[1] = 123
+		a[2] = 1231
+		a[3] = 325235
+		a.reject! {|k,v| v > 2000}
+		a.merge! ({:a => :b})")	
+	end
+
+	def test_string
+		test_mutable(String,"a << 'hello'
+		a.capitalize!
+		a.upcase!
+		a.downcase!
+		a['e'] = 'XXX'
+		a << 'XXX'
+		a.gsub!(/X/,'_')
+		a.chomp!('_')")	
+		#what about genetic algorithm to figure out test for when a function will change a state?
+		#example, [:a].delete :a will change state, because [:a].include? :a
+		# << will always change the state
+		#also, we can discover what will produce errors.
+		#or inductively prove that a method can't make errors.
+		#it it's found an error, find most concise test which predicts error.
 	end
 
 end

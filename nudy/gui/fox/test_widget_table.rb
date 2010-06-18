@@ -17,7 +17,7 @@ def test_header_simple
 	wt = FxWidgetTable.new(@frame,header)
 	row = ["johnny","wherever he lays his hat","027 308 4466"]
 	wt.add_row(row)
-	assert_equal row,wt.get_rows[0]
+	assert_equal row,wt.rows[0]
 	wt.set_widths(100,100,100)
 	assert_equal 300,wt.width
 end

@@ -1,0 +1,12 @@
+#! ruby 
+versions = %w{1.8 1.9.0 1.9.1}
+
+if versions.include? ARGV[0] then
+	system("rm /usr/bin/ruby")
+	system("ln /usr/bin/ruby#{ARGV[0]} /usr/bin/ruby")
+	puts "changed  ruby version to #{ARGV[0]}"
+else
+	puts "do not have ruby version #{ARGV[0]}"
+end
+
+

@@ -67,14 +67,15 @@ module Psychic
 	end
 	def self.connect_mutable(object,&block) # connect to all mutable methods on certain core types.
 		if object.is_a? Array then
-			methods = [:"[]=",:"<<",:delete,:delete_at,:delete_if,:"flatten!",:insert,:"map!",:"collect!",:"slice!",:"uniq!",:"reverse!"]
+			methods = [:"[]=",:"<<",:delete,:delete_at,:delete_if,:"flatten!",:insert,:"map!",:"collect!",:"slice!",:"uniq!",:"reverse!",:"compact!"]
 			
 		elsif object.is_a? Hash
-			methods = [:"[]=",:"default=",:"merge!",:sort,:"reject!"]
+			methods = [:"[]=",:"default=",:"merge!",:"reject!"]
 		
 		elsif object.is_a? String
-			methods = [:"[]=",:"<<",:"capitalize!",:"chomp!",:"downcase!",:"gsub!"]
+			methods = [:"[]=",:"<<",:"capitalize!",:"chomp!",:"downcase!",:"gsub!",:"upcase!"]
 		end
 			connect(object,*methods,&block)
 	end
 end
+
