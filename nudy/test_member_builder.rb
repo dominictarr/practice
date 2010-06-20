@@ -6,7 +6,7 @@ require 'nudy/field'
 #require 'action'
 #require 'object_viewer'
 
-require 'attr_member_builder'
+require 'nudy/attr_member_builder'
 
 
 class TestAttrMemberBuilder < Test::Unit::TestCase

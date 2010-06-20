@@ -113,7 +113,7 @@ def test_sub_viewer
 		a = ActionMemberBuilder.new(Action,:unname,:say_yes))
 	ib.map(Object,Viewable)
 
-	assert Viewable,ib.get(TestAttrMemberBuilder::ClassWithMembers)
+	assert_equal Viewable,ib.get(TestAttrMemberBuilder::ClassWithMembers).viewer
 
 	viewer = ib.build(c)
 	assert_same_set [:a_string,:an_object,:taguri], viewer.members.collect {|c| c.name.to_sym}
@@ -123,6 +123,28 @@ def test_sub_viewer
 
 	assert_equal ib,viewer.builder
 end
+
+def test_sub_viewer_error
+	klass = TestAttrMemberBuilder::ClassWithMembers
+	c =  WithReference.new
+
+	
+	ib = InterfaceBuilder2.new
+	r = AttrMemberBuilder.new(Reference)
+	assert_equal r,r.set_builder(ib)
+
+	ib.add(r)
+	ib.map(Object,Viewable)
+	viewer = ib.build(c)
+	#the 
+	puts "MEMBERS"
+	puts viewer.members.collect {|c| c.name}
+	assert viewer.member(:an_object)
+	assert viewer.member(:an_object).viewer
+	assert viewer.member(:a_string)
+	assert viewer.member(:a_string).viewer
+end
+
 
 class WithOptions
 	attr_accessor :a_string,:an_object,:option
@@ -152,4 +174,82 @@ def test_options
 	assert viewer.member(:option).parent
 	assert_equal c.options,viewer.member(:option).options
 end
+
+#test the sort of stuff you might do to a webpage. /
+#like check and set any object. /
+#open a referenced object for viewing and editing. /
+#assign a reference to a another object.
+#select an option 
+#try to select an illegal option.
+#view an array.
+#set a field in an array member.
+#try to open a nil object
+#assign a field which is currently nil
+#assign nil to a field.
+#assign a reference to a new object.
+def setup_for_all
+
+	ib = InterfaceBuilder2.new
+	ib.add(	o = OptionsMemberBuilder.new(Options).set_builder(ib),
+		r = AttrMemberBuilder.new(Reference,WithOptions,WithReference).set_builder(ib),
+		#it will only create a reference object when it's one of these items.^^
+		#really, I want a reference nearly always.
+		f = AttrMemberBuilder.new(Field),
+		a = ActionMemberBuilder.new(Action,:unname,:say_yes))
+	ib.map(Object,Viewable)	
+
+	c =  WithOptions.new
+	viewer = ib.build(c)
+end
+
+def test_with_options (viewer)
+	assert_same_set %w{an_object a_string option taguri}, viewer.members.collect {|c| c.name}
+	viewer.member(:an_object).set(WithReference.new)
+	viewer.member(:a_string).set("asdhkasdgljkasdgkl")
+	assert_same_set [:option1,:option2,:option3], viewer.member(:option).options
+	begin
+		viewer.member(:option).strict=true
+		viewer.member(:option).set(:option_x)
+		fail "expected #{Options} to raise error if it's set to something other than the allowed options when strict is true"
+	rescue;	end
+
+	viewer.member(:option).strict=false
+	viewer.member(:option).set(:option_x)
+
+end
+
+def test_all
+
+	viewer = setup_for_all
+		test_with_options(viewer)
+
+	viewer2 = viewer.member(:an_object).viewer
+	assert_same_set %w{an_object a_string taguri}, 
+		viewer2.members.collect {|c| c.name}
+
+
+#	test_with_options(viewer2)
+
+	viewer.member(:an_object).set(WithOptions.new) #assign a new object.
+	viewer2 = viewer.member(:an_object).viewer 
+	test_with_options(viewer2)#retrive the viewer for the assigned object
+
+	viewer3 = viewer.member(:an_object).viewer
+	test_with_options(viewer3)#retrive the viewer 
+
+	viewer3.member(:an_object).set(nil)
+	assert viewer_nil = viewer3.member(:an_object).viewer
+	assert  viewer_nil.members
+
+	viewer3.member(:an_object).set(["hello","hey","hi","houdy"])
+	assert viewer_array = viewer3.member(:an_object).viewer
+	puts "ARRAY VIEWER"
+	ap viewer_array.members #this only shows taguri.
+
+#assert_same_set %w{an_object a_string option taguri}, viewer2.members.collect {|c| c.name}
+
+
+
+end
+
 end

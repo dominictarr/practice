@@ -15,6 +15,7 @@ class AttrMemberBuilder
 	end
 	def check_arity(owner,member,n)
 		unless has_method(owner,member) then return false; end
+			if member == "[]" and n = 0 then return false end
 		arity = owner.method(member).arity
 		#ap "#{arity} == #{n}"
 		arity == n or (arity < 0 and (arity + 1) * -1 <= n)

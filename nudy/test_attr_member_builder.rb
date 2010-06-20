@@ -63,4 +63,6 @@ def test_reference_type
 	#of course, nil is an object.
 	assert mb.handles?(c,:this)
 end
+
+
 end

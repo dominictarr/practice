@@ -1,0 +1,9 @@
+<html>
+<body>
+
+<input type="text" name="firstname" />
+<input type="checkbox" name="yes?"  />
+
+</body>
+</html>
+

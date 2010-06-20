@@ -1,0 +1,28 @@
+<!doctype html>
+<html>
+  <head> <style type="text/css">
+    a.test { font-weight: bold; }
+ </style>
+
+
+    <script type="text/javascript" src="js/jquery-1.4.2.js"></script>
+
+    <script type="text/javascript">
+// window.onload = function(){ alert("welcome2"); }
+ $(document).ready(function(){
+ $("a").click(function(event){
+   event.preventDefault();
+   $(this).hide("slow");
+   });
+
+  $("a").addClass("test");
+
+ });
+
+    </script>
+  </head>
+  <body>
+    <a href="http://jquery.com/">jQuery</a>
+  </body>
+</html>
+

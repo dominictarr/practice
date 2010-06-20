@@ -31,17 +31,23 @@ def setup
 o = ib.build(p)
 end
 
-def html (contents)
+def html (contents,head = "")
 
-"<html><body> #{contents}</body></html>"
+"<html>
+<head>#{head}</head>
+<body> #{contents}</body></html>"
 
 end
 factory = WebFactory.new
 viewer = factory.build(setup)
 
-  get '/' do
+set :root, root = File.dirname(__FILE__)
+set :public, Proc.new { File.join(root, "web/public") }
+puts root
+
+def update (params)
 		if params["ID"] then
-			viewer = ObjectSpace._id2ref(params["ID"].to_i).viewer
+			viewer = ObjectSpace._id2ref(params["ID"].to_i)
 			params.each{|key,value|
 				unless key == "ID" then
 					b = viewer.member(key)
@@ -52,10 +58,27 @@ viewer = factory.build(setup)
 					end
 				end
 			}
-			html factory.build(viewer).view
-			
+	viewer
 		else
-			html viewer.view
+			nil
+		end
+end
+
+  get '/update' do
+	puts 'UPDATE'
+	puts params.inspect
+	update(params)
+	'ACK'
+  end
+
+  get '/' do
+		v = update(params)
+		puts v.inspect
+		if v then
+			web_viewer = factory.build(v)
+			html (web_viewer.view, web_viewer.head)
+		else
+			html(viewer.view,viewer.head)
 		end
   end
 

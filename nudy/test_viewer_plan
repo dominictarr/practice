@@ -1,0 +1,26 @@
+require 'test/unit'
+require 'nudy/viewer'
+class TestViewBuilder < Test::Unit::TestCase 
+include Test::Unit
+
+#set_types #the target types - use same method as Viewer
+#set_viewer - the Viewer class to show
+#set_parent - the ViewerPlan to revert to if this one does not know what to do. - 
+#type_strict #turns type checking onto it's fields.
+#as_field ? - doesn't create members for it's fields. - and sets not to open if it's an action.
+#sets field/nested/mutable/openable?
+
+#child_builder. (list
+#parent_builder
+
+#builder has list of ViewerPlans, or is the ViewerPlan the builder?... 
+#just haveing a list of sub plans (which it assigns to it's members)
+
+#when a viewer has a builder.
+#	that represents it's own display,
+#	the sub builders are it's members.
+
+#end
+
+
+

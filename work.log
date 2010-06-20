@@ -3105,6 +3105,7 @@ okay, I can check if a list is flat. how am I going to display the list?
 	the most time consuming bit it deciding what to do next. 
 
 	todo:
+	updating fields.
 	display of array of objects.
 	display of 2d array.
 	radio buttons
@@ -3112,3 +3113,116 @@ okay, I can check if a list is flat. how am I going to display the list?
 	popup menus.
 	images.
 	smart fields ... with ruby in them!
+
+
+	!~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	the desktop-server could be a browser plugin.
+
+	OF COURSE!
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~!
+
+	idea: development mode, where all changes of configuration also result in a visual change in the interface. (i.e. colours)
+
+	okay, I haven't been testing properly, things are getting a little complicated. 
+	so go back and write tests. 
+
+	progress is good though! way faster than with GUI. 
+
+sunday jun 20
+
+#what is a difference between a Reference and a Field? 
+#what about make Reference everything.
+#or some way to insist that Field is only Primitive (only objects who's state can be totally represented in a text field)
+#subclass AttrMemberBuilder and make it handle everything which isn't a primitive.
+#also, make a Field subclass which refuses all but 'primitive' types.
+
+#that should make things a little more robust.
+
+#or maybe just have one type, which may or may not exert any type control?
+#hmm. that is quite  a bit simpler.
+#maybe actions should be rolled into that as well...
+	#how many action types are there? - this covers zero arity functions.
+	#mutable - change the state of self
+	#information - say something about this object
+	#mode set (set a boolean)
+	#create - create a new object. (i.e. to_a, to_s,dup)
+	#retrive - retrive a related object (i.e. .class)
+
+#new idea:
+#Viewer=an object with fields
+#field= a named attribute of an object.
+#if a member of a viewer is another viewer, (not a Field) then that object will be nested inside the big viewer.
+#i.e. an array. 
+
+#then, the presentation layer has ways of handling the two layers... wrapping 
+#really, Fields are just viewers that have a set/get function that assigns a change to thier parent.
+#sometimes the nested view should be set/get-able sometimes not.
+#viewers also have members.
+
+#okay how about:
+Viewer
+def is_field?
+	#get/set works - else they throw exception
+	#otherwise, it is top level.
+def has_members? 
+	#members works - else throws exception.
+	#members returns a list of viewers
+def openable? 
+	#allow opening the object and editing it's members.
+	#relivant for non editable fields.
+def is_mutable?
+	#has a 'set' method
+def open #return a top level version of this object.
+def is_typed?
+#only allows some times.
+def types 
+#array of acceptable types,or Procs which define tests for whether a type is allowed. or Interface objects.
+#allowing fields, and then opening it complicates the builder slightly.
+
+okay: builder has:
+list of viewer_plans
+viewer_plan.
+	set builder
+	sets types.
+	sets field/nested/mutable/openable
+	if openable? then
+	set opener ... another list of viewer_plans.. which could just be a default top level list.
+
+WILL NEED A MAP VIEWER... although... the normal viewer is essentially a map viewer already... if the maps are strings.
+
+VIEWER REFRESH
+
+okay, just got to implement methods.
+okay what are actions?
+	they mutate the state, or return info, or a reference to a another class.
+	maybe the right question is: what does the viewer do after calling a method?
+	answers:
+	nothing (discard the result)
+	open result in new *
+	show result nested (basicially, like a readonly field)
+	refresh current view.
+
+	nest/open result... say whether to open a new view, or nest the view:
+		if the action is a field... it will open it.
+		if the action is a view it will nest it.
+
+		thats confusing. instead, have an 
+		is_action? 
+		set_result_open - create a new viewer for the action.
+		set_result_nest -display the object returned... i.e. add all it's fields to the action viewer.
+		set_result_ignore - do , nothing.
+		set_result_refresh - doing
+		set_result_action(:open,:nest,:ignore,:refresh)
+
+	this fuctionality depends on the builder.
+
+I GOT IT!
+I have to seperate the ViewBuilder, and the Heirachical structure of ViewBuilders!
+that means a view builder just creates a view, and says what the fields, and actions will be.
+
+	#ah... why am I initializing with the name?
+	#I should give it the object... 
+	#And then the builder can set the parent and the name.
+	#okay... that means edit viewer and test_viewer
+
+
