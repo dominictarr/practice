@@ -3225,4 +3225,81 @@ that means a view builder just creates a view, and says what the fields, and act
 	#And then the builder can set the parent and the name.
 	#okay... that means edit viewer and test_viewer
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'Office Unmanager' 
+developers could work from home, but there are benefits from face to face interaction. 
+hence, what about a cool office for everyone to hang out and work in? 
+may need office managers... but thier job is just to give the developers whatever they need to work best.
+and NOT to tell them what to do!
+
+ideas at niwa.
+
+1.
+one a class/module which has an identical interface to Class,
+but instead of representing a specific class, it represents all
+the classes which pass a test.
+
+instead of Array it goes passes(TestArray,...)
+
+but would also respond appropiately to .is_a? and all the other class comparison methods, AND dup, define_method. etc.
+
+then it can be simply dropped into code where you would normally use a specific class.
+that .rb would require passes_test or something.
+
+map class object_ids to the tests that they pass.
+
+2. what was the other thing?
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+with a hosted nude ruby service, I could get a business off the ground very easily. 
+coupled with a web-server-browser-plugin, that would kill the need to be dependant 
+on an internet connection.
+
+imagine if you could type 30 lines into a text field and immediately have a working web application?
+of course, there is plenty of competition for this idea.
+
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+thursday 24 june
+
+next: ViewBuilder.
+
+a directed graph structure of builders. 
+when building a particular object it used the current builder, then it checks sub builders, then it defaults to parent builders.
+default structure would be nested (i.e. self->children->parent == self) (you could change this but dont yet)
+
+methods:
+	children ->list of children.
+	parent -> parent
+	handles? -> true or false.
+	child_handles? -> returns handling child or nil.
+	ancestor_handles? - uncle handles? recursively?
+	parent handles
+	build(obj) -> use it's ViewDef to construct a view for obj, then children to build views obj's members.
+		   -> if there is no child for obj. use parent & uncles recursively. 
+		call build_view on object, then each of it's parts...
+	build_view(obj) -> build a view for obj, but not obj's members.
+	build_member(obj) -> build a view for obj, but not obj's members.
+		then for each member:
+			if self.handles? member then
+				self.build_view(member)
+			elsif c = child_handles? member then
+				c.build_view member
+			else
+				parent.build_member(member)
+
+	ViewBuilder:
+		has a head ViewDef
+		list of children ViewBuilder's
+		parent ViewBuilder's
+
+	tests?
+
+since this builder does no deal with the actual configuration of elements, it will be appliable to the actual gui viewers also. 
+		
+
+[list... [sub builders] ... ]
+
 

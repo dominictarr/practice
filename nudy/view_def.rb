@@ -2,7 +2,7 @@ require 'ap'
 
 class ViewDef
 
-attr_accessor :types, :viewer, :type_strict, :as_field, :auto_fields, :members 
+attr_accessor :types, :viewer, :type_strict, :as_field, :auto_fields, :members , :builder
 
 #minium setttings are:
 #viewer, fields or auto_fields = true
@@ -11,6 +11,15 @@ attr_accessor :types, :viewer, :type_strict, :as_field, :auto_fields, :members
 
 #as_field also, is something which the structure builder deals with.
 
+
+def set_builder (b)
+	@builder = b
+	self
+end
+def set_parent (b)
+	@builder = b
+	self
+end
 
 def set_auto_fields (bool)
 	@auto_fields = bool
@@ -30,9 +39,11 @@ def set_type_strict(bool)
 end
 def set_viewer(viewer)
 	@viewer = viewer
+	self
 end
 def set_as_field(as_field)
 	@as_field = as_field
+	self
 end
 def is_typed?
 	!@types.nil? and !@types.empty?
@@ -80,9 +91,11 @@ end
 def build object
 	if handles? object then
 		v = @viewer.new (object)
-		if type_strict then
+		if @type_strict then
 			v.types = types
 		end
+		#add members.
+
 		v
 	else
 		raise "#{self} does not support #{object}"

@@ -21,17 +21,18 @@ def test_nested_array
 	viewer1 = Viewer.new(haa = HasAnArray.new)
 	assert !viewer1.is_field?
 	assert !viewer1.has_members?
-	viewer1.add_members(array1 = ArrayViewer.new(viewer1,:list))
+	viewer1.add_members(array1 = ArrayViewer.new(haa.list).set_control(viewer1,:list))
 	assert array1.is_field?
 	assert viewer1.has_members?
 	
 	assert !array1.has_members?
 	a = array1.get
-	a.each_index{|i| array1.add_members(Viewer.new(array1,i))} #add viewers for each member.
+	a.each_index{|i| array1.add_members(Viewer.new(haa.list[i]).set_control(array1,i))} #add viewers for each member.
 	assert array1.has_members?
 
 	#test get and set.
 	#ap array1.object
+
 	(0..5).each{|i|	assert_equal i,array1.member(i).get}
 
 	#set
@@ -47,7 +48,6 @@ def test_nested_array
 		assert !array1.member(i).has_members?
 		assert !array1.member(i).is_typed?
 	}
-
 end
 
 #test insert and remove

@@ -1,18 +1,31 @@
 class Viewer
+attr_accessor :parent
 def initialize (object)
 		@object = object
 end
 def set_control(parent,getter,setter = "#{getter}=", result_action = nil)#,setter,result_action (for actions)
 		@parent = parent
 		@name = getter
-	if setter and parent.object.methods.include? setter then
+	if getter.is_a? Numeric or (setter and parent.object.methods.include? setter) then 
+		#if this is a field of an array, then it doesn't need a setter method.
+		#I know it's not right to hard code is a number here.... have to fix this later!
 		@is_field = true
 		@setter = setter
 		@object = get
+
+		#...clearly, i need more flexible (g/s)etting.
+		#it's the parent which controls the setting and getting anyway.
+		#so that information doesn't belong here.
 	else
-		@result_action = result_action
-		#result action will be called with the return value of the action.
 		@is_action = true
+		#result action will be called with the return value of the action.
+		if result_action.is_a? Symbol or result_action.is_a? String then
+			@result_action = method(result_action)
+		elsif result_action.is_a? Proc then
+			raise "result_action is a Proc: #{result_action} Proc's not supported yet"
+		else
+			raise "result action must be #{String} or #{Symbol}. #{Proc} coming soon. \nresult action was: #{parent}.#{getter}->#{result_action.inspect} for"
+		end
 	end
 	self
 end
@@ -64,13 +77,14 @@ def members
 	if has_members? then
 		@members
 	else
-		raise "{self} does not have members"
+		raise "#{self} does not have members"
 	end
 end
 	#members works - else throws exception.
 	#members returns a list of viewers
 def openable?
-	@builder.viewer(@object)
+#	@builder ? @builder.viewer(@object) : nil
+	nil
 end
 	#allow opening the object and editing it's members.
 	#relivant for non editable fields.
@@ -93,12 +107,12 @@ def == (other)
 		name == other.name and
 		openable? == other.openable? and
 		is_mutable? == other.is_mutable? and
-		has_members == other.has_members? and
+		has_members? == other.has_members? and
 		types == other.types
 	then return false end
 	if is_field? and get != other.get 
 	then return false end
-	if has_members and members != other.members
+	if has_members? and members != other.members
 	then return false end
 	if openable? and builder != other.builder
 	then return false end
@@ -119,12 +133,29 @@ def is_type(object)
 	end
 end
 
+def nest(object)
+	puts "build a viewer around #{object}..."
+	raise "cannot nest #{object} (#{object.class}) mid-layer builder not implemented yet"
+	ap self
+end
+def open(object)
+	puts "build a viewer around #{object}..."
+	raise "cannot open #{object} (#{object.class}) mid-layer builder not implemented yet"
+	ap self
+end
+def refresh(object = nil)
+	puts "refreshing..."
+	ap self
+end
+def ignore(object)
+end
 def is_action?
 	@is_action
 end
 def call 
 	if is_action? then
-		@parent.get_field(@name)
+		#here, we call the action_responce.
+		@result_action.call(@parent.get_field(@name))
 	else
 		raise "!#{self}.is_action? cannot .call"
 	end

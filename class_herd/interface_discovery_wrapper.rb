@@ -97,7 +97,6 @@ end
                 	raise "instance variable didwnt work"
 		puts k.send(:class_variable_get,:@@idw_wrappers).inspect
 	        end
-#raise "trying to double wrap #{klass}"
 		return k
 	end
 

@@ -78,7 +78,7 @@ end
 def test_action
 	viewer1 = Viewer.new(haf = HasAction.new)
 	viewer1.add_members(field1 = Viewer.new(haf.hello).set_control(viewer1,:hello))
-	viewer1.add_members(action1 = Viewer.new(nil).set_control(viewer1,:action))
+	viewer1.add_members(action1 = Viewer.new(nil).set_control(viewer1,:action,nil,:refresh))
 
 	assert viewer1.has_members?
 	assert field1.is_field?

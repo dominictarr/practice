@@ -2,6 +2,7 @@ require 'test/unit'
 require 'nudy/viewer'
 require 'nudy/view_def'
 require 'nudy/test_viewer'
+require 'monkeypatch/TestCase'
 
 class TestViewDef < Test::Unit::TestCase
 include Test::Unit
@@ -44,6 +45,8 @@ def make_fields (builder,viewer,names)
 		elsif Array === name #must be an action
 			if builder.handles? nil then
 				viewer.add_members(builder.build(nil).set_control(viewer,*name))
+			else
+			fail "ERROR: nothing to handle: #{name.inspect}"
 			end
 		end
 	}
@@ -75,7 +78,7 @@ def test_make_fields
 #	}
 	make_fields(b,v,ft)
 	assert v.members
-	assert_equal [["hello",String],["taguri",String]],v.members.collect {|c| [c.name,c.get.class]}
+	assert_same_set [["hello",String],["taguri",String]],v.members.collect {|c| [c.name,c.get.class]}
 end
 def test_type_strict
 	b = ViewDef.new
@@ -102,7 +105,7 @@ def test_type_strict
 	make_fields(b,v,ft)
 
 	assert v.members
-	assert_equal [["hello",String],["taguri",String]],v.members.collect {|c| [c.name,c.get.class]}
+	assert_same_set [["hello",String],["taguri",String]],v.members.collect {|c| [c.name,c.get.class]}
 
 	assert_equal types,v.member("hello").types
 	assert_equal types,v.member("taguri").types
@@ -128,7 +131,7 @@ end
 def test_actions
 	actions_b = ViewDef.new
 	actions_b.viewer = Viewer
-	actions_b.types = [HasActions]
+	actions_b.types = [HasActions,NilClass]
 	actions_b.members = [[:mutate,nil, :refresh],[:action,nil, :ignore],[:create,nil,:open]]
 	
 	a = HasActions.new
@@ -141,18 +144,19 @@ def test_actions
 
 	#now, v should have the actions mutate, action, and create
 	#but it's members should not.
+	assert v.has_members?, "expected #{v.inspect} to has_members?"
+	ap "MEMBERS"
 	ap v.members
 
-	assert v.member("create")
-	assert v.member("mutate")
-	assert v.member("action")
-#to implement the fuctionality here i will need 
-	create_v = v.member("create").call
+	assert v.member(:create)
+	assert v.member(:mutate)
+	assert v.member(:action)
+#to implement the fuctionality here i will need builder?
+	create_v = v.member(:create).call
 	assert create_v.is_a?(Viewer),"expected #{create_v}.is_a? #{Viewer}"
-	mutate_v = v.member("mutate").call
+	mutate_v = v.member(:mutate).call
 	assert_equal v, mutate_v.is_a?(Viewer),"expected #{create_v}.is_a? #{Viewer}"
-	assert_equal nil,v.member("action").call
+	assert_equal nil,v.member(:action).call
 
-#	assert v.member("action")
 end
 end
