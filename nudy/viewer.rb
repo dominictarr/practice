@@ -19,8 +19,9 @@ def set_control(parent,getter,setter = "#{getter}=", result_action = nil)#,sette
 	else
 		@is_action = true
 		#result action will be called with the return value of the action.
+#		puts "ACTION RESULT: #{result_action}"
 		if result_action.is_a? Symbol or result_action.is_a? String then
-			@result_action = method(result_action)
+			@result_action = @parent.method(result_action)
 		elsif result_action.is_a? Proc then
 			raise "result_action is a Proc: #{result_action} Proc's not supported yet"
 		else
@@ -140,12 +141,20 @@ def nest(object)
 end
 def open(object)
 	puts "build a viewer around #{object}..."
-	raise "cannot open #{object} (#{object.class}) mid-layer builder not implemented yet"
-	ap self
+#	raise "cannot open #{object} (#{object.class}) mid-layer builder not implemented yet"
+	builder.build(object)
 end
 def refresh(object = nil)
-	puts "refreshing..."
-	ap self
+#	puts "refreshing..."
+	if is_field? then
+#		puts "----#{name}=#{get}"
+	@object = get
+	end
+	if has_members? then
+#		puts "----refresh members"
+		members.each{|m| m.refresh}
+	end
+#	ap self
 end
 def ignore(object)
 end
@@ -158,6 +167,24 @@ def call
 		@result_action.call(@parent.get_field(@name))
 	else
 		raise "!#{self}.is_action? cannot .call"
+	end
+end
+
+def to_s
+	
+	unless has_members? then
+		if is_action? then
+			"()->#{@result_action.inspect}"
+		else
+		object.to_s
+		end
+	else
+		s = "v(\n"
+		s << members.collect{|m|
+			ms = m.to_s.gsub("\n","\n  ")
+			"  #{m.name}=#{ms}"
+		}.join("\n")
+		s << ")"
 	end
 end
 end

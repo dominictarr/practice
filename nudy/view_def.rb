@@ -64,7 +64,12 @@ end
 def auto_fields (object)
 
 	m = object.methods
-	m.select {|f| !(f =~ /^=+/) and m.include? "#{f}="}
+	a = m.select {|f| !(f =~ /^=+/) and m.include? "#{f}="} - ["[]","<",">","taguri"]
+
+	if object.is_a? Array then
+		a = a + (0..object.length - 1).to_a
+	end
+	a
 end
 def members_for(object)
 	f = @members || []
@@ -94,8 +99,6 @@ def build object
 		if @type_strict then
 			v.types = types
 		end
-		#add members.
-
 		v
 	else
 		raise "#{self} does not support #{object}"

@@ -32,13 +32,33 @@ def build_view (object)
 	@head.build(object)
 end
 def build_member(object)
-	builder = child_handles?(object) || ancestor_handles?(object)
-	if builder.nil? then
+	view_def = child_handles?(object) || ancestor_handles?(object)
+	if view_def.nil? then
 		raise "has no #{ViewDef} which handles #{object} (#{object.class})"
 	end
-	builder.build(object)
+	view = view_def.build(object)
+	add_members(view,view_def,object)
+	view
 end
 #damn, I think that is all the functionality. oh hang on:
+
+def add_members (view,view_def,object)
+	unless view_def.as_field then 
+	#build members, if this isn't meant to be a field.
+		view_def.members_for(object).each{|f|
+#			puts "building member: #{f}"
+			unless f.is_a? Array then
+				obj = view.get_field(f)
+#			puts "	#{f}-> #{obj.inspect}"
+				view.add_members(m = view_def.builder.build_member(obj).set_control(view,f))
+			else
+				view.add_members(m = view_def.builder.build_member(nil).set_control(view,*f))
+			end
+			m.builder = self
+		}
+	end
+
+end
 
 def build(object)
 	vb = handles?(object) ? @head : nil || child_handles?(object) || ancestor_handles?(object)
@@ -46,22 +66,9 @@ def build(object)
 		raise "#{self} does not have a way to build viewer for #{object}"
 	end
 	v = vb.build(object)
-	puts "members_for: #{vb.members_for(object).inspect}"
+#	puts "members_for: #{vb.members_for(object).inspect}"
 	v.builder=self
-	#members = #get members from somethere
-	unless vb.as_field then #build members, if this isn't meant to be a field.
-		vb.members_for(object).each{|f|
-			puts "building member: #{f}"
-			unless f.is_a? Array then
-				obj = v.get_field(f)
-			puts "	#{f}-> #{obj.inspect}"
-				v.add_members(m = vb.builder.build_member(obj).set_control(v,f))
-			else
-				v.add_members(m = vb.builder.build_member(nil).set_control(v,*f))
-			end
-			m.builder = self
-		}
-	end
+	add_members(v,vb,object)
 	v
 end
 
