@@ -23,7 +23,9 @@ class WebField < WebObject
 	def self.types; [String, Numeric] end
 
 	def self.handles? (object)
-		((!(object.methods & ["name","get"]).empty?) and is_one?(object.field_type, *types))
+#		return true
+#		puts "#{WebField}.handles? = #{(["name","get"] - object.methods).empty? and types.include?(object.object)}"
+		(object.methods & ["name","get"]) == ["name","get"] and is_one?(object.object.class,*types)
 	end
 	def view; "#{@field.name}='#{@field.get.inspect}'\n" end
 	def name; @field.name end
@@ -46,11 +48,11 @@ end
 
 class WebObjectField < WebField
 	def self.handles? (object)
-		return (!(object.methods & ["name","get"]).empty? and !WebField.handles?(object))
+		return ((["name","get"] - object.methods).empty? and !WebField.handles?(object))
 	end
 	def value
 		if @field then
-			viewer_id = @field.viewer.object_id
+			viewer_id = @field.object_id
 			puts "	viewer!:#{viewer_id}"
 			"<a href=/?ID=#{viewer_id}>#{@field.get.class}:#{viewer_id}</a>"
 		else
@@ -72,10 +74,12 @@ class WebOptions < WebField
 	end
 end
 
+class WebArray2 < WebObject #displaying arrays is a serious job.
+end
 
 class WebArray < WebField #displaying arrays is a serious job.
 	def self.handles? (object)	
-		return (!(object.methods & ["name","get"]).empty? and object.field_type == Array)
+		return (!(object.methods & ["name","get"]).empty? and object.types ? object.types.include?(Array) : false)
 	end
 def value 
 	ol = "<ol>\n"

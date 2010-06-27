@@ -1,3 +1,7 @@
+require 'nudy/view_def'
+require 'nudy/viewer'
+require 'nudy/array_viewer'
+
 class ViewBuilder
 
 attr_accessor :parent, :children,:head
@@ -57,7 +61,6 @@ def add_members (view,view_def,object)
 			m.builder = self
 		}
 	end
-
 end
 
 def build(object)
@@ -70,6 +73,18 @@ def build(object)
 	v.builder=self
 	add_members(v,vb,object)
 	v
+end
+
+def self.default_builder (*builders)
+	b = ViewBuilder.new(nil,x = builders + [
+		ViewBuilder.new(ViewDef.new.set_viewer(Viewer).set_as_field(false).set_types(String,Symbol,Integer,Float,NilClass,TrueClass,FalseClass).
+		set_type_strict(true)),
+		ViewBuilder.new(ViewDef.new.set_viewer(ArrayViewer).set_as_field(false).set_types(Array).set_type_strict(true).set_auto_fields(true)),
+		ViewBuilder.new(ViewDef.new.set_viewer(Viewer).set_as_field(false).set_types(Object).set_type_strict(true).set_auto_fields(true))
+		])
+
+	puts x
+	b
 end
 
 

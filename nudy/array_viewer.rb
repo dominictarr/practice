@@ -2,7 +2,15 @@
 require 'nudy/viewer'
 class ArrayViewer < Viewer
 
-
+def member (name)
+	begin
+		int = Integer(name)
+		super(int)
+	rescue
+		super(name)
+	end
+	
+end
 def get_field(name) #it could be a subclass of array, which means it could have some attr(=) fields.
 		if name.is_a? Integer then
 			@object[name]

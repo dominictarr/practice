@@ -2,7 +2,10 @@
   require 'rubygems'
   require 'sinatra'
   require 'nudy/web_builder'
+  require 'nudy/view_builder'
+  require 'nudy/examples/person'
 
+	
 	#application layers:
 	#---------------
 	#domain layer (defines the problem space)
@@ -38,8 +41,22 @@ def html (contents,head = "")
 <body> #{contents}</body></html>"
 
 end
+
+def setup2 (builders = [])
+	p = Person.new
+	p.another_person = Person.new.randomize
+	p.another_person.name = 'billy'
+	p.another_person.another_person = Person.new
+
+	b = ViewBuilder.default_builder(builders)
+
+	b.build(p)
+end
+
+
+
 factory = WebFactory.new
-viewer = factory.build(setup)
+viewer = factory.build(setup2)
 
 set :root, root = File.dirname(__FILE__)
 set :public, Proc.new { File.join(root, "web/public") }
@@ -58,7 +75,7 @@ def update (params)
 					end
 				end
 			}
-	viewer
+		viewer.open(viewer.object)
 		else
 			nil
 		end

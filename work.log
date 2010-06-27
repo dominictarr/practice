@@ -3302,4 +3302,53 @@ since this builder does no deal with the actual configuration of elements, it wi
 
 [list... [sub builders] ... ]
 
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+OKAY! nudy is running again, this time with the new mid-layer.
 
+it's time to update the web layer... 
+
+it needs: 
+	support for nested elements. 
+	editable arrays. 
+	drag and drop...
+	stop from cycling through all the object_ids.
+
+	scoped handlers.
+
+okay, got that going. was worried for a bit that I couldn't get scoped fields working right. 
+then I built a test and it worked. problem was forgot right syntax for ViewBuilder.
+fixed it and then encountered reverse problem.
+
+if I have x0->x1 (X) (both x.class == X)... how to have tell x1 to be a field of x0, but then open x1?
+maybe i could create special method etc for viewer... but maybe this isn't something which belongs in that object?
+
+I'm getting familiar with this feeling, realizing something else should be doing some job.
+
++ Viewer is getting very long. 195 lines. thats nearly too much on the complexity front. 
+plus my syntax for ViewDefs/ViewBuilders is complicated and ugly.
+start again writing closer to the language?
+
+have the display layer decide whether to nest or not, 
+	-> that also simplifies actions...
+	fields...
+	actions... ('action' suggests mutable)
+	info...
+	other... returns a distinct object? 
+	has_a?
+
+provide lists of members. info? methods for method metadata, but then just define each method and call it.
+don't have special objects for fields, unless it has members.
+
+write it like you could hardcode it if you wanted to. 
+or just define a new class for a special case. 
+what we're really doing is metadata about the particular class.
+
+but prehaps, even though I know the time to startover is coming, fix my mistake 
+and let the display layer choose what to nest, I might discover other mistakes i've made.
+
+okay... to make this almost useful:
+	assign to fields... 
+	drag and drop assign - drag and drop from fields, or from actions -> gives the result of an action.
+	edit lists
+	show tables - special web_view for arrays... which nests list members.
+	

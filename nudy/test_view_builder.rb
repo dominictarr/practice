@@ -207,4 +207,31 @@ assert ary2.object.object_id != ary.object.object_id
 ary2.member('shuffle!').call
 puts ary2
 end
+
+class SelfRef
+attr_accessor :name,:value, :other
+
+end
+
+def test_as_field
+b = view_builder_defaults(ViewBuilder.new(
+	ViewDef.new.set_viewer(Viewer).set_as_field(false).set_types(SelfRef).set_auto_fields(true).set_as_field(false),
+		[
+		ViewBuilder.new(ViewDef.new.set_viewer(Viewer).set_types(SelfRef).set_auto_fields(true).set_as_field(true))
+		]))
+s = SelfRef.new
+s.name = "a"
+s.value = 123
+s.other = SelfRef.new
+s.other.name = "other"
+s.other.value = 456
+
+vs = b.build(s)
+assert vs.has_members?
+assert !vs.member('other').has_members?
+
+puts vs
+
+end
+
 end

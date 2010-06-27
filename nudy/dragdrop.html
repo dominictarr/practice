@@ -1,0 +1,48 @@
+<html>
+<head>
+<script src="web/public/js/jquery-1.4.2.js" type="text/javascript"></script>
+<script language="JavaScript">
+<!--
+$(function(){
+
+var dragClass = '.dd'
+var dragObject = null
+document.onMouseMove = mouseMove; 
+$('body').append("<div id='log'></div>")
+$(dragClass).mousedown(function(){
+	$('#log').append("mouse down" + this.id + "<br>")
+	dragObject = this
+	return false;
+});
+$(dragClass).mouseup(function(ev) {
+	$('#log').append("mouse up -- " + dragObject.id + ' onto ' + this.id + "<br>")
+	$(this).text("DROPPED!")
+});
+
+function mouseUp(ev){ 
+	dragObject = null
+}
+
+function mouseMove(ev){ 
+	ev = ev || window.event; 
+        return false; 
+	} 
+});
+
+--> 
+</script>
+</head>
+<body bottommargin=150>
+	<div class="dd" id="01"> drag me!</div>
+	<div class="dd" id="02"> drop on me!</div>
+	<a class="dd" id="03" href="">asdfhljasdglkasjdflkasjdfl</a>
+  <p>Source object: 
+<input id="sourceObject" size=50 value="The text to Drag">
+<br>
+  </p>
+  <p>Drop selected text into the following text field.</p>
+  Target object: 
+<input id="targetObject" size=50 value="Drag destination element"> 
+<!--<div id='log'></div>-->
+</body>
+</html>

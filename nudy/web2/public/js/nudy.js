@@ -8,9 +8,12 @@ function log(string){
 }
 //when nudy_editable is updated, push changes to the server.
 $('.nudy_editable').change(function() {
-	var data = {ID: this.form.id}
+	form_id = $(this).parents('.nudy_form').attr('id')
+	//.attr('background-color','red')
+	//.parent('.nudy_form').attr('id')
+	var data = {ID: form_id}
 	data[this.name] = this.value
-	log (this.name + ' = ' this.value)
+	log ('(' + form_id + ').' + this.name + ' = ' + this.value)
 	window.status = data
 $.get("update", 
 	data,

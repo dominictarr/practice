@@ -1,5 +1,5 @@
 class Viewer
-attr_accessor :parent
+attr_accessor :parent,:result_action
 def initialize (object)
 		@object = object
 end
@@ -29,6 +29,10 @@ def set_control(parent,getter,setter = "#{getter}=", result_action = nil)#,sette
 		end
 	end
 	self
+end
+
+def title
+	object.class.name
 end
 
 def name 
@@ -137,7 +141,9 @@ end
 def nest(object)
 	puts "build a viewer around #{object}..."
 	raise "cannot nest #{object} (#{object.class}) mid-layer builder not implemented yet"
-	ap self
+	view = builder.build(object)
+	raise "not implemented yet"
+	#it's gotta replace the old viewer for this field.
 end
 def open(object)
 	puts "build a viewer around #{object}..."
@@ -145,7 +151,7 @@ def open(object)
 	builder.build(object)
 end
 def refresh(object = nil)
-#	puts "refreshing..."
+	puts "refreshing..."
 	if is_field? then
 #		puts "----#{name}=#{get}"
 	@object = get
@@ -154,6 +160,7 @@ def refresh(object = nil)
 #		puts "----refresh members"
 		members.each{|m| m.refresh}
 	end
+	self
 #	ap self
 end
 def ignore(object)
@@ -169,9 +176,7 @@ def call
 		raise "!#{self}.is_action? cannot .call"
 	end
 end
-
 def to_s
-	
 	unless has_members? then
 		if is_action? then
 			"()->#{@result_action.inspect}"
