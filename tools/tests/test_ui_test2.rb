@@ -12,7 +12,7 @@ def test_step
 	u.step {}
 	fail "expect exception if step's block doesn't have 1 arg"
 	rescue; end
-	u.step {|r| }
+	u.step {|r|}
 	assert_equal 1, u.steps.length
 	assert_equal 0, u.step_number
 
