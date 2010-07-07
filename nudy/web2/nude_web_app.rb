@@ -2,6 +2,7 @@ require 'nudy/view_builder'
 require 'nudy/web2/web_builder'
 #  require 'nudy/web_builder'
 require 'nudy/view_builder'
+require 'nokogiri'
 
 class NudeWebApp
 attr_accessor :mid_view,:web_view,:id2web, :mid_builder, :web_builder
@@ -27,38 +28,60 @@ def js
 	"<script type=\"text/javascript\" src=\"js/jquery-1.4.2.js\"></script>\n
 	<script type=\"text/javascript\" src=\"js/nudy.js\"></script>\n"
 end
+def style
+	"<style> .nudy, .nudy_form,.nudy_link {padding-left:50;}
+		.nudy_content {
+		width:400;
+		}
+		</style>\n"
+end
+def id2viewer (id)
+	puts 'parse:' + id
+	if id =~ /.*?_id/ then
+		 ObjectSpace._id2ref(id.sub("_id","").to_i(16))
+	end
+end
+def id (view)
+	 "#{view.object_id.to_s(16)}_id"
+end
 def update(params)
-	if params["ID"] then
-		obj = ObjectSpace._id2ref(params["ID"].to_i)
-		if obj.has_members? then
+	updated = "update:"
+	builder = Nokogiri::XML::Builder.new(:encoding => 'utf-8') do |xml|
+		xml.root do 
 			params.each{|key,value|
-			if m = obj.member(key) then 
-				m.set value
-				puts "#{key}=#{value}"
-			end
+			view = id2viewer(key)
+				if view then
+					other = id2viewer (value)
+					value = other ? other.get : value
+					view.set(value)
+					updated << "(#{view.name}=#{value})\n"
+					xml.item(value,:id => id(view), :name => view.name)
+				end
 			}
 		end
-
-#		web_view = @web_builder.build(obj)
 	end
-
+	puts toxml = builder.to_xml
+	toxml
+#	'updated'
 end
 def get(params)
 	#update if necessary,
 	#redisplay.
-	if params["ID"] then
-		obj = ObjectSpace._id2ref(params["ID"].to_i)
-		@web_view = @web_builder.build(obj)
+	web_view = @web_view
+	if params["view"] then
+		obj = id2viewer(params["view"]) 
+		web_view = obj ? @web_builder.build(obj) : @web_view
 	end
 	if params["call"] then
-		m =  @web_view.view.member(params["call"])
+		#m =  web_view.view.member(params["call"])
+		m = id2viewer(params["call"])
 		r = m ? m.call : nil
 		if r.is_a? Viewer then
 			puts "OPEN OR REFRESH!"
-			@web_view = @web_builder.build(r)
+			web_view = @web_builder.build(r)
 		
 		end		
 	end
-	"<html><head>#{js}</head><body>#{@web_view.html}</body></html>"
+	"<html><head>#{js}#{style}</head><body><div class='nudy_content'>#{web_view.html}</div></body></html>"
 end
 end

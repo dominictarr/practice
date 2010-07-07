@@ -7,8 +7,9 @@ $(function(){
 
 var dragClass = '.dd'
 var dragObject = null
-document.onMouseMove = mouseMove; 
 $('body').append("<div id='log'></div>")
+
+document.onMouseMove = mouseMove; 
 $(dragClass).mousedown(function(){
 	$('#log').append("mouse down" + this.id + "<br>")
 	dragObject = this

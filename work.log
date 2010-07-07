@@ -3352,3 +3352,280 @@ okay... to make this almost useful:
 	edit lists
 	show tables - special web_view for arrays... which nests list members.
 	
+
+wow! discovered a little web framework called 'Wee'... a terrible name, (it hides behinds a load of crap on google).
+but, it does something quite like how I want to develop. it also looks like it doesn't have many developers so there 
+may be room for me.
+
+it lacks many tutorials though. I need to learn the system, so might as well make some tutorials.
+
+starting with a tool library for makerspace.
+
+domain objects:
+
+Tool
+	-type (i.e. hammer)
+	-description ("estwing with blue handle")
+	-owner Dominic
+	-state (stored,inuse,borrowed,misplaced,lost)
+	-photo
+Member
+	-name
+	-email
+	-phone
+	-tools-owned
+	-tools-borrowed
+	-photo
+
+ToolEvent
+	(change of tool state for particular tool)
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+okay. found my first bug in Wee.
+when have a form in a component which rendering inside another.
+r.render (other_component)
+it won't work properly.
+if you go
+other_component.render (r) it will work,
+but only if it knows what object it is on...
+callback_method :methodname 
+
+won't work becase the Renderer thinks it's rendering the first component.
+it works if you callback {self.methodname} because the closure retains a reference.
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+keeping on keeping on with wee.
+
+okay, one of the first things which is apparent is that often we want to represent things in different ways. 
+
+for example, I have a tool list - 
+	links to component for that tool
+	would be handy to colour code list by what state it's in... 
+	and to order or seperate the list.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+been reading the code for Wee. 
+covered much of the codebase in a few hours.
+learnt many interesting things.
+new syntax:
+	maybe_nil ||=default_value
+	var1,var2,va3 = value1,value2,value3
+what my problem was yesterday.
+	-you need to define children or re define process_callbacks
+	-decorators can veto callbacks, and they have to comeback through the decorators.
+
+still concerned about the lack of tests. but i'm reimpressed by the library. 
+it's very tidy. 
+
+Also, I've been thinking of ideas about how I will be able to use it to write human interface tests.
+
+I think I can extend Wee to use a 
+hirachical handler builder which wraps domain objects
+
+next is learn how to do continuations... and calls in Wee. they sound important & useful.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+okay. Wee is definately working and easy. 
+I am begining to see that I will be able to write GUI tests with it. 
+
+but how will a GUI test work? 
+	- it will need to provide some instructions as to what they are ment to achive,
+	- A way to setup the state of the domain objects.
+	- a way to detect changes in the domain object.
+	- when state is correct, procede to the next step.
+
+	*1. instructions/hints.
+	*2. control domain state.
+	*3. respond to changes in domain state.
+	*4. iterate through steps.
+
+next step: expore calling callcc and wrapping other components further.
+
+I know: a decorator which checks state(s) until certain properties are met, 
+and then messages the test somehow...
+
+fuck, because of the dymanism of ruby and how Wee works, we could even do user interfaces 
+tests for programming interfaces... have potential developers go through simple tutorial 
+things in the browser... then we can gather what the most common errors are etc. 
+and automaticially gather very good informations about what the most typical gotcha are.
+
+while simulatiously training users.
+
+wow... we could link in use components to the tests for training use... asking 'what does this do?'
+
+then go through a short training/testing thing... it's like they are reading your documentation,
+but you can measure how much they are learning... 
+
+you would build a measure of the computer literacy of each user, and even rank application searches 
+by what is at thier level, what will be challenging for them, what is very advanced.
+
+also, it may be a very good idea to record what they do. this will be very valuable information for a developer
+and if a user gets confused and clicks in strange places it will really help the developer see through beginner's 
+eyes.
+
+Also, have a comment field. if a user it totally confused they can make a suggestion, ask a question, whatever.
+
+this is like ... a user interface singularity...
+
+okay, but how will I implement this basic thing?
+what do I want the developer interface to be like?
+
+what about 
+instruction 1: yada yada yada.
+i.e. this is a dialog box. it will pop up to inform you of something, or to confirm something with you. (user clicks okay)
+test 1: show dialog box {end condition. i.e. user clicks okay: answer is called... or a specific condition is met}
+instruction 2: etc.
+test 2: etc.
+
+
+yeah, thats about how simple I want it to be.
+
+	- possibly need debrief after some steps, 
+	- and maybe intervein if the user gets it wrong, or takes too long.
+		... or if they find an error! ... which, if thier actions are recorded should be reproducable!
+
+how will I do it?
+	something like the AnswerDecorator...
+	wrap the target component with a decorator which checks whether a certain state is reached, can calls answer when it does.
+	then callcc it.
+	hmm. I must have misunderstood something about how callbacks and answer works. time for bed right now I think though.
+	
+
+okay, I eventually got it working. 
+when using call/cc it doesn't call the callbacks until it gets back to the delegate... 
+
+I think there are two types of callback... input & action. 
+the action callbacks are returned by process_callbacks
+what I did is insert a decoration which wraps @next.process_callbacks:
+
+	return_value = @next.process_callbacks(callbacks)
+	proc {return_value ? return_value.call : nil; check_test_condition}
+
+that ensures that the check_test_condition is not called untill after any changes are made.
+check_test_condition raise an Answer exception if it's condition is met.
+
+other ideas for UI tests:
+maybe will want instructions to show at top. 
+	-sometimes will want to freeze the component but still show it.
+	-users will get confused if it just disapears.
+
+	-may also want the user to anounce when they have the component in the goal state.
+	-and then check it, to see if they are right... 
+	of course, sometimes this may not be appropiate.
+
+	next tasks:
+	write more functions for testing...
+		- something which shows instructions above the component.
+		- it would use my test decoration, but not continuations.
+		- better formatting... borders, centering.
+		- refactor what I have already.
+		- statistics and records... time, number of clicks, record user/cookies!
+		- recording/replaying.
+		- detecting backtracking
+		- indication that a step was successful/encouragement.
+		- indication of how far user is through test.
+
+	even just playing around with my own test i can see that usability has considerable challenges, 
+	completely diferent to programming. communicating which particular thing has changed etc, is very important.
+	
+	but I think the next step will be making more components to test... (i'll need more to build the tester anyway)
+		-list of links
+		-check list (list of things to count off - like a to do list)
+		-user - login/signup.
+
+write tests for html canvas.
+throws exception if a brushname doesn't exist. - i.e. password field
+
+sun july 4th
+today has been heavy going, but i got stuff down which should help me pick up the pace. 
+I got the propper error trace produced in the web page... debuging much faster. 
+and consequently, got more knowledge of Wee as well. emailed Michael Neumann the creator of Wee. 
+told him there where a few things i wanted to contribute... i've done half of them already!
+
+now. time to go have a shower. done!
+
+okay! 
+
+what next on the coding front?... 
+ui_test for login... make it fairly cryptic? 
+actually, will be possible to make a number of tests of the same component
+and results cross referenced by test and component...
+
+also, the possibility of people playing with the interface is very positive...
+hmm. which probably means changing state between steps...
+
+mmm. many ways to write tests also... instead of using continuations, 
+could also load all of the steps in to array, and then call them...
+this would allow you to show progress through the test, and note when you are at the last step.
+
+I could rewite ui_test but provide the same interface subclasses... 
+[
+[ That calls for remapping superclass (!) that _is_ a "weird" idea. 
+[ I wonder if it can be done at runtime? subclass the new superclass, and copy over all the declared methods from the normal class?
+[
+[ Or would it be more effective to parse the code, and reinterperet it. ~that might better cover weird cases,
+[ but the above would work for this case.
+
+really, user interfaces can be implemented in many many different ways. also, they arn't coupled tightly 
+like programming interfaces are, because human intelligence is flexible.
+
+okay. next problem is list of links.
+basicially... there is a list of objects... and you pick one.
+it could be a list of links (<a href...>).
+a drop down list
+an autocompleting search box. ~ would need javascript
+a search field.
+A tree of links divided by types letter of the alphabet... naturally very long lists might need grouping to display more accurately.
+
+here the domain object is just a Array
+
+sometimes the best interface for a list is a search. sometimes you are likely to know the exact name 
+(i.e. barcode), and sometimes you could guess... when each item has lots of content and/or the list is very long.
+
+okay. writing the user test was really fast.
+
+okay - got a test for ArraySelection... already came upon an interesting user interface problem.
+how much easier is it to select an item from a list if it is sorted?
+this is going to be non linear - because it's related to human pattern recognition abilities.
+
+it's approching time to start thinking about ways to manage all the tests.
+	- recording how long a test takes/test steps take with each test subject
+	- pages summarising results for tests, and for components.
+	- test involves ui_test & component.
+	- cross reference results
+
+will need: 
+	- sortable tables.
+	- graphs http://nubyonrails.com/pages/gruff
+	- that will require images.
+	- persistance of some sort.
+
+	- repersentation of a many-to-many datastructure (i.e. tests, and components)
+	- recoupling in tests.
+
+	prototype style: ObjectSpace UiTests and Wee::Components 
+	combine them into random tests...
+
+
+...OH! the user interface tests shouldn't actually extend the user interface... they should be standalone... 
+and then different interface systems could implement thier own test interfaces.
+
+I could use the same ultra-lite coupling /recoupleable approch for the persistance layer.
+... which would mean your never tied to one persistance system... you could change depending on what is most optimal.
+
+running into problems with multiple callbacks in wee. beging to think of ways to use my approch in a normal MVC,
+but also I like the alturism of contributing to an open source project.
+
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+the UiTests are buggy. they do something that wee doesn't like. 
+It seems to work fine for the normal stuff. it's time to rewite them with a simpler interface.
+instead of all_steps ccing steps one at a time, make a step function which takes a closure, and calls it later.
+then it can count steps, but still call them one at a time.
+
+the other idea which has assaulted me today, it to make the interfaces look good. (rather than sloppy). 
+other than completely basic hello world stuff, looking good will convince people it _is_ good.
+
+[what if I made everything coloured? how would the look up test do if each item was a different colour... 
+It might make it way easier to scan if it's colour coded, or iconized.]

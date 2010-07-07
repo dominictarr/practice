@@ -1,0 +1,7 @@
+
+class ArrayLinkWee < Wee::Component 
+
+  def handle (array)
+	@array = array
+  end
+end
